@@ -1,7 +1,10 @@
 package com.rian.task_manager.user;
 
 
+import com.rian.task_manager.user.dto.UserResponse;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -15,6 +18,17 @@ public class UserService {
 
     public void salvar(User user) {
         userRepository.save(user);
+    }
+
+    public UserResponse findById(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+        return UserResponse.fromEntity(user);
+    }
+
+    public List<UserResponse> findAll(){
+        return userRepository.findAll().stream()
+                .map(usuario -> UserResponse.fromEntity(usuario)).toList();
     }
 
 }
