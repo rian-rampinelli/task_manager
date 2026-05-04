@@ -1,10 +1,9 @@
 package com.rian.task_manager.user;
 
+import com.rian.task_manager.user.dto.UserRequest;
 import com.rian.task_manager.user.dto.UserResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,13 +17,21 @@ public class UserController {
         this.userService = userService;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<UserResponse> findAll(){
         return userService.findAll();
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public UserResponse findById(@PathVariable Long id){
         return userService.findById(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public UserResponse createUser(@RequestBody UserRequest userRequest){
+        return userService.create(userRequest);
     }
 }

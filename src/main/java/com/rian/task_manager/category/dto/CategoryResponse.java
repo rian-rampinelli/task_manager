@@ -11,8 +11,7 @@ public record CategoryResponse(
         String emoji,
         String description,
         LocalDateTime createdAt,
-        LocalDateTime updatedAt,
-        User user
+        LocalDateTime updatedAt
 ) {
     public static CategoryResponse fromEntity(Category category) {
         return new CategoryResponse(
@@ -21,8 +20,7 @@ public record CategoryResponse(
                 category.getEmoji(),
                 category.getDescription(),
                 category.getCreatedAt(),
-                category.getUpdatedAt(),
-                category.getUser()
+                category.getUpdatedAt()
         );
     }
 }

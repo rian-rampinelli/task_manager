@@ -5,7 +5,8 @@ import com.rian.task_manager.category.Category;
 public record CategoryRequest(
         String name,
         String emoji,
-        String description
+        String description,
+        Long idUser
 ){
     public Category toEntity(){
         Category category = new Category();

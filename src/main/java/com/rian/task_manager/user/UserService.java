@@ -1,6 +1,7 @@
 package com.rian.task_manager.user;
 
 
+import com.rian.task_manager.user.dto.UserRequest;
 import com.rian.task_manager.user.dto.UserResponse;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,13 @@ public class UserService {
     public List<UserResponse> findAll(){
         return userRepository.findAll().stream()
                 .map(usuario -> UserResponse.fromEntity(usuario)).toList();
+    }
+
+    public UserResponse create(UserRequest userRequest){
+        User user = userRequest.toEntity();
+        userRepository.save(user);
+        return UserResponse.fromEntity(user);
+
     }
 
 }
