@@ -1,11 +1,10 @@
 package com.rian.task_manager.task.dto;
 
-import com.rian.task_manager.category.Category;
-import com.rian.task_manager.category.dto.CategoryResponse;
+
 import com.rian.task_manager.task.Task;
 import com.rian.task_manager.task.enums.Priority;
 import com.rian.task_manager.task.enums.StatusLevel;
-import com.rian.task_manager.user.User;
+
 
 import java.time.LocalDateTime;
 

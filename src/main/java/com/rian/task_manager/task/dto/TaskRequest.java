@@ -9,7 +9,9 @@ public record TaskRequest (
         String title,
         String description,
         Priority priority,
-        StatusLevel statusLevel
+        StatusLevel statusLevel,
+        Long idUser,
+        Long idCategory
 
 ){
     public Task toEntity(){
