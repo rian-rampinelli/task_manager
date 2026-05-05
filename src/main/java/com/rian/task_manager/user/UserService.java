@@ -39,4 +39,12 @@ public class UserService {
 
     }
 
+    public void deleteAllUser(){
+        userRepository.deleteAll();
+    }
+
+    public void deleteById(Long id){
+        userRepository.deleteById(id);
+    }
+
 }
