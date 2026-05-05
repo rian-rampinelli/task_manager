@@ -6,7 +6,6 @@ import com.rian.task_manager.task.dto.TaskRequest;
 import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.User;
 import com.rian.task_manager.user.UserRepository;
-import com.rian.task_manager.user.dto.UserResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,12 +38,15 @@ public class TaskService {
         User user = userRepository.findById(taskRequest.idUser())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Category category = categoryRepository.findById(taskRequest.idCategory())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
-
         Task task = taskRequest.toEntity();
         task.setUser(user);
-        task.setCategory(category);
+
+        if (taskRequest.idCategory() != null){
+            Category category = categoryRepository.findById(taskRequest.idCategory())
+                    .orElseThrow(() -> new RuntimeException("Category not found"));
+            task.setCategory(category);
+        }
+
         taskRepository.save(task);
         return TaskResponse.fromEntity(task);
     }

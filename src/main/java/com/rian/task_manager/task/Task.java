@@ -41,6 +41,6 @@ public class Task extends Auditable {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "id_category")
+    @JoinColumn(name = "id_category",nullable = true)
     private Category category;
 }
