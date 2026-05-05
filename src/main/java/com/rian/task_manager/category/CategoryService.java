@@ -2,12 +2,8 @@ package com.rian.task_manager.category;
 
 import com.rian.task_manager.category.dto.CategoryRequest;
 import com.rian.task_manager.category.dto.CategoryResponse;
-import com.rian.task_manager.task.Task;
-import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.User;
 import com.rian.task_manager.user.UserRepository;
-import com.rian.task_manager.user.dto.UserResponse;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,4 +39,9 @@ public class CategoryService {
             categoryRepository.save(category);
             return CategoryResponse.fromEntity(category);
         }
+
+
+    public void deleteById(Long id){
+        categoryRepository.deleteById(id);
+    }
 }
