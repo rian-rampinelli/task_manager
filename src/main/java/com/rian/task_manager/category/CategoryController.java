@@ -41,4 +41,11 @@ public class CategoryController {
     public void deleteById(@PathVariable Long id){
         categoryService.deleteById(id);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{id}")
+    public CategoryResponse atualizarCategoria(@PathVariable Long id,@RequestBody CategoryRequest categoryRequest){
+        return categoryService.atualizar(id,categoryRequest);
+    }
+
 }
