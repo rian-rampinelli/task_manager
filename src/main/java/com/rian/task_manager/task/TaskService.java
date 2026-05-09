@@ -54,4 +54,23 @@ public class TaskService {
     public void deleteById(Long id){
         taskRepository.deleteById(id);
     }
+
+    public TaskResponse atualizar(Long id, TaskRequest taskRequest) {
+
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tarefa não encontrado"));
+
+        Category category = categoryRepository.findById(taskRequest.idCategory())
+                .orElseThrow(() -> new RuntimeException("categoria não encontrado"));
+
+
+        task.setTitle(taskRequest.title());
+        task.setDescription(taskRequest.description());
+        task.setPriority(taskRequest.priority());
+        task.setStatusLevel(taskRequest.statusLevel());
+        task.setCategory(category);
+        taskRepository.save(task);
+        return TaskResponse.fromEntity(task);
+
+    }
 }

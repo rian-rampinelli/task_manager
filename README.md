@@ -36,10 +36,10 @@ datasource:
 
 ```bash
 # Clonar repositório
-git clone https://github.com/riangkmc/task-managers
+git clone https://github.com/riangkmc/task_managers
 
 # Entrar na pasta
-cd task-managers
+cd task_managers
 
 # Executar o projeto Via Mavem
 mvn spring-boot:run

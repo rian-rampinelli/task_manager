@@ -41,4 +41,10 @@ public class TaskController {
     public void deletarTask(@PathVariable Long id){
         taskService.deleteById(id);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{id}")
+    public TaskResponse atualizarTask(@PathVariable Long id, @RequestBody TaskRequest taskRequest){
+        return taskService.atualizar(id,taskRequest);
+    }
 }
