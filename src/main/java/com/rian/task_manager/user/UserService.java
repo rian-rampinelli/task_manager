@@ -3,6 +3,7 @@ package com.rian.task_manager.user;
 
 import com.rian.task_manager.user.dto.UserRequest;
 import com.rian.task_manager.user.dto.UserResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,6 +46,17 @@ public class UserService {
 
     public void deleteById(Long id){
         userRepository.deleteById(id);
+    }
+
+
+    public UserResponse atualizar(Long id,UserRequest usuarioRequest) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+        user.setName(usuarioRequest.name());
+        user.setEmail(usuarioRequest.email());
+        user.setPassWord(usuarioRequest.passWord());
+        userRepository.save(user);
+        return UserResponse.fromEntity(user);
     }
 
 }

@@ -34,4 +34,11 @@ public class TaskController {
     public TaskResponse createTask(@RequestBody TaskRequest taskRequest){
         return taskService.createTask(taskRequest);
     }
+
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}")
+    public void deletarTask(@PathVariable Long id){
+        taskService.deleteById(id);
+    }
 }

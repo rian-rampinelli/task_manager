@@ -50,4 +50,8 @@ public class TaskService {
         taskRepository.save(task);
         return TaskResponse.fromEntity(task);
     }
+
+    public void deleteById(Long id){
+        taskRepository.deleteById(id);
+    }
 }
