@@ -1,109 +1,230 @@
-# Task Manager
+# API REST de Gerenciamento de Tarefas
 
+O projeto aplica os conceitos de modelagem orientada a objetos, persistencia com PostgreSQL, organizacao em camadas, DTOs de request/response, tratamento global de excecoes, auditoria e documentacao com Swagger.
 
-API REST desenvolvida como projeto de estudo com o objetivo de aplicar conceitos de desenvolvimento backend utilizando o ecossistema Spring.
+## Tecnologias
 
-A aplicação permite o gerenciamento de usuários e suas atividades/tasks, permitindo que as  tasks sejam agrupadas por categorias.
+- Java 21
+- Spring Boot
+- Spring Data JPA
+- PostgreSQL
+- Swagger / OpenAPI
+- Maven
+- dotenv-java
 
----
+## Estrutura
 
-## Tecnologias utilizadas
-
-* Java - 21.0.11
-* Mavem - 3.9.15
-* Spring Boot
-* Spring Data JPA
-* PostgreSQL
-* Lombok
-* Swagger (OpenAPI)
-
----
-
-## Configuração
-
-Configure as credenciais do banco de dados no arquivo `application.yml`:
-
-```properties
-datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/{NOME DO BANCO CRIADO NO POSTGRES)
-    username: postgres
-    password: {SUA SENHA DO POSTGRESS}
+```text
+src/main/java/com/rian/task_manager
++-- user         # Controllers REST, Services e Repositories do usuário
++-- task         # Controllers REST, Services e Repositories da tarefa
++-- category     # Controllers REST, Services e Repositories da categoria
++-- config       # Classe base de auditoria
++-- exceptions   # Excecoes customizadas
++-- infra        # Tratamento global de erros
 ```
 
----
+## Relacionamentos
 
-## Como executar o projeto
+- Um usuario pode ter varias categorias.
+- Uma categoria pertence a um usuario.
+- Um usuario pode ter varias tarefas.
+- Uma tarefa pertence a um usuario e opcionalmente a uma categoria.
+- Uma categoria pode ter varias tarefas.
 
-```bash
-# Clonar repositório
-git clone https://github.com/riangkmc/task_managers
+## Regras de negocio
 
-# Entrar na pasta
-cd task_managers
+- Toda tarefa deve estar associada a um usuario.
+- Nao e permitido criar tarefa sem `userId`.
+- A categoria e opcional para uma tarefa.
+- Toda categoria deve estar associada a um usuario.
+- Nao e permitido criar categoria sem `userId`.
+- Nao e permitido dois usuarios com o mesmo email.
 
-# Executar o projeto Via Mavem
+## Auditoria
+
+Todas as entidades herdam a classe `Auditable`, que registra automaticamente:
+
+- `createdAt`
+- `updatedAt`
+
+Esses campos sao preenchidos pelo Spring Data JPA Auditing e tambem aparecem nos DTOs de resposta.
+
+## Tratamento de erros
+
+A API possui tratamento global de excecoes em `RestExceptionHandler`.
+
+Formato padrao de erro:
+
+```json
+{
+  "timestamp": "2026-05-15T22:30:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Usuario nao encontrado com ID: 99",
+  "path": "/user/99"
+}
+```
+
+Erros tratados:
+
+- `400 Bad Request`: dados invalidos, JSON malformado ou parametro invalido.
+- `404 Not Found`: recurso inexistente.
+- `409 Conflict`: violacao de integridade no banco, como chave unica ou email duplicado.
+- `500 Internal Server Error`: erro inesperado.
+
+## Configuracao
+
+Crie um banco PostgreSQL chamado:
+
+```text
+task-manager
+```
+
+Configure a senha do banco em uma variavel de ambiente ou em um arquivo `.env` na raiz do projeto:
+
+```env
+DB_PASSWORD=sua_senha
+```
+
+O arquivo `src/main/resources/application.yaml` usa:
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/task-manager
+    username: postgres
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+```
+
+## Como executar
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+Ou, se estiver usando Maven instalado:
+
+```powershell
 mvn spring-boot:run
 ```
 
+## Swagger
 
----
+Com a aplicacao rodando, acesse:
 
-## Endpoints da API
+```text
+http://localhost:8080/swagger-ui/index.html
+```
 
-### 👤 Usuários
+## Padrao de endpoints
 
-| Método | Endpoint | Descrição |
+Cada entidade segue o padrao:
+
+| Metodo | Endpoint | Descricao |
 |--------|----------|-----------|
-| `GET` | `/users` | Listar usuários |
-| `POST` | `/users` | Criar usuário |
-| `GET` | `/users/{id}` | Buscar por ID |
-| `PUT` | `/users/{id}` | Atualizar usuário |
-| `DELETE` | `/users/{id}` | Deletar usuário por ID |
-| `DELETE` | `/users` | Deletar todos os usuários e suas respectivas tasks e categorias |
+| GET | `/entidade` | Lista todos os registros |
+| GET | `/entidade/{id}` | Busca por ID |
+| POST | `/entidade` | Cria um registro |
+| PUT | `/entidade/{id}` | Atualiza um registro |
+| DELETE | `/entidade/{id}` | Remove por ID |
 
-### 📍 Categorias
+## Endpoints
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| `GET` | `/categories` | Listar categorias |
-| `GET` | `/categories/{id}` | Buscar categoria por ID |
-| `POST` | `/categories` | Criar categoria |
-| `PUT` | `/categories/{id}` | Atualizar categoria |
-| `DELETE` | `/categories/{id}` | Deletar categoria por ID |
+### User
 
----
+Base URL:
 
-### ✅ Tasks
+```text
+/user
+```
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| `GET` | `/tasks` | Listar tarefas |
-| `GET` | `/tasks/{id}` | Buscar tarefa por ID |
-| `POST` | `/tasks` | Criar tarefa |
-| `PUT` | `/tasks/{id}` | Atualizar tarefa |
-| `DELETE` | `/tasks/{id}` | Deletar tarefa por ID |
+Exemplo de criacao:
 
----
-
-## Documentação da API (Swagger)
-
-A documentação interativa da API está disponível via Swagger:
-
-👉 http://localhost:8080/swagger-ui/index.html
-
-Através dela, é possível visualizar e testar todos os endpoints diretamente pelo navegador.
-
----
+```json
+{
+  "name": "João Silva",
+  "email": "joao@email.com",
+  "password": "senha123"
+}
+```
 
 
-##  Melhorias futuras
 
-* Implementar autenticação e autorização com JWT
-* Adicionar testes automatizados
-* Integra com front(React)
+### Category
 
----
+Base URL:
 
-##  Autor
+```text
+/category
+```
 
-Rian Barbosa Rampinelli Delgado
+Exemplo de criacao:
+
+```json
+{
+  "name": "Trabalho",
+  "emoji": "💼",
+  "description": "Tarefas relacionadas ao trabalho",
+  "userId": 1
+}
+```
+
+
+
+### Task
+
+Base URL:
+
+```text
+/task
+```
+
+Exemplo de criacao:
+
+```json
+{
+  "title": "Revisar relatorio",
+  "description": "Revisar o relatorio mensal e enviar para o gerente",
+  "priority": "HIGH",
+  "statusLevel": "TODO",
+  "userId": 1,
+  "categoryId": 1
+}
+```
+
+
+
+Valores de `priority`:
+
+```text
+LOW, MEDIUM, HIGH
+```
+
+Valores de `statusLevel`:
+
+```text
+TODO, IN_PROGRESS, DONE
+```
+
+## Testes manuais
+
+Sugestao de ordem para testar no Postman, Insomnia ou Swagger:
+
+1. Criar um usuario.
+2. Criar uma categoria associada ao usuario.
+3. Criar uma tarefa associada ao usuario e categoria.
+4. Listar todos os usuarios.
+5. Listar todas as categorias.
+6. Listar todas as tarefas.
+
+
+## Observacoes
+
+- O projeto usa `ddl-auto=update`, entao o Hibernate atualiza as tabelas automaticamente conforme as entidades.
+- O campo `createdAt` e `updatedAt` sao preenchidos automaticamente pelo Spring Data JPA Auditing.
+- Para rodar testes e build, o `JAVA_HOME` precisa apontar para um JDK valido.
+- O email do usuario e unico e nao pode ser duplicado.
