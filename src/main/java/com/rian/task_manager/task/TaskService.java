@@ -2,6 +2,7 @@ package com.rian.task_manager.task;
 
 import com.rian.task_manager.category.Category;
 import com.rian.task_manager.category.CategoryRepository;
+import com.rian.task_manager.exceptions.UserNotFoundException;
 import com.rian.task_manager.task.dto.TaskRequest;
 import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.User;
@@ -45,7 +46,12 @@ public class TaskService {
             Category category = categoryRepository.findById(taskRequest.idCategory())
                     .orElseThrow(() -> new RuntimeException("Category not found"));
             task.setCategory(category);
+            if (!user.getId().equals(category.getUser().getId())){
+                throw new UserNotFoundException("deu errado!");
+            }
         }
+
+
 
         taskRepository.save(task);
         return TaskResponse.fromEntity(task);

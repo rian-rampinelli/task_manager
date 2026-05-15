@@ -14,6 +14,8 @@ public record TaskResponse(
         String description,
         Priority priority,
         StatusLevel statusLevel,
+        Long userId,
+        Long categoryId,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ){
@@ -24,6 +26,8 @@ public record TaskResponse(
                 task.getDescription(),
                 task.getPriority(),
                 task.getStatusLevel(),
+                task.getUser().getId(),
+                task.getCategory().getId(),
                 task.getCreatedAt(),
                 task.getUpdatedAt()
         );
