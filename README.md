@@ -19,7 +19,7 @@ src/main/java/com/rian/task_manager
 +-- user         # Controllers REST, Services e Repositories do usuário
 +-- task         # Controllers REST, Services e Repositories da tarefa
 +-- category     # Controllers REST, Services e Repositories da categoria
-+-- config       # Classe base de auditoria
++-- config       # Pasta de configurações (auditable,swaggerConfig)
 +-- exceptions   # Excecoes customizadas
 +-- infra        # Tratamento global de erros
 ```
