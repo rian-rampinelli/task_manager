@@ -4,7 +4,7 @@ package com.rian.task_manager.user;
 import com.rian.task_manager.exceptions.EmailAlredyExistsException;
 import com.rian.task_manager.user.dto.UserRequest;
 import com.rian.task_manager.user.dto.UserResponse;
-import com.rian.task_manager.exceptions.UserNotFoundException;
+import com.rian.task_manager.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class UserService {
 
     public UserResponse findById(Long id){
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("User não encontrado"));
         return UserResponse.fromEntity(user);
     }
 
@@ -55,7 +55,7 @@ public class UserService {
 
     public UserResponse atualizar(Long id,UserRequest usuarioRequest) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("User não encontrado"));
         user.setName(usuarioRequest.name());
         user.setEmail(usuarioRequest.email());
         user.setPassWord(usuarioRequest.passWord());

@@ -2,7 +2,7 @@ package com.rian.task_manager.task;
 
 import com.rian.task_manager.category.Category;
 import com.rian.task_manager.category.CategoryRepository;
-import com.rian.task_manager.exceptions.UserNotFoundException;
+import com.rian.task_manager.exceptions.ResourceNotFoundException;
 import com.rian.task_manager.task.dto.TaskRequest;
 import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.User;
@@ -26,7 +26,7 @@ public class TaskService {
 
     public TaskResponse findById(Long id){
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Task não encontrado"));
         return TaskResponse.fromEntity(task);
     }
 
@@ -37,17 +37,17 @@ public class TaskService {
 
     public TaskResponse createTask(TaskRequest taskRequest){
         User user = userRepository.findById(taskRequest.idUser())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Task não encontrado"));
 
         Task task = taskRequest.toEntity();
         task.setUser(user);
 
         if (taskRequest.idCategory() != null){
             Category category = categoryRepository.findById(taskRequest.idCategory())
-                    .orElseThrow(() -> new RuntimeException("Category not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
             task.setCategory(category);
             if (!user.getId().equals(category.getUser().getId())){
-                throw new UserNotFoundException("deu errado!");
+                throw new ResourceNotFoundException("deu errado!");
             }
         }
 
@@ -64,10 +64,10 @@ public class TaskService {
     public TaskResponse atualizar(Long id, TaskRequest taskRequest) {
 
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tarefa não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Task não encontrado"));
 
         Category category = categoryRepository.findById(taskRequest.idCategory())
-                .orElseThrow(() -> new RuntimeException("categoria não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("categoria não encontrado"));
 
 
         task.setTitle(taskRequest.title());

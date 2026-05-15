@@ -58,11 +58,9 @@ Formato padrao de erro:
 
 ```json
 {
-  "timestamp": "2026-05-15T22:30:00",
   "status": 404,
   "error": "Not Found",
-  "message": "Usuario nao encontrado com ID: 99",
-  "path": "/user/99"
+  "message": "Usuario nao encontrado"
 }
 ```
 
@@ -71,7 +69,7 @@ Erros tratados:
 - `400 Bad Request`: dados invalidos, JSON malformado ou parametro invalido.
 - `404 Not Found`: recurso inexistente.
 - `409 Conflict`: violacao de integridade no banco, como chave unica ou email duplicado.
-- `500 Internal Server Error`: erro inesperado.
+
 
 ## Configuracao
 

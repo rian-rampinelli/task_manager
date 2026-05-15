@@ -2,6 +2,7 @@ package com.rian.task_manager.category;
 
 import com.rian.task_manager.category.dto.CategoryRequest;
 import com.rian.task_manager.category.dto.CategoryResponse;
+import com.rian.task_manager.exceptions.ResourceNotFoundException;
 import com.rian.task_manager.user.User;
 import com.rian.task_manager.user.UserRepository;
 import com.rian.task_manager.user.dto.UserRequest;
@@ -23,7 +24,7 @@ public class CategoryService {
 
     public CategoryResponse findById(Long id){
          Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category não encontrado"));
+                .orElseThrow(() ->new ResourceNotFoundException("category não encontrado"));
          return CategoryResponse.fromEntity(category);
     }
 
@@ -34,7 +35,7 @@ public class CategoryService {
 
     public CategoryResponse createCategory(CategoryRequest categoryRequest){
             User user = userRepository.findById(categoryRequest.idUser())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+                    .orElseThrow(() ->new ResourceNotFoundException("user não encontrado"));
 
             Category category = categoryRequest.toEntity();
             category.setUser(user);
@@ -49,7 +50,7 @@ public class CategoryService {
 
     public CategoryResponse atualizar(Long id, CategoryRequest categoryRequest) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
         category.setName(categoryRequest.name());
         category.setEmoji(categoryRequest.emoji());
         category.setDescription(categoryRequest.description());
