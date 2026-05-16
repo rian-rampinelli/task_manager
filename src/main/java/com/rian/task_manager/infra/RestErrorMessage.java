@@ -3,14 +3,15 @@ package com.rian.task_manager.infra;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.http.HttpStatus;
+
 
 
 @AllArgsConstructor
 @Getter
 @Setter
 public class RestErrorMessage {
-    private HttpStatus status;
+    private int status;
+    private String statusMessage;
     private String message;
 
 }
