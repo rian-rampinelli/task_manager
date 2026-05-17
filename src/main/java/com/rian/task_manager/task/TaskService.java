@@ -37,7 +37,7 @@ public class TaskService {
 
     public TaskResponse createTask(TaskRequest taskRequest){
         User user = userRepository.findById(taskRequest.idUser())
-                .orElseThrow(() -> new ResourceNotFoundException("Task não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("User não encontrado"));
 
         Task task = taskRequest.toEntity();
         task.setUser(user);

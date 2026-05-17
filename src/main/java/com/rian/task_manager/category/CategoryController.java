@@ -2,8 +2,8 @@ package com.rian.task_manager.category;
 
 import com.rian.task_manager.category.dto.CategoryRequest;
 import com.rian.task_manager.category.dto.CategoryResponse;
-import com.rian.task_manager.task.dto.TaskResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,34 +18,30 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public CategoryResponse createCategory(@RequestBody CategoryRequest categoryRequest){
-        return categoryService.createCategory(categoryRequest);
+    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CategoryRequest categoryRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.createCategory(categoryRequest));
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public CategoryResponse findById(@PathVariable Long id){
-        return categoryService.findById(id);
+    public ResponseEntity<CategoryResponse> findById(@PathVariable Long id){
+        return ResponseEntity.ok(categoryService.findById(id));
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public List<CategoryResponse> findAll(){
-        return categoryService.findAll();
+    public ResponseEntity<List<CategoryResponse>> findAll(){
+        return ResponseEntity.ok(categoryService.findAll());
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id){
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
         categoryService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
-    public CategoryResponse atualizarCategoria(@PathVariable Long id,@RequestBody CategoryRequest categoryRequest){
-        return categoryService.atualizar(id,categoryRequest);
+    public ResponseEntity<CategoryResponse> atualizarCategoria(@PathVariable Long id,@RequestBody CategoryRequest categoryRequest){
+        return ResponseEntity.ok(categoryService.atualizar(id,categoryRequest));
     }
 
 }
