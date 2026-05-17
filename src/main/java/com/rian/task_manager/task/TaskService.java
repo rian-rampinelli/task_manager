@@ -47,7 +47,7 @@ public class TaskService {
                     .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
             task.setCategory(category);
             if (!user.getId().equals(category.getUser().getId())){
-                throw new ResourceNotFoundException("deu errado!");
+                throw new ResourceNotFoundException("id do user diferente!");
             }
         }
 
@@ -68,6 +68,9 @@ public class TaskService {
 
         Category category = categoryRepository.findById(taskRequest.idCategory())
                 .orElseThrow(() -> new ResourceNotFoundException("categoria não encontrado"));
+        if (!task.getUser().getId().equals(category.getUser().getId())){
+            throw new ResourceNotFoundException("id do user diferente!");
+        }
 
 
         task.setTitle(taskRequest.title());
