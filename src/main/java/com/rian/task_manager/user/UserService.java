@@ -2,6 +2,7 @@ package com.rian.task_manager.user;
 
 
 import com.rian.task_manager.exceptions.EmailAlredyExistsException;
+import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.dto.UserRequest;
 import com.rian.task_manager.user.dto.UserResponse;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
@@ -32,6 +33,15 @@ public class UserService {
     public List<UserResponse> findAll(){
         return userRepository.findAll().stream()
                 .map(usuario -> UserResponse.fromEntity(usuario)).toList();
+    }
+
+    public List<TaskResponse> findAllTasksByUser(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User não encontrado"));
+
+        return user.getTasks().stream()
+                .map(task -> TaskResponse.fromEntity(task))
+                .toList();
     }
 
     public UserResponse create(UserRequest userRequest){

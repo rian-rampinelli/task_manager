@@ -1,7 +1,10 @@
 package com.rian.task_manager.user;
 
+import com.rian.task_manager.task.Task;
+import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.dto.UserRequest;
 import com.rian.task_manager.user.dto.UserResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +31,13 @@ public class UserController {
         return ResponseEntity.ok(userService.findById(id));
     }
 
+    @Transactional
+    @GetMapping("/{id}/tasks")
+    public ResponseEntity<List<TaskResponse>> findTaskByUser(@PathVariable Long id){
+        return ResponseEntity.ok(userService.findAllTasksByUser(id));
+    }
+
+
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(userRequest));
@@ -50,4 +60,6 @@ public class UserController {
         UserResponse response = userService.atualizar(id, userRequest);
         return ResponseEntity.ok(response);
     }
+
+
 }
