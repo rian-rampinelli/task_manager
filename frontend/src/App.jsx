@@ -1,8 +1,12 @@
 import HomePage from './pages/Home/HomePage'
+import './app.css'
+
 
 function App() {
   return (
-    <HomePage></HomePage>
+    <div className='container'>
+       <HomePage></HomePage>
+    </div>
   )
 }
 

@@ -1,8 +1,9 @@
 function NavBar(){
     return(
-        <div>
-            <h1>oi</h1>
-        </div>
+        <>
+            <h1>Bem vindo de volta nome</h1>
+            <h2>Minhas tarefas</h2>
+        </>
     )
 }
 
