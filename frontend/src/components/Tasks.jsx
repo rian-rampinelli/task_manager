@@ -5,18 +5,25 @@ function Tasks(){
     
     const [tasks, setTasks] = useState([])
 
+    
+
     useEffect(() => {
 
-        fetch('http://localhost:8080/tasks')
-            .then(response => response.json())
-            .then(data => setTasks(data))
-            .catch(error => console.log(error))
+        async function loadTasks() {
+
+        const response = await fetch("http://localhost:8080/tasks")
+        const data = await response.json()
+        
+        setTasks(data)
+    }
+
+    loadTasks()
 
     }, [])
 
     return(
         <>
-        <h2>Minhas tarefas</h2>
+       
         <ul>
             {tasks.map(task => (
                 <li key={task.id}>

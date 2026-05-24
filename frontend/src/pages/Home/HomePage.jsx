@@ -7,8 +7,9 @@ function HomePage(){
     return( 
     <div>
         <NavBar></NavBar>
-        <Categorias></Categorias>
         <Button></Button>
+        <Categorias></Categorias>
+        
         <Tasks></Tasks>
     </div>
     )
