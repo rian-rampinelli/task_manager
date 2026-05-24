@@ -5,8 +5,6 @@ function Tasks(){
     
     const [tasks, setTasks] = useState([])
 
-    
-
     useEffect(() => {
 
         async function loadTasks() {
@@ -21,6 +19,14 @@ function Tasks(){
 
     }, [])
 
+    async function deleteTask(id) {
+
+        await fetch(`http://localhost:8080/tasks/${id}`,{
+            method:"DELETE"
+        })
+    }
+    
+
     return(
         <>
        
@@ -30,7 +36,7 @@ function Tasks(){
                     <div>
                         <p>{task.name}</p>
                         <p>{task.priority}</p>
-                        <button>lixo</button>
+                        <button onClick={() => deleteTask(task.id)}>lixo</button>
                         <button>editar</button>
                     </div>
                 </li>

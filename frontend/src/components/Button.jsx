@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 function Button (){
     
 
@@ -27,7 +25,7 @@ function Button (){
            
     return (
         <>
-            <button onClick={createTask}>Adicionar</button>
+            <button onClick={() => createTask()}>Adicionar</button>
         </>
     )
 }
