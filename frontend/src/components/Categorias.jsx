@@ -1,27 +1,16 @@
-import { useEffect, useState } from "react"
-
-function Categorias(){
-
-    const [categorys,setCategorys] = useState([])
-
-     useEffect(() => {
-    
-            fetch('http://localhost:8080/categorys')
-                .then(response => response.json())
-                .then(data => setCategorys(data))
-                .catch(error => console.log(error))
-    
-        }, [])
+function Categorias({deleteCategory,categorias,createCategory}){
 
     return(
     <>
     <p>
         categorias
     </p>
+    <button onClick={() => createCategory()}>Criar Categoria</button>
     <ul>
-        {categorys.map(category =>(
+        {categorias.map(category =>(
             <li key={category.id}>
                 {category.name}
+                <button onClick={() => deleteCategory(category.id)}>excluir</button>
             </li>
         ))}
     </ul>
