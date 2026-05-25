@@ -205,7 +205,7 @@ LOW, MEDIUM, HIGH
 Valores de `statusLevel`:
 
 ```text
-TODO, IN_PROGRESS, DONE
+TODO, DONE
 ```
 
 ## Testes manuais
