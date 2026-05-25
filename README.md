@@ -1,6 +1,6 @@
 # API REST de Gerenciamento de Tarefas
 
-O projeto aplica os conceitos de modelagem orientada a objetos, persistencia com PostgreSQL, organizacao em camadas, DTOs de request/response, tratamento global de excecoes, auditoria e documentacao com Swagger.
+O projeto aplica os conceitos de modelagem orientada a objetos, persistencia com PostgreSQL, organizacao em camadas, DTOs de request/response, tratamento global de excecoes, auditoria e documentacao com Swagger com o frontend em React.js + Vite.
 
 ## Tecnologias
 
@@ -8,11 +8,11 @@ O projeto aplica os conceitos de modelagem orientada a objetos, persistencia com
 - Spring Boot
 - Spring Data JPA
 - PostgreSQL
-- Swagger / OpenAPI
 - Maven
-- dotenv-java
+- Vite
+- React
 
-## Estrutura
+## Estrutura Backend
 
 ```text
 src/main/java/com/rian/task_manager
@@ -41,14 +41,6 @@ src/main/java/com/rian/task_manager
 - Nao e permitido criar categoria sem `userId`.
 - Nao e permitido dois usuarios com o mesmo email.
 
-## Auditoria
-
-Todas as entidades herdam a classe `Auditable`, que registra automaticamente:
-
-- `createdAt`
-- `updatedAt`
-
-Esses campos sao preenchidos pelo Spring Data JPA Auditing e tambem aparecem nos DTOs de resposta.
 
 ## Tratamento de erros
 
@@ -225,4 +217,4 @@ Sugestao de ordem para testar no Postman, Insomnia ou Swagger:
 - O projeto usa `ddl-auto=update`, entao o Hibernate atualiza as tabelas automaticamente conforme as entidades.
 - O campo `createdAt` e `updatedAt` sao preenchidos automaticamente pelo Spring Data JPA Auditing.
 - Para rodar testes e build, o `JAVA_HOME` precisa apontar para um JDK valido.
-- O email do usuario e unico e nao pode ser duplicado.
+

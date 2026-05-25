@@ -47,6 +47,8 @@ function HomePage(){
 
     const data = await getCategorys()
     setCategorias(data)
+    
+    
     }
 
      
