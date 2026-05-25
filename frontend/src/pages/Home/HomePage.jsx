@@ -3,6 +3,8 @@ import Categorias from '../../components/Categorias'
 import NavBar from '../../components/NavBar'
 import Tasks from '../../components/Tasks'
 import { useState,useEffect } from 'react'
+import {getTasks,createTask,deleteTask} from "../../api/tasks.js"
+import {getCategorys,createCategory,deleteCategory} from "../../api/category.js"
 
 
 function HomePage(){
@@ -12,109 +14,80 @@ function HomePage(){
 
      
     async function loadTasks() {
-
-    const response = await fetch("http://localhost:8080/tasks")
-    const data = await response.json()
-
+    
+    const data = await getTasks()
     setTasks(data)
-
     }
-
-    async function loadCategorys() {
-
-    const response = await fetch("http://localhost:8080/categorys")
-    const data = await response.json()
-
-    setCategorias(data)
-
-    }
-
-
-    async function deleteTask(id) {
-
-        await fetch(`http://localhost:8080/tasks/${id}`,{
-            method:"DELETE"
-        })
-
-        loadTasks()
-    }
-
-     async function deleteCategory(id) {
-
-        await fetch(`http://localhost:8080/categorys/${id}`,{
-            method:"DELETE"
-        })
-
-        loadCategorys()
-    }
-
 
     
+    async function handleCreateTask() {
 
-    async function createTask() {
-
-     await fetch("http://localhost:8080/tasks",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-            title: "teste",
-            description:"teste",
-            statusLevel:"TODO",
-            priority:"LOW",
-            idUser:10,
-            idCategory:52,
-        })
-
-        
-
+    await createTask({
+        title:"teste",
+        description:"teste",
+        statusLevel:"TODO",
+        priority:"LOW",
+        idUser:10,
+        idCategory:52
     })
+
+    await loadTasks()
+    }
+
+   
+    async function handleDeleteTask(id){
+
+    await deleteTask(id)
+
     loadTasks()
     }
 
-    
-    async function createCategory() {
 
-    await fetch("http://localhost:8080/categorys",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
+    async function loadCategorys() {
 
-        body:JSON.stringify({
-            name: "trabalho",
-            emoji:"LOW",
-            description:"teste",  
-            idUser:10,
-          
-        })
-    })
-    
-    loadCategorys()
-   
+    const data = await getCategorys()
+    setCategorias(data)
     }
 
-    useEffect(() => {
+     
+    async function handleCreateCategory() {
 
-    loadTasks(),
+    await createCategory({
+        name: "trabalho",
+        emoji:"LOW",
+        description:"teste",  
+        idUser:10,
+      
+    })
+
+    loadCategorys()
+    }
+
+    async function handleDeleteCategory(id) {
+
+        await deleteCategory(id)
+        await loadCategorys()
+    }
+
+
+    useEffect(() => {
+    loadTasks()
     loadCategorys()
 
     }, [])
     
-    return( 
+    return ( 
     <div>
         <NavBar></NavBar>
         
         <Categorias
         categorias ={categorias}
-        createCategory={createCategory}
-        deleteCategory={deleteCategory}
+        createCategory={handleCreateCategory}
+        deleteCategory={handleDeleteCategory}
         ></Categorias>
 
         <Button
-        createTask= {createTask}
+        createTask= {handleCreateTask}
         >
 
         </Button>
@@ -122,7 +95,7 @@ function HomePage(){
         <Tasks 
         tasks = {tasks}
         loadTasks={loadTasks}
-        deleteTask={deleteTask}
+        deleteTask={handleDeleteTask}
         >
         
         </Tasks>
