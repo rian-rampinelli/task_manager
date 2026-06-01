@@ -1,13 +1,14 @@
-import Button from '../../components/Button'
+
 import Categorias from '../../components/Categorias'
 import NavBar from '../../components/NavBar'
 import Tasks from '../../components/Tasks'
 import { useState,useEffect } from 'react'
-import {getTasks,createTask,deleteTask} from "../../api/tasks.js"
+import {getTasks} from "../../api/tasks.js"
 import {getCategorys,createCategory,deleteCategory} from "../../api/category.js"
 
 
 function HomePage(){
+    
     
     const [tasks, setTasks] = useState([])
     const [categorias,setCategorias] = useState([])
@@ -18,30 +19,6 @@ function HomePage(){
     const data = await getTasks()
     setTasks(data)
     }
-
-    
-    async function handleCreateTask() {
-
-    await createTask({
-        title:"teste",
-        description:"teste",
-        statusLevel:"TODO",
-        priority:"LOW",
-        idUser:10,
-        idCategory:52
-    })
-
-    await loadTasks()
-    }
-
-   
-    async function handleDeleteTask(id){
-
-    await deleteTask(id)
-
-    loadTasks()
-    }
-
 
     async function loadCategorys() {
 
@@ -88,16 +65,7 @@ function HomePage(){
         deleteCategory={handleDeleteCategory}
         ></Categorias>
 
-        <Button
-        createTask= {handleCreateTask}
-        >
-
-        </Button>
-        
         <Tasks 
-        tasks = {tasks}
-        loadTasks={loadTasks}
-        deleteTask={handleDeleteTask}
         >
         
         </Tasks>
