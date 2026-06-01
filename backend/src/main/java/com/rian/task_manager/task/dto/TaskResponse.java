@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 public record TaskResponse(
         Long id,
-        String name,
+        String title,
         String description,
         Priority priority,
         StatusLevel statusLevel,

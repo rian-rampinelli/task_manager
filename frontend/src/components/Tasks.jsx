@@ -8,45 +8,42 @@ function Tasks(){
     const [tasks, setTasks] = useState([])
     const [name, setName] = useState("")
 
-     async function loadTasks() {
-        
-        const data = await getTasks()
-        setTasks(data)
+     async function loadTasks() { 
+       const data = await getTasks()
+       setTasks(data)
     }
     
         
-        async function handleCreateTask(e) {
-        e.preventDefault()
-        console.log(name)
-    
-        await createTask({
-            title:name,
-            description:"teste",
-            statusLevel:"TODO",
-            priority:"LOW",
-            idUser:10,
-            idCategory:52
-        })
-    
-        await loadTasks()
-        }
+    async function handleCreateTask(e) {
+    e.preventDefault()
+  
+    await createTask({
+        title:name,
+        description:"teste",
+        statusLevel:"TODO",
+        priority:"LOW",
+        idUser:10,
+        idCategory:52
+    })
+
+    await loadTasks()
+    }
     
        
-        async function handleDeleteTask(id){
-    
-        await deleteTask(id)
-    
-        loadTasks()
-        }
+    async function handleDeleteTask(id){
+    await deleteTask(id)
+    loadTasks()
+    }
 
-         useEffect(() => {
-            loadTasks()
-        
-            }, [])
+    useEffect(() => {
+       loadTasks()
+
+    }, [])
+
+    console.log(tasks)
 
     return(
         <>
-        
         <form onSubmit={(e) => handleCreateTask(e)}>
             <div>
                 <label>Nome da tarefa:</label>
@@ -66,7 +63,7 @@ function Tasks(){
                     
                     <div>
                         <button>feito</button>
-                        <p>{task.name}</p>
+                        <p>{task.title}</p>
                         <p>{task.priority}</p>
                         <p>{task.description}</p>
                         <p>{task.statusLevel}</p>
