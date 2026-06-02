@@ -4,6 +4,7 @@ package com.rian.task_manager.task.dto;
 import com.rian.task_manager.task.Task;
 import com.rian.task_manager.task.enums.Priority;
 import com.rian.task_manager.task.enums.StatusLevel;
+import com.rian.task_manager.category.dto.CategoryResponse
 
 
 import java.time.LocalDateTime;
@@ -15,11 +16,20 @@ public record TaskResponse(
         Priority priority,
         StatusLevel statusLevel,
         Long userId,
-        Long categoryId,
+        CategoryResponse category,
+        String categoryName,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ){
     public static TaskResponse fromEntity(Task task){
+        CategoryResponse category = null;
+        if(task.getCategory() != null){
+            category = new CategoryResponse(
+                    task.getCategory().getId(),
+                    task.getCategory().getName()
+            );
+        }
+
         return new TaskResponse(
                 task.getId(),
                 task.getTitle(),
@@ -27,7 +37,7 @@ public record TaskResponse(
                 task.getPriority(),
                 task.getStatusLevel(),
                 task.getUser().getId(),
-                task.getCategory().getId(),
+                category,
                 task.getCreatedAt(),
                 task.getUpdatedAt()
         );

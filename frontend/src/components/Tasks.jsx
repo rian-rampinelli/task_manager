@@ -112,7 +112,7 @@ function Tasks({categorys}) {
                         <p>{task.priority}</p>
                         <p>{task.description}</p>
                         <p>{task.statusLevel}</p>
-                        <p>{task.categoryId}</p>
+                        <p>{task.category.name}</p>
                         <button onClick={() => handleDeleteTask(task.id)}>lixo</button>
                         <button>editar</button>
                     </div>
