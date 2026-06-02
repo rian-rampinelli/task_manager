@@ -1,6 +1,7 @@
 # API REST de Gerenciamento de Tarefas
 
-O projeto aplica os conceitos de modelagem orientada a objetos, persistencia com PostgreSQL, organizacao em camadas, DTOs de request/response, tratamento global de excecoes, auditoria e documentacao com Swagger com o frontend em React.js + Vite.
+O projeto aplica os conceitos de modelagem orientada a objetos, persistencia com PostgreSQL, organizacao em camadas, DTOs de request/response, tratamento global de excecoes, auditoria e documentacao com Swagger. O frontend foi feito 
+com React.js + Vite.
 
 ## Tecnologias
 
@@ -11,17 +12,29 @@ O projeto aplica os conceitos de modelagem orientada a objetos, persistencia com
 - Maven
 - Vite
 - React
+- Node
 
 ## Estrutura Backend
 
 ```text
-src/main/java/com/rian/task_manager
-+-- user         # Controllers REST, Services e Repositories do usuário
-+-- task         # Controllers REST, Services e Repositories da tarefa
-+-- category     # Controllers REST, Services e Repositories da categoria
-+-- config       # Pasta de configurações (auditable,swaggerConfig)
-+-- exceptions   # Excecoes customizadas
-+-- infra        # Tratamento global de erros
+src/main/java/com/rian/task_manager/backend
++-- user      
++-- task         
++-- category     
++-- config       
++-- exceptions  
++-- infra       
+```
+
+## Estrutura Frontend
+
+```text
+src/main/java/com/rian/task_manager/frontend
++-- api
++-- assets    
++-- components  
++-- pages  
++-- styles   
 ```
 
 ## Relacionamentos
@@ -71,7 +84,7 @@ Crie um banco PostgreSQL chamado:
 task-manager
 ```
 
-Configure a senha do banco em uma variavel de ambiente ou em um arquivo `.env` na raiz do projeto:
+Configure a senha do banco em uma variavel de ambiente ou em um arquivo `.env` na raiz da pasta backend:
 
 ```env
 DB_PASSWORD=sua_senha
@@ -90,17 +103,26 @@ spring:
       ddl-auto: update
 ```
 
-## Como executar
+## Como executar 
+
+No intellij ou na sua IDE de preferência execute os seguintes passos
 
 ```powershell
-.\mvnw.cmd spring-boot:run
+git clone
+cd backend
+mvnw.cmd spring-boot:run ou mvn spring-boot:run
 ```
 
-Ou, se estiver usando Maven instalado:
+Apos isso, rode o frontend na IDE de sua preferência
 
 ```powershell
-mvn spring-boot:run
+abrir na pasta clonada
+cd frontend
+npm install
+npm run dev
 ```
+
+
 
 ## Swagger
 
