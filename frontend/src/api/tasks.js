@@ -19,6 +19,19 @@ export async function createTask(task) {
     })
 }
 
+export async function updateTask(id, task) {
+
+    await fetch(`http://localhost:8080/tasks/${id}`,{
+        method:"PUT",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body: JSON.stringify(task)
+    })
+}
+
 export async function deleteTask(id) {
 
     await fetch(

@@ -54,6 +54,7 @@ function HomePage(){
         ></Categorias>
 
         <Tasks 
+        categorys={categorias}
         >
         
         </Tasks>

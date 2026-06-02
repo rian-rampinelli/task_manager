@@ -1,12 +1,19 @@
 import { useState,useEffect } from "react"
-import {getTasks,createTask,deleteTask} from "../api/tasks.js"
+import {getTasks,createTask,deleteTask,updateTask} from "../api/tasks.js"
 
 
 
-function Tasks(){
+function Tasks({categorys}) {
 
+    
     const [tasks, setTasks] = useState([])
     const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [statusLevel, setStatusLevel] = useState("TODO")
+    const [priority, setPriority] = useState("LOW")
+    const [idUser, setIdUser] = useState(10)
+    const [idCategory, setIdCategory] = useState(52)
+   
 
      async function loadTasks() { 
        const data = await getTasks()
@@ -19,11 +26,11 @@ function Tasks(){
   
     await createTask({
         title:name,
-        description:"teste",
-        statusLevel:"TODO",
-        priority:"LOW",
-        idUser:10,
-        idCategory:52
+        description:description,
+        statusLevel:statusLevel,
+        priority:priority,
+        idUser:idUser,
+        idCategory:idCategory
     })
 
     await loadTasks()
@@ -33,6 +40,18 @@ function Tasks(){
     async function handleDeleteTask(id){
     await deleteTask(id)
     loadTasks()
+    }
+
+    async function handleUpdateTask(task){
+    await updateTask(task.id, {
+        title:task.title,
+        description: task.description,
+        priority: task.priority,
+        statusLevel: "DONE",
+        idUser: task.userId,
+        idCategory: task.categoryId,
+    })
+    await loadTasks()
     }
 
     useEffect(() => {
@@ -53,6 +72,32 @@ function Tasks(){
                 value={name} 
                 onChange={(e) => setName(e.target.value)} />
             </div>
+             <div>
+                <label>Descrição:</label>
+                <input 
+                type="text" 
+                placeholder="Terminar o projeto de React" 
+                value={description} 
+                onChange={(e) => setDescription(e.target.value)} />
+            </div>
+            <div>
+                <label>Prioridade:</label>
+                <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+                    <option value="LOW">LOW</option>
+                    <option value="MEDIUM">MEDIUM</option>
+                    <option value="HIGH">HIGH</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Categoria:</label>
+                <select value={idCategory} onChange={(e) => setIdCategory(e.target.value)}>
+                {categorys.map(category => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                ))}
+                </select>        
+            </div>
+
             <button type="submit">Adicionar Task</button>
            
         </form>
@@ -62,11 +107,12 @@ function Tasks(){
                 <li key={task.id}>
                     
                     <div>
-                        <button>feito</button>
+                        <button onClick={() => handleUpdateTask(task)}>feito</button>
                         <p>{task.title}</p>
                         <p>{task.priority}</p>
                         <p>{task.description}</p>
                         <p>{task.statusLevel}</p>
+                        <p>{task.categoryId}</p>
                         <button onClick={() => handleDeleteTask(task.id)}>lixo</button>
                         <button>editar</button>
                     </div>
