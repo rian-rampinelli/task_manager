@@ -49,7 +49,7 @@ function Tasks({categorys}) {
         priority: task.priority,
         statusLevel: "DONE",
         idUser: task.userId,
-        idCategory: task.categoryId,
+        idCategory: task.category.id
     })
     await loadTasks()
     }
