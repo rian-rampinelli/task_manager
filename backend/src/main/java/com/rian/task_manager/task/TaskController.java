@@ -1,5 +1,6 @@
 package com.rian.task_manager.task;
 
+import com.rian.task_manager.task.dto.StatusLevelDto;
 import com.rian.task_manager.task.dto.TaskRequest;
 import com.rian.task_manager.task.dto.TaskResponse;
 import org.springframework.http.HttpStatus;
@@ -43,5 +44,10 @@ public class TaskController {
     @PutMapping("/{id}")
     public ResponseEntity<TaskResponse> atualizarTask(@PathVariable Long id, @RequestBody TaskRequest taskRequest){
         return ResponseEntity.ok(taskService.atualizar(id,taskRequest));
+    }
+
+    @PatchMapping("/{id}")
+    public  ResponseEntity<TaskResponse> atualizarStatus(@PathVariable Long id,@RequestBody StatusLevelDto statusLevelDto){
+        return ResponseEntity.ok(taskService.atualizaStatus(id, statusLevelDto.statusLevel()));
     }
 }

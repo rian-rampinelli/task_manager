@@ -5,8 +5,11 @@ import com.rian.task_manager.category.CategoryRepository;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
 import com.rian.task_manager.task.dto.TaskRequest;
 import com.rian.task_manager.task.dto.TaskResponse;
+import com.rian.task_manager.task.enums.StatusLevel;
 import com.rian.task_manager.user.User;
 import com.rian.task_manager.user.UserRepository;
+import org.apache.coyote.BadRequestException;
+import org.aspectj.util.LangUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,6 +64,7 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+
     public TaskResponse atualizar(Long id, TaskRequest taskRequest) {
 
         Task task = taskRepository.findById(id)
@@ -81,5 +85,18 @@ public class TaskService {
         taskRepository.save(task);
         return TaskResponse.fromEntity(task);
 
+    }
+
+    public TaskResponse atualizaStatus(Long id, String statusLevel){
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task não encontrado"));
+        try {
+            task.setStatusLevel(StatusLevel.valueOf(statusLevel.toUpperCase()));
+        }catch (IllegalArgumentException Exception){
+            throw new IllegalArgumentException("Status inválido");
+        }
+        taskRepository.save(task);
+
+        return TaskResponse.fromEntity(task);
     }
 }

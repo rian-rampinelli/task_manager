@@ -20,7 +20,6 @@ public record TaskResponse(
         LocalDateTime updatedAt
 ){
     public static TaskResponse fromEntity(Task task){
-
         CategoryTask category = null;
         if(task.getCategory() != null){
             category = new CategoryTask(
