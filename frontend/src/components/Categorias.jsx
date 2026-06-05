@@ -2,7 +2,7 @@ function Categorias({deleteCategory,categorias,createCategory}){
 
     return(
     <>
-    <p>
+    <p className="mt-12 text-xl font-semibold" >
         categorias
     </p>
     <button onClick={() => createCategory()}>Criar Categoria</button>

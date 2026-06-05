@@ -110,7 +110,6 @@ function Tasks({categorys}) {
            
         </form>
 
-        <h2>Minhas tarefas</h2>
         <ul>
             {tasks.map(task => (
                 <li key={task.id}>
