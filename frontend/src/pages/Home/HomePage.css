@@ -1,5 +1,5 @@
-.home-page{
-    max-width: 1600px;
+#container{
+    min-width:800px;
     display: flex;
     flex-direction: column;
     justify-content: center;

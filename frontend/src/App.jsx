@@ -1,10 +1,10 @@
 import HomePage from './pages/Home/HomePage.jsx'
-import './app.css'
+
 
 
 function App() {
   return (
-    <div className='container'>
+    <div className='flex items-center justify-center w-full '>
        <HomePage></HomePage>
     </div>
   )
