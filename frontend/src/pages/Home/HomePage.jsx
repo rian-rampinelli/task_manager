@@ -1,8 +1,9 @@
 import Categorias from '../../components/Categorias'
-import NavBar from '../../components/NavBar'
+import NavBar from '../../components/Header.jsx'
 import Tasks from '../../components/Tasks'
 import { useState,useEffect } from 'react'
 import {getCategorys,createCategory,deleteCategory} from "../../api/category.js"
+import "./HomePage.css"
 
 
 function HomePage(){
@@ -44,7 +45,7 @@ function HomePage(){
     }, [])
     
     return ( 
-    <div>
+    <div className="home-page mt-16">
         <NavBar></NavBar>
         
         <Categorias

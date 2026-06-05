@@ -12,7 +12,7 @@ function Tasks({categorys}) {
     const [statusLevel, setStatusLevel] = useState("TODO")
     const [priority, setPriority] = useState("LOW")
     const [idUser, setIdUser] = useState(10)
-    const [idCategory, setIdCategory] = useState(52)
+    const [idCategory, setIdCategory] = useState(131)
    
 
      async function loadTasks() { 
@@ -106,10 +106,11 @@ function Tasks({categorys}) {
                 </select>        
             </div>
 
-            <button type="submit">Adicionar Task</button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">Adicionar Task</button>
            
         </form>
-    
+
+        <h2>Minhas tarefas</h2>
         <ul>
             {tasks.map(task => (
                 <li key={task.id}>
@@ -120,7 +121,7 @@ function Tasks({categorys}) {
                         <p>{task.priority}</p>
                         <p>{task.description}</p>
                         <p>{task.statusLevel}</p>
-                        <p>{task.category.name}</p>
+                        <p>{task.category.name?task.category.name:"Categoria não especificada"}</p>
                         <button onClick={() => handleDeleteTask(task.id)}>lixo</button>
                         <button>editar</button>
                     </div>
