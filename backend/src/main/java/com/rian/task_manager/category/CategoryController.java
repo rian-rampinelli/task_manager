@@ -2,6 +2,8 @@ package com.rian.task_manager.category;
 
 import com.rian.task_manager.category.dto.CategoryRequest;
 import com.rian.task_manager.category.dto.CategoryResponse;
+import com.rian.task_manager.task.dto.TaskResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,12 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<CategoryResponse>> findAll(){
         return ResponseEntity.ok(categoryService.findAll());
+    }
+
+    @Transactional
+    @GetMapping("/{id}/tasks")
+    public ResponseEntity<List<TaskResponse>> findAllTasksByCategory(@PathVariable Long id){
+        return ResponseEntity.ok(categoryService.findAllTasksByCategory(id));
     }
 
     @DeleteMapping("/{id}")
