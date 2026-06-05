@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react"
-import {getTasks,createTask,deleteTask,updateTask} from "../api/tasks.js"
+import {getTasks,createTask,deleteTask,updateTask,updateTaskPartial} from "../api/tasks.js"
 
 
 
@@ -50,6 +50,14 @@ function Tasks({categorys}) {
         statusLevel: "DONE",
         idUser: task.userId,
         idCategory: task.category.id
+    })
+    await loadTasks()
+    }
+
+    
+    async function handleUpdateTaskPartial(task){
+    await updateTaskPartial(task.id, {
+        statusLevel: "DONE",
     })
     await loadTasks()
     }
@@ -107,7 +115,7 @@ function Tasks({categorys}) {
                 <li key={task.id}>
                     
                     <div>
-                        <button onClick={() => handleUpdateTask(task)}>feito</button>
+                        <button onClick={() => handleUpdateTaskPartial(task)}>feito</button>
                         <p>{task.title}</p>
                         <p>{task.priority}</p>
                         <p>{task.description}</p>

@@ -32,6 +32,19 @@ export async function updateTask(id, task) {
     })
 }
 
+export async function updateTaskPartial(id, task) {
+
+    await fetch(`http://localhost:8080/tasks/${id}`,{
+        method:"PATCH",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body: JSON.stringify(task)
+    })
+}
+
 export async function deleteTask(id) {
 
     await fetch(
