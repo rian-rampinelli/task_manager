@@ -1,19 +1,23 @@
-function Categorias({deleteCategory,categorias,createCategory}){
+function Categorias({categorias,createCategory,deleteCategory}){
 
     return(
     <>
     <p className="mt-12 text-xl font-semibold" >
         categorias
     </p>
-    <button onClick={() => createCategory()}>Criar Categoria</button>
-    <ul>
+    
+    <ul className="flex gap-5">
         {categorias.map(category =>(
-            <li key={category.id}>
-                {category.name}
-                <button onClick={() => deleteCategory(category.id)}>excluir</button>
+            <li  key={category.id}>
+                <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    {category.name}
+                </button>
+                <button onClick={() => deleteCategory(category.id)}>Lixo</button>
             </li>
         ))}
+         <button className="bg-gray-200 rounded-4xl py-2 px-4" onClick={() => createCategory()}>+</button>
     </ul>
+   
     </>
     )
 }

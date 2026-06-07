@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react"
 import {getTasks,createTask,deleteTask,updateTask,updateTaskPartial} from "../api/tasks.js"
 
+import { createCategory } from "../api/category.js"
+
 
 
 function Tasks({categorys}) {
@@ -35,8 +37,7 @@ function Tasks({categorys}) {
 
     await loadTasks()
     }
-    
-       
+
     async function handleDeleteTask(id){
     await deleteTask(id)
     loadTasks()
@@ -103,7 +104,7 @@ function Tasks({categorys}) {
                 {categorys.map(category => (
                     <option key={category.id} value={category.id}>{category.name}</option>
                 ))}
-                </select>        
+                </select>    
             </div>
 
             <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">Adicionar Task</button>
@@ -132,5 +133,3 @@ function Tasks({categorys}) {
 }
 
 export default Tasks
-
-

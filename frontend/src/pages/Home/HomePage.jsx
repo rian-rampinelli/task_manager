@@ -45,7 +45,7 @@ function HomePage(){
     }, [])
     
     return ( 
-    <div id='container' className="mt-16">
+    <div id='containercd backend' className="mt-16">
         <NavBar></NavBar>
         
         <Categorias
