@@ -1,7 +1,6 @@
 import { useState,useEffect } from "react"
-import {getTasks,createTask,deleteTask,updateTask,updateTaskPartial} from "../api/tasks.js"
-
-import { createCategory } from "../api/category.js"
+import {getTasks,deleteTask,updateTask,updateTaskPartial} from "../api/tasks.js"
+import Modal from "./Modal.jsx"
 
 
 
@@ -9,35 +8,15 @@ function Tasks({categorys}) {
 
     
     const [tasks, setTasks] = useState([])
-    const [name, setName] = useState("")
-    const [description, setDescription] = useState("")
-    const [statusLevel, setStatusLevel] = useState("TODO")
-    const [priority, setPriority] = useState("LOW")
-    const [idUser, setIdUser] = useState(10)
-    const [idCategory, setIdCategory] = useState(131)
-   
+    const [openModal,setOpenModal] = useState(false)
 
-     async function loadTasks() { 
+
+
+    async function loadTasks() { 
        const data = await getTasks()
        setTasks(data)
     }
     
-        
-    async function handleCreateTask(e) {
-    e.preventDefault()
-  
-    await createTask({
-        title:name,
-        description:description,
-        statusLevel:statusLevel,
-        priority:priority,
-        idUser:idUser,
-        idCategory:idCategory
-    })
-
-    await loadTasks()
-    }
-
     async function handleDeleteTask(id){
     await deleteTask(id)
     loadTasks()
@@ -68,48 +47,11 @@ function Tasks({categorys}) {
 
     }, [])
 
-    console.log(tasks)
-
     return(
         <>
-        <form onSubmit={(e) => handleCreateTask(e)}>
-            <div>
-                <label>Nome da tarefa:</label>
-                <input 
-                type="text" 
-                placeholder="Estudar" 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} />
-            </div>
-             <div>
-                <label>Descrição:</label>
-                <input 
-                type="text" 
-                placeholder="Terminar o projeto de React" 
-                value={description} 
-                onChange={(e) => setDescription(e.target.value)} />
-            </div>
-            <div>
-                <label>Prioridade:</label>
-                <select value={priority} onChange={(e) => setPriority(e.target.value)}>
-                    <option value="LOW">LOW</option>
-                    <option value="MEDIUM">MEDIUM</option>
-                    <option value="HIGH">HIGH</option>
-                </select>
-            </div>
-
-            <div>
-                <label>Categoria:</label>
-                <select value={idCategory} onChange={(e) => setIdCategory(e.target.value)}>
-                {categorys.map(category => (
-                    <option key={category.id} value={category.id}>{category.name}</option>
-                ))}
-                </select>    
-            </div>
-
-            <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">Adicionar Task</button>
-           
-        </form>
+        <Modal loadTasks={loadTasks} categorys={categorys} isOpen={openModal}></Modal>
+        <button className="bg-amber-300" onClick={() => setOpenModal(true)}>Abrir modal</button>
+        
 
         <ul>
             {tasks.map(task => (
