@@ -1,19 +1,27 @@
 import Categorias from '../../components/Categorias'
 import NavBar from '../../components/Header.jsx'
 import CreateTasks from '../../components/CreateTask.jsx'
-import { useState,useEffect } from 'react'
+import { useState} from 'react'
 import {getCategorys,createCategory,deleteCategory} from "../../api/category.js"
+import {getTaskByCategory} from "../../api/category.js"
 import "./HomePage.css"
 
 
 function HomePage(){
     
     const [categorias,setCategorias] = useState([])
+    const [tasks,setTasks] = useState([])
     const [idCategory, setIdCategory] = useState(172)
 
     async function loadCategorys() {
     const data = await getCategorys()
     setCategorias(data)
+    }
+
+    async function loadTasks(idCategory){
+    const data = await getTaskByCategory(idCategory)
+    setTasks(data)
+
     }
 
      
@@ -43,11 +51,16 @@ function HomePage(){
         loadCategorys={loadCategorys}
         selectCategory={idCategory}
         setIdCategory={setIdCategory}
+        loadTasks = {loadTasks}
+        tasks={tasks}
         ></Categorias>
 
         <CreateTasks 
         categorys={categorias}
         idCategory={idCategory}
+        loadTasks={loadTasks}
+        tasks={tasks}
+        setTasks={setTasks}
         >
         </CreateTasks>
     </div>

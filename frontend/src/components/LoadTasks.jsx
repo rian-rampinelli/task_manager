@@ -1,30 +1,23 @@
 import { useEffect,useState } from "react"
-import { getTaskByCategory } from "../api/category.js"
 import { updateTaskPartial, deleteTask } from "../api/tasks.js"
 
-function LoadCategorys({idCategory}) {
-
-    const [tasks, setTasks] = useState([])
-
-    async function loadTasksByCategory(id){
-        const data = await getTaskByCategory(id)
-        setTasks(data)
-    }
+function LoadTasks({idCategory, loadTasks, tasks}) {
 
     async function handleUpdateTaskPartial(task){
         await updateTaskPartial(task.id, {
             statusLevel: "DONE",
         })
+        await loadTasks(idCategory)
     }
 
     async function handleDeleteTask(id){
     await deleteTask(id)
-   
+    await loadTasks(idCategory)
     }
     
 
     useEffect(() => {
-           loadTasksByCategory(idCategory)
+           loadTasks(idCategory)
     
     }, [idCategory])
 
@@ -52,4 +45,4 @@ function LoadCategorys({idCategory}) {
 
 }
 
-export default LoadCategorys;
+export default LoadTasks;

@@ -2,7 +2,7 @@ import { createTask} from "../api/tasks"
 import { useState } from "react"
 import { getTaskByCategory } from "../api/category.js"
 
-function Modal({isOpen,categorys,idCategory}) {
+function Modal({isOpen,categorys,idCategory,tasks,setTasks,loadTasks}) {
 
 
     const [name, setName] = useState("")
@@ -14,18 +14,7 @@ function Modal({isOpen,categorys,idCategory}) {
 
 
     async function handleCreateTask(e) {
-        e.preventDefault()
-
-         console.log({
-        title: name,
-        description: description,
-        statusLevel: statusLevel,
-        priority: priority,
-        idUser: idUser,
-        idCategory: idCategoryCreate
-    })
-
-      
+        e.preventDefault() 
         await createTask({
             title:name,
             description:description,
@@ -34,10 +23,7 @@ function Modal({isOpen,categorys,idCategory}) {
             idUser:idUser,
             idCategory:idCategoryCreate
         })
-
-        
-    
-        await getTaskByCategory(idCategory)
+        await loadTasks(idCategory)
         }
 
     if (isOpen) {

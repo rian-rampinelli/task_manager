@@ -1,7 +1,7 @@
 import { useEffect } from "react"
-import LoadCategorys from "./LoadTasks.jsx"
+import LoadTasks from "./LoadTasks.jsx"
 
-function Categorias({categorias,createCategory,deleteCategory,loadCategorys,selectCategory,setIdCategory}) {
+function Categorias({categorias,createCategory,deleteCategory,loadCategorys,loadTasks,selectCategory,setIdCategory,tasks}) {
 
 
     useEffect(() => {
@@ -27,7 +27,7 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,sele
          <button className="bg-gray-200 rounded-4xl py-2 px-4" onClick={() => createCategory()}>+</button>
     </ul>
 
-    <LoadCategorys idCategory={selectCategory}></LoadCategorys>
+    <LoadTasks  idCategory={selectCategory} loadTasks={loadTasks} tasks={tasks}></LoadTasks>
    
     </>
     )
