@@ -1,7 +1,7 @@
-import { useEffect,useState } from "react"
+import { useEffect } from "react"
 import { updateTaskPartial, deleteTask } from "../api/tasks.js"
 
-function LoadTasks({idCategory, loadTasks, tasks}) {
+function Tasks({idCategory, loadTasks, tasks}) {
 
     async function handleUpdateTaskPartial(task){
         await updateTaskPartial(task.id, {
@@ -18,7 +18,6 @@ function LoadTasks({idCategory, loadTasks, tasks}) {
 
     useEffect(() => {
            loadTasks(idCategory)
-    
     }, [idCategory])
 
     return(
@@ -45,4 +44,4 @@ function LoadTasks({idCategory, loadTasks, tasks}) {
 
 }
 
-export default LoadTasks;
+export default Tasks;

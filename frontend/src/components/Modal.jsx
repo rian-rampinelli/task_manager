@@ -1,8 +1,7 @@
 import { createTask} from "../api/tasks"
 import { useState } from "react"
-import { getTaskByCategory } from "../api/category.js"
 
-function Modal({isOpen,categorys,idCategory,tasks,setTasks,loadTasks}) {
+function Modal({isOpen,categorys,idCategory,loadTasks}) {
 
 
     const [name, setName] = useState("")

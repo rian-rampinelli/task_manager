@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import LoadTasks from "./LoadTasks.jsx"
+import Tasks from "./Tasks.jsx"
 
 function Categorias({categorias,createCategory,deleteCategory,loadCategorys,loadTasks,selectCategory,setIdCategory,tasks}) {
 
@@ -7,7 +7,6 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,load
     useEffect(() => {
     loadCategorys()
     }, [])
-
 
     return(
     <>
@@ -27,7 +26,7 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,load
          <button className="bg-gray-200 rounded-4xl py-2 px-4" onClick={() => createCategory()}>+</button>
     </ul>
 
-    <LoadTasks  idCategory={selectCategory} loadTasks={loadTasks} tasks={tasks}></LoadTasks>
+    <Tasks  idCategory={selectCategory} loadTasks={loadTasks} tasks={tasks}></Tasks>
    
     </>
     )
