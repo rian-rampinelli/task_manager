@@ -1,7 +1,8 @@
 import { createTask} from "../api/tasks"
 import { useState } from "react"
+import { getTaskByCategory } from "../api/category.js"
 
-function Modal({isOpen,categorys,loadTasks}){
+function Modal({isOpen,categorys,idCategory}) {
 
 
     const [name, setName] = useState("")
@@ -9,10 +10,21 @@ function Modal({isOpen,categorys,loadTasks}){
     const [statusLevel, setStatusLevel] = useState("TODO")
     const [priority, setPriority] = useState("LOW")
     const [idUser, setIdUser] = useState(10)
-    const [idCategory, setIdCategory] = useState(161)
+    const [idCategoryCreate, setIdCategoryCreate] = useState(idCategory)
+
 
     async function handleCreateTask(e) {
         e.preventDefault()
+
+         console.log({
+        title: name,
+        description: description,
+        statusLevel: statusLevel,
+        priority: priority,
+        idUser: idUser,
+        idCategory: idCategoryCreate
+    })
+
       
         await createTask({
             title:name,
@@ -20,10 +32,12 @@ function Modal({isOpen,categorys,loadTasks}){
             statusLevel:statusLevel,
             priority:priority,
             idUser:idUser,
-            idCategory:idCategory
+            idCategory:idCategoryCreate
         })
+
+        
     
-        await loadTasks()
+        await getTaskByCategory(idCategory)
         }
 
     if (isOpen) {
@@ -58,7 +72,7 @@ function Modal({isOpen,categorys,loadTasks}){
                 </div>
                 <div>
                     <label>Categoria:</label>
-                    <select value={idCategory} onChange={(e) => setIdCategory(e.target.value)}>
+                    <select value={idCategoryCreate} onChange={(e) => setIdCategoryCreate(Number(e.target.value))}>
                     {categorys.map(category => (
                         <option key={category.id} value={category.id}>{category.name}</option>
                     ))}
