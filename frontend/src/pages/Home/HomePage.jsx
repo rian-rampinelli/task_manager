@@ -11,7 +11,7 @@ function HomePage(){
     
     const [categorias,setCategorias] = useState([])
     const [tasks,setTasks] = useState([])
-    const [idCategory, setIdCategory] = useState(172)
+    const [idCategory, setIdCategory] = useState(196)
 
     async function loadCategorys() {
     const data = await getCategorys()
@@ -41,8 +41,18 @@ function HomePage(){
     }
 
     return ( 
-    <div id='container backend' className="mt-16">
-        <NavBar></NavBar>
+    <div id='container' className="mt-16">
+        <div className="flex justify-between items-end">
+            <NavBar></NavBar>
+            <CreateTasks
+            categorys={categorias}
+            idCategory={idCategory}
+            loadTasks={loadTasks}
+            tasks={tasks}
+            setTasks={setTasks}
+            >
+            </CreateTasks>
+        </div>
         
         <Categorias
         categorias ={categorias}
@@ -55,14 +65,7 @@ function HomePage(){
         tasks={tasks}
         ></Categorias>
 
-        <CreateTasks 
-        categorys={categorias}
-        idCategory={idCategory}
-        loadTasks={loadTasks}
-        tasks={tasks}
-        setTasks={setTasks}
-        >
-        </CreateTasks>
+        
     </div>
     )
     

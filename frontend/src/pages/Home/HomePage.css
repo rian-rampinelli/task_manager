@@ -1,5 +1,6 @@
 #container{
-    min-width:800px;
+    width:100%;
+    max-width:750px;
     display: flex;
     flex-direction: column;
     justify-content: center;

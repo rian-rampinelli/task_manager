@@ -32,6 +32,7 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,load
             </li>
         ))}
         <ModalCategory createCategory={createCategory} isOpen={isOpen} setIsOpen={setIsOpen}></ModalCategory>
+        
         <button
         onClick={() => setIsOpen(!isOpen)}
         title="Add New Category"

@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function ModalCategory({isOpen,createCategory}) {
+function ModalCategory({isOpen,setIsOpen,createCategory}) {
 
         const [nameCategory, setNameCategory] = useState("")
         const [emojiCategory, setEmojiCategory] = useState("emoji")
@@ -12,6 +12,7 @@ function ModalCategory({isOpen,createCategory}) {
                <form onSubmit={(e) => {
                    e.preventDefault();
                    createCategory(nameCategory,emojiCategory,descriptionCategory,idUser);
+                   setIsOpen(false);
                }}>
                  <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">Adicionar Category</button>
             
