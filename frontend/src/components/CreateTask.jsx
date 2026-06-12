@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Modal from "./Modal.jsx"
+import ModalTask from "./ModalTask.jsx"
 
 function CreateTasks({categorys,idCategory,loadTasks}) {
 
@@ -7,7 +7,7 @@ function CreateTasks({categorys,idCategory,loadTasks}) {
 
     return(
         <>
-        <Modal categorys={categorys} idCategory={idCategory} isOpen={openModal} loadTasks={loadTasks}></Modal>
+        <ModalTask categorys={categorys} idCategory={idCategory} isOpen={openModal} loadTasks={loadTasks}></ModalTask>
         <button className="bg-amber-300" onClick={() => setOpenModal(!openModal)}>Adicionar Task</button>        
         </>
     )

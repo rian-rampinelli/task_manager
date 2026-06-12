@@ -1,7 +1,7 @@
 import { createTask} from "../api/tasks"
 import { useState } from "react"
 
-function Modal({isOpen,categorys,idCategory,loadTasks}) {
+function ModalTask({isOpen,categorys,idCategory,loadTasks}) {
 
 
     const [name, setName] = useState("")
@@ -71,4 +71,4 @@ function Modal({isOpen,categorys,idCategory,loadTasks}) {
     return null
 }
 
-export default Modal
+export default ModalTask;

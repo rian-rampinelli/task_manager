@@ -1,7 +1,10 @@
-import { useEffect } from "react"
+import { useEffect,useState } from "react"
 import Tasks from "./Tasks.jsx"
+import ModalCategory from "./ModalCategory.jsx"
 
 function Categorias({categorias,createCategory,deleteCategory,loadCategorys,loadTasks,selectCategory,setIdCategory,tasks}) {
+
+    const [isOpen,setIsOpen] = useState(false)
 
 
     useEffect(() => {
@@ -26,9 +29,11 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,load
                 
             </li>
         ))}
-         <button
-        onClick={() => createCategory()}
-        title="Add New"
+        <ModalCategory  isOpen={isOpen} setIsOpen={setIsOpen}></ModalCategory>
+        <button
+        onClick={() => setIsOpen(!isOpen)}
+        title="Add New Category"
+        aria-label="Add new Category"
         class="group cursor-pointer outline-none hover:rotate-90 duration-300"
         >
         <svg
