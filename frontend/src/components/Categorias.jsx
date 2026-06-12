@@ -20,21 +20,23 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,load
     <ul className="flex gap-5">
         {categorias.map(category =>(
             <li  key={category.id}>
-             <button type="button" onClick={() => setIdCategory(category.id)}  class="cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
+             <button type="button" onClick={() => setIdCategory(category.id)}  className="cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
             border-blue-600
             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
             active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
                 {category.name}
             </button>
-                
+            <button onClick={() => deleteCategory(category.id)} className="ml-2 cursor-pointer outline-none hover:rotate-90 duration-300">
+            lixo
+            </button>
             </li>
         ))}
-        <ModalCategory  isOpen={isOpen} setIsOpen={setIsOpen}></ModalCategory>
+        <ModalCategory createCategory={createCategory} isOpen={isOpen} setIsOpen={setIsOpen}></ModalCategory>
         <button
         onClick={() => setIsOpen(!isOpen)}
         title="Add New Category"
         aria-label="Add new Category"
-        class="group cursor-pointer outline-none hover:rotate-90 duration-300"
+        className="group cursor-pointer outline-none hover:rotate-90 duration-300"
         >
         <svg
             xmlns="http://www.w3.org/2000/svg"

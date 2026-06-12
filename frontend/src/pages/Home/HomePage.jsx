@@ -25,12 +25,12 @@ function HomePage(){
     }
 
      
-    async function handleCreateCategory() {
+    async function handleCreateCategory(nameCategory,emojiCategory,descriptionCategory,idUser) {
     await createCategory({
-        name: "trabalho",
-        emoji:"LOW",
-        description:"teste",  
-        idUser:10,
+        name: nameCategory,
+        emoji: emojiCategory,
+        description: descriptionCategory,
+        idUser: idUser,
     })
     loadCategorys()
     }
