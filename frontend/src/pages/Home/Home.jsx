@@ -1,13 +1,13 @@
-import Categorias from '../../components/Categorias'
+import Categorias from '../../components/Categorias.jsx'
 import Header from '../../components/Header.jsx'
 import CreateTasks from '../../components/CreateTask.jsx'
 import { useState} from 'react'
 import {getCategorys,createCategory,deleteCategory} from "../../api/category.js"
 import {getTaskByCategory} from "../../api/category.js"
-import "./HomePage.css"
+import "./Home.css"
 
 
-function HomePage(){
+function Home(){
     
     const [categorias,setCategorias] = useState([])
     const [tasks,setTasks] = useState([])
@@ -72,4 +72,4 @@ function HomePage(){
     
 }
 
-export default HomePage
+export default Home

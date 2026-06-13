@@ -1,11 +1,11 @@
-import HomePage from './pages/Home/HomePage.jsx'
+import Home from './pages/Home/Home.jsx'
 
 
 
 function App() {
   return (
     <div className='flex items-center justify-center w-full '>
-       <HomePage></HomePage>
+       <Home></Home>
     </div>
   )
 }
