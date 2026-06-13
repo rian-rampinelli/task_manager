@@ -8,7 +8,13 @@ function CreateTasks({categorys,idCategory,loadTasks}) {
 
     return(
         <>
-        <ModalTask categorys={categorys} idCategory={idCategory} isOpen={openModal} loadTasks={loadTasks}></ModalTask> 
+        <ModalTask 
+        categorys={categorys} 
+        idCategory={idCategory} 
+        isOpen={openModal} 
+        setOpenModal={setOpenModal}
+        loadTasks={loadTasks}>
+        </ModalTask> 
         <button
         className="bg-blue-500"
          id="add-task"

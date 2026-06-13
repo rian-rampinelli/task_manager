@@ -1,4 +1,4 @@
-function NavBar(){
+function Header(){
     return(
         <div>
             <h1 className="text-lg font-medium text-gray-600" >Bem vindo de volta!</h1>
@@ -7,4 +7,4 @@ function NavBar(){
     )
 }
 
-export default NavBar
+export default Header

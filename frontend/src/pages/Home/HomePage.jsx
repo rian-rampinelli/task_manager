@@ -1,5 +1,5 @@
 import Categorias from '../../components/Categorias'
-import NavBar from '../../components/Header.jsx'
+import Header from '../../components/Header.jsx'
 import CreateTasks from '../../components/CreateTask.jsx'
 import { useState} from 'react'
 import {getCategorys,createCategory,deleteCategory} from "../../api/category.js"
@@ -43,7 +43,7 @@ function HomePage(){
     return ( 
     <div id='container' className="mt-16">
         <div className="flex justify-between items-end">
-            <NavBar></NavBar>
+            <Header></Header>
             <CreateTasks
             categorys={categorias}
             idCategory={idCategory}
