@@ -4,7 +4,7 @@ import ModalCategory from "./ModalCategory.jsx"
 
 function Categorias({categorias,createCategory,deleteCategory,loadCategorys,loadTasks,selectCategory,setIdCategory,tasks}) {
 
-    const [isOpen,setIsOpen] = useState(false)
+    const [OpenModal,setOpenModal] = useState(false)
 
 
     useEffect(() => {
@@ -31,10 +31,10 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,load
             </button>
             </li>
         ))}
-        <ModalCategory createCategory={createCategory} isOpen={isOpen} setIsOpen={setIsOpen}></ModalCategory>
+        <ModalCategory createCategory={createCategory} OpenModal={OpenModal} setOpenModal={setOpenModal}></ModalCategory>
         
         <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setOpenModal(true)}
         title="Add New Category"
         aria-label="Add new Category"
         className="group cursor-pointer outline-none hover:rotate-90 duration-300"

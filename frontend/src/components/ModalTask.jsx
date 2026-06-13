@@ -1,19 +1,7 @@
 import { createTask} from "../api/tasks"
 import { useState } from "react"
 
-const BG_STYLE = {
-    position: 'fixed',
-    inset:0,
-    backgroundColor:'rgb(0,0,0,0.8)',
-    zIndex: 1000
-}
 
-const MODAL_STYLE = {
-    position: 'fixed',
-    top:'50%',
-    left:'50%',
-    transform: 'translate(-50%,-50%)',
-}
 
 function ModalTask({isOpen,setOpenModal,categorys,idCategory,loadTasks}) {
 
@@ -42,8 +30,8 @@ function ModalTask({isOpen,setOpenModal,categorys,idCategory,loadTasks}) {
 
     if (isOpen) {
         return (
-        <div style={BG_STYLE}>
-            <form className="w-120 rounded-lg shadow h-auto px-6 py-12 bg-white relative overflow-hidden" style={MODAL_STYLE} onSubmit={(e) => handleCreateTask(e)}>
+        <div className="fixed inset-0 bg-black/80 z-[1000]">
+            <form className="w-120 rounded-lg shadow h-auto px-6 py-12 bg-white overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" onSubmit={(e) => handleCreateTask(e)}>
                 <h2 class="text-2xl font-medium text-slate-700 text-center">New Task</h2>
                 <div className="mt-3">
                     <label className="text-slate-500">Nome da tarefa:</label>
