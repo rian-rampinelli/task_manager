@@ -1,6 +1,6 @@
 #container{
-    width:100%;
-    max-width:750px;
+    min-width:800px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

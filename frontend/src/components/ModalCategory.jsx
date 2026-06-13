@@ -46,10 +46,10 @@ function ModalCategory({OpenModal,setOpenModal,createCategory}) {
                         onChange={(e) => setDescriptionCategory(e.target.value)} />
                     </div>
                     <div className="mt-12 flex justify-around">
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">Adicionar Category</button>
+                        <button className="bg-blue-600 text-white px-16 py-2 rounded hover:bg-blue-300" type="submit">Criar</button>
                         <button 
                         type="button"
-                        className="bg-gray-500 text-white px-15 py-2 rounded hover:bg-gray-300"
+                        className="bg-slate-900 text-white px-15 py-2 rounded hover:bg-gray-300"
                         onClick={() => setOpenModal(false)}
                         >Fechar</button>
                     </div>

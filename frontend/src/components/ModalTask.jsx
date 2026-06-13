@@ -84,7 +84,7 @@ function ModalTask({isOpen,setOpenModal,categorys,idCategory,loadTasks}) {
                     px-16 py-2 rounded hover:bg-blue-300" 
                     type="submit"
                     >Criar</button>
-                    <button className="bg-gray-500 text-white px-15 py-2 rounded hover:bg-gray-300"
+                    <button className="bg-slate-900 text-white px-15 py-2 rounded hover:bg-gray-300"
                     onClick={()=> setOpenModal(false)}
                     >Fechar</button>
                 </div>

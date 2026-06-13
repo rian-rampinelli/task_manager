@@ -5,6 +5,7 @@ import { useState} from 'react'
 import {getCategorys,createCategory,deleteCategory} from "../../api/category.js"
 import {getTaskByCategory} from "../../api/category.js"
 import "./Home.css"
+import Footer from '../../components/Footer.jsx'
 
 
 function Home(){
@@ -41,29 +42,33 @@ function Home(){
     }
 
     return ( 
-    <div id='container' className="mt-16">
-        <div className="flex justify-between items-end">
-            <Header></Header>
-            <CreateTasks
-            categorys={categorias}
-            idCategory={idCategory}
-            loadTasks={loadTasks}
-            tasks={tasks}
-            setTasks={setTasks}
-            >
-            </CreateTasks>
+    <div id='container' >
+        <div className="flex justify-between items-end mt-16">
+        <Header></Header>
+        <CreateTasks
+        categorys={categorias}
+        idCategory={idCategory}
+        loadTasks={loadTasks}
+        tasks={tasks}
+        setTasks={setTasks}
+        >
+        </CreateTasks>
         </div>
         
-        <Categorias
-        categorias ={categorias}
-        createCategory={handleCreateCategory}
-        deleteCategory={handleDeleteCategory}
-        loadCategorys={loadCategorys}
-        selectCategory={idCategory}
-        setIdCategory={setIdCategory}
-        loadTasks = {loadTasks}
-        tasks={tasks}
-        ></Categorias>
+        <main className='flex-1'>
+            <Categorias
+            categorias ={categorias}
+            createCategory={handleCreateCategory}
+            deleteCategory={handleDeleteCategory}
+            loadCategorys={loadCategorys}
+            selectCategory={idCategory}
+            setIdCategory={setIdCategory}
+            loadTasks = {loadTasks}
+            tasks={tasks}
+            ></Categorias>
+        </main>
+
+        <Footer></Footer>
 
         
     </div>

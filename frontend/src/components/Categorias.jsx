@@ -13,14 +13,14 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,load
 
     return(
     <>
-    <p className="mt-8 mb-2.5 text-xl font-semibold" >
+    <p className="mt-8 mb-4 text-xl text-slate-900 font-semibold" >
         Categorias
     </p>
     
     <ul className="flex gap-5">
         {categorias.map(category =>(
             <li  key={category.id}>
-             <button type="button" onClick={() => setIdCategory(category.id)}  className="cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
+             <button type="button" onClick={() => setIdCategory(category.id)}  className="cursor-pointer transition-all bg-blue-600 text-white px-6 py-2 rounded-lg
             border-blue-600
             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
             active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
@@ -44,7 +44,7 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,load
             width="46px"
             height="46px"
             viewBox="0 0 24 24"
-            class="stroke-blue-400 fill-none group-hover:brightness-110 group-hover:stroke-blue-600 group-active:stroke-zinc-200 group-active:fill-blue-500 group-active:duration-0 duration-300"
+            class="stroke-blue-600 fill-none group-hover:brightness-110 group-hover:stroke-blue-400 group-active:stroke-zinc-200 group-active:fill-blue-400 group-active:duration-0 duration-300"
         >
             <path
             d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
