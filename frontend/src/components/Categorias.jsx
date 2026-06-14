@@ -26,9 +26,6 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,load
             active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
                 {category.name}
             </button>
-            <button onClick={() => deleteCategory(category.id)} className="ml-2 cursor-pointer outline-none hover:rotate-90 duration-300">
-            lixo
-            </button>
             </li>
         ))}
         <ModalCategory createCategory={createCategory} OpenModal={OpenModal} setOpenModal={setOpenModal}></ModalCategory>

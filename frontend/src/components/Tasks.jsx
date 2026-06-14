@@ -20,23 +20,29 @@ function Tasks({idCategory, loadTasks, tasks}) {
            loadTasks(idCategory)
     }, [idCategory])
 
-    console.log(tasks)
-
     if(tasks.length > 0){
     return(
         <>
             <ul>
             {tasks.map(task => (
                 <li key={task.id}>
-                    <div>
-                        <button onClick={() => handleUpdateTaskPartial(task)}>feito</button>
-                        <p>{task.title}</p>
-                        <p>{task.priority}</p>
-                        <p>{task.description}</p>
-                        <p>{task.statusLevel}</p>
-                        <p>{task.category.name?task.category.name:"Categoria não especificada"}</p>
-                        <button onClick={() => handleDeleteTask(task.id)}>lixo</button>
-                        <button>editar</button>
+                    <div className="flex justify-between mt-8">
+                        <div>
+                            <button
+                            onClick={() => handleUpdateTaskPartial(task)}
+                            className="border-2 p-2"
+                            ></button>
+                            <p>{task.category.name?task.category.name:"Categoria não especificada"}</p>
+                            <p>{task.title}</p>
+                            <p>{task.description}</p>
+                            <p>{task.statusLevel}</p>
+                            <p>{task.priority}</p>
+                        </div>
+                        
+                        <div className="flex items-center flex-col gap-5">
+                            <button onClick={() => handleDeleteTask(task.id)}>lixo</button>
+                            <button>editar</button>
+                        </div>
                     </div>
                 </li>
             ))}

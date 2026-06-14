@@ -16,7 +16,7 @@ function CreateTasks({categorys,idCategory,loadTasks}) {
         loadTasks={loadTasks}>
         </ModalTask> 
         <button
-        className="bg-blue-600"
+        className="bg-slate-700"
          id="add-task"
          onClick={() => setOpenModal(!openModal)}
         >
