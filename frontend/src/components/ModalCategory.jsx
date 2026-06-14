@@ -19,29 +19,29 @@ function ModalCategory({OpenModal,setOpenModal,createCategory}) {
                     <h2 class="text-2xl font-medium text-slate-700 text-center">New Category</h2>
                      
                     <div className="mt-3">
-                        <label className="text-slate-500">Nome da categoria:</label>
+                        <label className="text-slate-900">Nome:</label>
                         <input
-                        className="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                        className="outline-none border-2 rounded-md px-2 py-1 text-slate-900 w-full focus:border-blue-500"
                         type="text"
-                        placeholder="Estudar"
+                        placeholder="Academia"
                         value={nameCategory}
                         onChange={(e) => setNameCategory(e.target.value)} />
                     </div>
                     <div className="mt-3">
-                        <label className="text-slate-500">Emoji:</label>
+                        <label className="text-slate-900">Emoji:</label>
                         <input
-                        className="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                        className="outline-none border-2 rounded-md px-2 py-1 text-slate-900 w-full focus:border-blue-500"
                         type="text"
-                        placeholder="emoji"
+                        placeholder="Emoji"
                         value={emojiCategory}
                         onChange={(e) => setEmojiCategory(e.target.value)} />
                     </div>
                      <div className="mt-3">
-                        <label className="text-slate-500">Descrição:</label>
+                        <label className="text-slate-900">Descrição:</label>
                         <textarea
-                        className="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                        className="outline-none border-2 rounded-md px-2 py-1 text-slate-900 w-full focus:border-blue-500"
                         type="text"
-                        placeholder="Terminar o projeto de React"
+                        placeholder="Projeto de 60 dias..."
                         value={descriptionCategory}
                         onChange={(e) => setDescriptionCategory(e.target.value)} />
                     </div>
