@@ -20,6 +20,9 @@ function Tasks({idCategory, loadTasks, tasks}) {
            loadTasks(idCategory)
     }, [idCategory])
 
+    console.log(tasks)
+
+    if(tasks.length > 0){
     return(
         <>
             <ul>
@@ -39,7 +42,11 @@ function Tasks({idCategory, loadTasks, tasks}) {
             ))}
         </ul>
         </>
-    )
+    )}
+    return(
+    <div className="flex justify-center mt-30">
+        <h1 className="text-slate-900 font-semibold text-2xl">Sem tasks por enquanto!</h1>
+    </div>)
 
 
 }

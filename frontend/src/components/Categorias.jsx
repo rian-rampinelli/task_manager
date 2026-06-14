@@ -17,7 +17,7 @@ function Categorias({categorias,createCategory,deleteCategory,loadCategorys,load
         Categorias
     </p>
     
-    <ul className="flex gap-5">
+    <ul className="flex gap-5 flex-wrap">
         {categorias.map(category =>(
             <li  key={category.id}>
              <button type="button" onClick={() => setIdCategory(category.id)}  className="cursor-pointer transition-all bg-blue-600 text-white px-6 py-2 rounded-lg
