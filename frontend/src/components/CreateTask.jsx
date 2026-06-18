@@ -1,6 +1,6 @@
 import { useState } from "react"
 import ModalTask from "./ModalTask.jsx"
-import "./CreateTask.css"
+import "../styles/CreateTask.css"
 
 function CreateTasks({categorys,idCategory,loadTasks}) {
 

@@ -30,13 +30,13 @@ function ModalTask({isOpen,setOpenModal,categorys,idCategory,loadTasks}) {
 
     if (isOpen) {
         return (
-        <div className="fixed inset-0 bg-black/80 z-[1000]">
-            <form className="w-120 rounded-lg shadow h-auto px-6 py-12 bg-white overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" onSubmit={(e) => handleCreateTask(e)}>
-                <h2 class="text-2xl font-medium text-slate-700 text-center">New Task</h2>
+        <div className="fixed inset-0 bg-zinc-950/70 z-[1000]">
+            <form className="w-120 rounded-lg shadow h-auto px-6 py-12 bg-zinc-50 overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" onSubmit={(e) => handleCreateTask(e)}>
+                <h2 class="text-2xl font-medium text-zinc-900 text-center">New Task</h2>
                 <div className="mt-3">
-                    <label className="text-slate-900">Nome da tarefa:</label>
+                    <label className="text-zinc-900">Nome da tarefa:</label>
                     <input
-                    className="outline-none border-2 rounded-md px-2 py-1 text-slate-900 w-full focus:border-blue-500"
+                    className="outline-none border-2 rounded-md px-2 py-1 text-zinc-900 w-full focus:border-teal-600"
                     type="text"
                     placeholder="Estudar"
                     value={name}
@@ -45,8 +45,8 @@ function ModalTask({isOpen,setOpenModal,categorys,idCategory,loadTasks}) {
                 
                 <div className="flex gap-20 justify-around ">
                     <div  className="mt-3">
-                        <label className="text-slate-900" Htmlfor="priority" >Prioridade:</label>
-                        <select id="priority" class="outline-none border-2 rounded-md px-2 py-1 text-slate-900 w-full focus:border-blue-500"
+                        <label className="text-zinc-900" Htmlfor="priority" >Prioridade:</label>
+                        <select id="priority" class="outline-none border-2 rounded-md px-2 py-1 text-zinc-900 w-full focus:border-teal-600"
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}>
                             <option value="LOW">LOW</option>
@@ -55,11 +55,11 @@ function ModalTask({isOpen,setOpenModal,categorys,idCategory,loadTasks}) {
                         </select>
                     </div>
                     <div  className="mt-3">
-                        <label className="text-slate-900"
+                        <label className="text-zinc-900"
                         Htmlfor="category"
                         >Categoria:</label>
                         <select
-                        id="priority" class="outline-none border-2 rounded-md px-2 py-1 text-slate-900 w-full focus:border-blue-500"
+                        id="priority" class="outline-none border-2 rounded-md px-2 py-1 text-zinc-900 w-full focus:border-teal-600"
                         value={idCategoryCreate}
                         onChange={(e) => setIdCategoryCreate(Number(e.target.value))
                         }>
@@ -70,9 +70,9 @@ function ModalTask({isOpen,setOpenModal,categorys,idCategory,loadTasks}) {
                     </div>
                 </div>
                  <div  className="mt-3">
-                    <label className="text-slate-900">Descrição:</label>
+                    <label className="text-zinc-900">Descrição:</label>
                     <input
-                     className="outline-none border-2 rounded-md px-2 py-1 text-slate-900 w-full focus:border-blue-500"
+                     className="outline-none border-2 rounded-md px-2 py-1 text-zinc-900 w-full focus:border-teal-600"
                     type="text"
                     placeholder="Terminar o projeto de React"
                     value={description}
@@ -80,11 +80,11 @@ function ModalTask({isOpen,setOpenModal,categorys,idCategory,loadTasks}) {
                 </div>
                 <div className="mt-12 flex justify-around">
                     <button 
-                    className="bg-blue-600 text-white
-                    px-16 py-2 rounded hover:bg-blue-300" 
+                    className="bg-teal-700 text-white
+                    px-16 py-2 rounded hover:bg-teal-600" 
                     type="submit"
                     >Criar</button>
-                    <button className="bg-slate-900 text-white px-15 py-2 rounded hover:bg-gray-300"
+                    <button className="bg-zinc-900 text-white px-15 py-2 rounded hover:bg-zinc-700"
                     onClick={()=> setOpenModal(false)}
                     >Fechar</button>
                 </div>

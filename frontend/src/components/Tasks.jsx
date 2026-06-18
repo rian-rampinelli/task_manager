@@ -51,7 +51,7 @@ function Tasks({idCategory, loadTasks, tasks}) {
     )}
     return(
     <div className="flex justify-center mt-30">
-        <h1 className="text-slate-900 font-semibold text-2xl">Sem tasks por enquanto!</h1>
+        <h1 className="text-zinc-950 font-semibold text-2xl">Sem tasks por enquanto!</h1>
     </div>)
 
 
