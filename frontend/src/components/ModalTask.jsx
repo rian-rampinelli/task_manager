@@ -1,5 +1,6 @@
 import { createTask } from "../api/tasks"
 import { useState } from "react"
+import { X } from "lucide-react"
 
 function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
 
@@ -26,82 +27,86 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
 
     if (isOpen) {
         return (
-        <div className="fixed inset-0 bg-zinc-950/60 z-[1000]">
+        <div className="fixed inset-0 bg-zinc-950/70 backdrop-blur-sm z-[1000] animate-backdrop-in">
             <form
-                className="w-96 rounded-2xl shadow-xl px-6 py-10 bg-white overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                className="w-[26rem] rounded-2xl shadow-2xl bg-white overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-modal-in"
                 onSubmit={(e) => handleCreateTask(e)}
             >
-                <h2 className="text-2xl font-semibold text-zinc-900 text-center">
-                    Nova Tarefa
-                </h2>
-
-                <div className="mt-4">
-                    <label className="text-zinc-700 text-sm">Nome da tarefa:</label>
-                    <input
-                        className="outline-none border border-zinc-200 rounded-lg px-3 py-2 text-zinc-900 w-full mt-1 focus:border-zinc-400"
-                        type="text"
-                        placeholder="Estudar"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
-
-                <div className="flex gap-4 mt-4">
-                    <div className="w-full">
-                        <label className="text-zinc-700 text-sm">Prioridade:</label>
-                        <select
-                            className="outline-none border border-zinc-200 rounded-lg px-3 py-2 text-zinc-900 w-full mt-1 focus:border-zinc-400"
-                            value={priority}
-                            onChange={(e) => setPriority(e.target.value)}
+                <div className="px-7 py-7">
+                    <div className="flex items-center justify-between text-center mb-6">
+                        <h2 className="text-xl flex-1 ml-10 font-bold text-zinc-900">
+                            Nova tarefa
+                        </h2>
+                        <button
+                            type="button"
+                            onClick={() => setOpenModal(false)}
+                            className="p-1.5 rounded-lg text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 transition-colors duration-150"
                         >
-                            <option value="LOW">LOW</option>
-                            <option value="MEDIUM">MEDIUM</option>
-                            <option value="HIGH">HIGH</option>
-                        </select>
+                            <X size={24} />
+                        </button>
                     </div>
 
-                    <div className="w-full">
-                        <label className="text-zinc-700 text-sm">Categoria:</label>
-                        <select
-                            className="outline-none border border-zinc-200 rounded-lg px-3 py-2 text-zinc-900 w-full mt-1 focus:border-zinc-400"
-                            value={idCategoryCreate}
-                            onChange={(e) => setIdCategoryCreate(Number(e.target.value))}
-                        >
-                            {categorys.map(category => (
-                                <option key={category.id} value={category.id}>
-                                    {category.name}
-                                </option>
-                            ))}
-                        </select>
+                    <div>
+                        <label className="text-sm font-semibold text-zinc-700">Nome da tarefa</label>
+                        <input
+                            className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150"
+                            type="text"
+                            placeholder="Estudar"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
                     </div>
-                </div>
 
-                <div className="mt-4">
-                    <label className="text-zinc-700 text-sm">Descrição:</label>
-                    <input
-                        className="outline-none border border-zinc-200 rounded-lg px-3 py-2 text-zinc-900 w-full mt-1 focus:border-zinc-400"
-                        type="text"
-                        placeholder="Terminar o projeto de React"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </div>
+                    <div className="flex gap-4 mt-4">
+                        <div className="w-full">
+                            <label className="text-sm font-semibold text-zinc-700">Prioridade</label>
+                            <select
+                                className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150 cursor-pointer"
+                                value={priority}
+                                onChange={(e) => setPriority(e.target.value)}
+                            >
+                                <option value="LOW">LOW</option>
+                                <option value="MEDIUM">MEDIUM</option>
+                                <option value="HIGH">HIGH</option>
+                            </select>
+                        </div>
 
-                <div className="mt-8 flex justify-around gap-3">
-                    <button
-                        className="bg-zinc-900 text-white px-12 py-2 rounded-xl hover:bg-zinc-500 transition"
-                        type="submit"
-                    >
-                        Criar
-                    </button>
+                        <div className="w-full">
+                            <label className="text-sm font-semibold text-zinc-700">Categoria</label>
+                            <select
+                                className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150 cursor-pointer"
+                                value={idCategoryCreate}
+                                onChange={(e) => setIdCategoryCreate(Number(e.target.value))}
+                            >
+                                {categorys.map(category => (
+                                    <option key={category.id} value={category.id}>
+                                        {category.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
 
-                    <button
-                        className="bg-zinc-300 text-zinc-900 px-12 py-2 rounded-xl hover:bg-zinc-500 transition"
-                        onClick={() => setOpenModal(false)}
-                        type="button"
-                    >
-                        Fechar
-                    </button>
+                    <div className="mt-4">
+                        <label className="text-sm font-semibold text-zinc-700">Descrição</label>
+                        <input
+                            className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150"
+                            type="text"
+                            placeholder="Terminar o projeto de React"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="mt-8 flex gap-3">
+                        
+                        <button
+                            className="flex-1 bg-indigo-600 text-white px-4 py-2.5 rounded-xl font-semibold hover:bg-indigo-700 active:scale-95 transition-all duration-150"
+                            type="submit"
+                        >
+                            Criar tarefa
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

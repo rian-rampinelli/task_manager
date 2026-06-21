@@ -1,12 +1,15 @@
-function Footer(){
-    const currentYear = new Date().getFullYear()
+function Footer() {
+    
 
-    return(
-        <footer className="mt-12 w-full rounded-t-2xl border border-zinc-800 bg-zinc-900 px-8 py-5 shadow-sm">
-            <div className="flex flex-col gap-2 text-sm font-medium text-zinc-300 md:flex-row md:items-center md:justify-between">
-                <p className="text-zinc-100">Desenvolvido por Rian Rampinelli</p>
-                <p>&copy; {currentYear} Todos os direitos reservados.</p>
-            </div>
+    return (
+        <footer className=" flex justify-center mt-12 w-full rounded-t-2xl border border-zinc-800 bg-zinc-900  px-8 py-6 shadow-sm">
+                <p className="flex items-center gap-1.5 text-zinc-100 font-medium">
+                    Desenvolvido com
+                    por
+                    <span className="text-indigo-400 hover:text-indigo-300 transition-colors duration-150">
+                        Rian Rampinelli
+                    </span>
+                </p>
         </footer>
     )
 }

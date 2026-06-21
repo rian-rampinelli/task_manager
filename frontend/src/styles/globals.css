@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+@theme {
+  --animate-modal-in: modal-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-backdrop-in: backdrop-in 0.15s ease-out;
+}
+
+@keyframes modal-in {
+  0% { opacity: 0; scale: 0.96; }
+  100% { opacity: 1; scale: 1; }
+}
+
+@keyframes backdrop-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 body {
   background: #f7f8fb;
   color: #1f2937;

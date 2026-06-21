@@ -24,7 +24,6 @@ function Home(){
     setTasks(data)
 
     }
-
      
     async function handleCreateCategory(nameCategory,emojiCategory,descriptionCategory,idUser) {
     await createCategory({
@@ -43,7 +42,7 @@ function Home(){
 
     return ( 
     <div id='container' >
-        <div className="flex justify-between items-end mt-16">
+        <div className="flex justify-between items-center  flex-wrap mt-16">
         <Header></Header>
         <CreateTasks
         categorys={categorias}

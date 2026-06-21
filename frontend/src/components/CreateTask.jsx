@@ -16,22 +16,22 @@ function CreateTasks({ categorys, idCategory, loadTasks }) {
             />
 
             <button
-                id="add-task"
                 onClick={() => setOpenModal(!openModal)}
                 className="
                     flex items-center gap-3
-                    px-6 py-3
+                    mt-5
+                    px-4 py-3
                     rounded-xl
-                    bg-zinc-900
+                    bg-indigo-600
                     text-white
                     font-semibold
                     tracking-wide
-                    shadow-md
+                    shadow-md shadow-indigo-600/20
                     transition-all duration-300
-                    hover:bg-zinc-800
-                    hover:shadow-lg
+                    hover:bg-indigo-700
+                    hover:shadow-lg hover:shadow-indigo-600/25
                     hover:-translate-y-0.5
-                    active:translate-y-0
+                    active:translate-y-0 active:scale-95
                 "
             >
                 <svg
@@ -55,7 +55,7 @@ function CreateTasks({ categorys, idCategory, loadTasks }) {
                     />
                 </svg>
 
-                Adicionar Task
+               New Task
             </button>
         </>
     )
