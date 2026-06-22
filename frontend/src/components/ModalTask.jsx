@@ -7,23 +7,36 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [statusLevel, setStatusLevel] = useState("TODO")
-    const [priority, setPriority] = useState("LOW")
+    const [priority, setPriority] = useState("")
     const [idUser, setIdUser] = useState(10)
     const [idCategoryCreate, setIdCategoryCreate] = useState(idCategory)
 
     async function handleCreateTask(e) {
-        e.preventDefault()
-        await createTask({
-            title: name,
-            description: description,
-            statusLevel: statusLevel,
-            priority: priority,
-            idUser: idUser,
-            idCategory: idCategoryCreate
-        })
-        await loadTasks(idCategory)
-        setOpenModal(false)
+        e.preventDefault()   
+    if (!name.trim()) {
+        alert("Informe o nome da tarefa!");
+        return;
     }
+    if (!description.trim()) {
+        alert("Informe a descrição!");
+        return;
+    }
+    if (!priority) {
+        alert("Selecione uma prioridade!");
+        return;
+    }
+    await createTask({
+        title: name,
+        description: description,
+        statusLevel: statusLevel,
+        priority: priority,
+        idUser: idUser,
+        idCategory: idCategoryCreate
+    })
+    await loadTasks(idCategory)
+    setOpenModal(false)
+    }
+
 
     if (isOpen) {
         return (
@@ -65,6 +78,10 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                                 value={priority}
                                 onChange={(e) => setPriority(e.target.value)}
                             >
+
+                                <option value="" disabled>
+                                    ...
+                                </option>
                                 <option value="LOW">LOW</option>
                                 <option value="MEDIUM">MEDIUM</option>
                                 <option value="HIGH">HIGH</option>
@@ -74,7 +91,7 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                         <div className="w-full">
                             <label className="text-sm font-semibold text-zinc-700">Categoria</label>
                             <select
-                                className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150 cursor-pointer"
+                                className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150 cursor-pointer "
                                 value={idCategoryCreate}
                                 onChange={(e) => setIdCategoryCreate(Number(e.target.value))}
                             >
