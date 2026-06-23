@@ -83,7 +83,7 @@ function Tasks({ idCategory, loadTasks, tasks }) {
 
     return (
         <div className="flex flex-col justify-center items-center mt-30">
-            <h1 className="text-zinc-950 font-semibold text-2xl">Sem tasks por enquanto!</h1>
+            <h1 className="text-indigo-700 font-semibold text-2xl">Sem tasks por enquanto!</h1>
             <p className="mt-5 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-700">
                 Adicione uma nova task para começar
             </p>
