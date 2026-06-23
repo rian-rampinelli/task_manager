@@ -8,23 +8,23 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
     const [description, setDescription] = useState("")
     const [statusLevel, setStatusLevel] = useState("TODO")
     const [priority, setPriority] = useState("")
+    const [errors, setErrors] = useState({});
     const [idUser, setIdUser] = useState(10)
-    const [idCategoryCreate, setIdCategoryCreate] = useState(idCategory)
+    const [idCategoryCreate, setIdCategoryCreate] = useState("")
 
     async function handleCreateTask(e) {
         e.preventDefault()   
-    if (!name.trim()) {
-        alert("Informe o nome da tarefa!");
+    const newErrors = {};
+     if (!name.trim()) newErrors.name = "O nome é obrigatório.";
+    if (!description.trim()) newErrors.description = "A descrição é obrigatória.";
+    if (!priority) newErrors.priority = "Escolha uma prioridade.";
+    if (!idCategoryCreate) newErrors.idCategoryCreate = "Escolha uma categoria.";
+
+    if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
         return;
     }
-    if (!description.trim()) {
-        alert("Informe a descrição!");
-        return;
-    }
-    if (!priority) {
-        alert("Selecione uma prioridade!");
-        return;
-    }
+    setErrors({});
     await createTask({
         title: name,
         description: description,
@@ -47,7 +47,7 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
             >
                 <div className="px-7 py-7">
                     <div className="flex items-center justify-between text-center mb-6">
-                        <h2 className="text-xl flex-1 ml-10 font-bold text-zinc-900">
+                        <h2 className="text-xl flex-1 ml-10 font-bold text-indigo-500">
                             Nova tarefa
                         </h2>
                         <button
@@ -55,7 +55,10 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                             onClick={() => setOpenModal(false)}
                             className="p-1.5 rounded-lg text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 transition-colors duration-150"
                         >
-                            <X size={24} />
+                            <X 
+                            size={24} 
+                            className="text-indigo-800"
+                            onClick={()=>{setErrors({})}} />
                         </button>
                     </div>
 
@@ -68,6 +71,7 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
+                       {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                     </div>
 
                     <div className="flex gap-4 mt-4">
@@ -86,6 +90,8 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                                 <option value="MEDIUM">MEDIUM</option>
                                 <option value="HIGH">HIGH</option>
                             </select>
+                             {errors.priority && <p className="text-red-500 text-xs mt-1">{errors.priority}</p>}
+                           
                         </div>
 
                         <div className="w-full">
@@ -95,12 +101,16 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                                 value={idCategoryCreate}
                                 onChange={(e) => setIdCategoryCreate(Number(e.target.value))}
                             >
+                                <option value="" disabled>...</option>
                                 {categorys.map(category => (
+                                    
                                     <option key={category.id} value={category.id}>
                                         {category.name}
                                     </option>
                                 ))}
                             </select>
+                            {errors.idCategoryCreate && <p className="text-red-500 text-xs mt-1">{errors.idCategoryCreate}</p>}
+                           
                         </div>
                     </div>
 
@@ -113,6 +123,7 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
+                         {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
                     </div>
 
                     <div className="mt-8 flex gap-3">

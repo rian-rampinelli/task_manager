@@ -6,6 +6,7 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
     const [nameCategory, setNameCategory] = useState("")
     const [emojiCategory, setEmojiCategory] = useState("emoji")
     const [descriptionCategory, setDescriptionCategory] = useState("")
+    const [error, setError] = useState("");
     const [idUser, setIdUser] = useState(10)
 
     if (OpenModal) {
@@ -15,6 +16,11 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                     className="w-96 rounded-2xl shadow-2xl bg-white overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-modal-in"
                     onSubmit={(e) => {
                         e.preventDefault();
+                        if (!nameCategory.trim()) {
+                                 setError("nome é obrigatório.");
+                                return;
+                            }
+                        setError("");
                         createCategory(nameCategory, emojiCategory, descriptionCategory, idUser);
                         setOpenModal(false);
                     }}
@@ -22,7 +28,7 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                     <div className="px-7 py-7">
                         <div className="flex items-center justify-between mb-6">
                             <h2 className="text-xl flex-1
-                            text-center ml-8 font-bold text-zinc-900">
+                            text-center ml-8 font-bold text-indigo-500">
                                 Nova categoria
                             </h2>
                             <button
@@ -30,7 +36,9 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                                 onClick={() => setOpenModal(false)}
                                 className="p-1.5 rounded-lg text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 transition-colors duration-150"
                             >
-                                <X size={24} />
+                                <X 
+                                size={24} className="text-indigo-500"
+                                onClick={()=> {setError("")}} />
                             </button>
                         </div>
 
@@ -44,6 +52,7 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                                     placeholder="Academia"
                                     value={nameCategory}
                                     onChange={(e) => setNameCategory(e.target.value)} />
+                                    {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
                             </div>
                              <div className="w-20">
                                 <label className="text-sm font-semibold text-zinc-700">Emoji</label>
