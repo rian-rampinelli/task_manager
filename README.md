@@ -1,162 +1,48 @@
-# API REST de Gerenciamento de Tarefas
+# Gerenciamento de Tarefas
 
-O projeto aplica os conceitos de modelagem orientada a objetos, persistencia com PostgreSQL, organizacao em camadas, DTOs de request/response, tratamento global de excecoes, auditoria e documentacao com Swagger. O frontend foi feito 
-com React.js + Vite.
+Aplicação fullstack para gerenciamento de tarefas com suporte a categorias e usuários. Backend em Java com Spring Boot, frontend em React.
+
+**Requisitos:** Java 21, Node 18+, PostgreSQL 14+
 
 ## Tecnologias
 
-- Java 21
-- Spring Boot
-- Spring Data JPA
-- PostgreSQL
-- Maven
-- Vite
-- React
-- Node
+- **Backend:** Java 21, Spring Boot, Hibernate/JPA, Lombok
+- **Banco de dados:** PostgreSQL
+- **Frontend:** React, Vite, Tailwind CSS
 
-## Estrutura Backend
+## Como executar
 
-```text
-src/main/java/com/rian/task_manager/backend
-+-- user      
-+-- task         
-+-- category     
-+-- config       
-+-- exceptions  
-+-- infra       
-```
+### Backend
 
-## Estrutura Frontend
-
-```text
-src/main/java/com/rian/task_manager/frontend
-+-- api
-+-- assets    
-+-- components  
-+-- pages  
-+-- styles   
-```
-
-## Relacionamentos
-
-- Um usuario pode ter varias categorias.
-- Uma categoria pertence a um usuario.
-- Um usuario pode ter varias tarefas.
-- Uma tarefa pertence a um usuario e opcionalmente a uma categoria.
-- Uma categoria pode ter varias tarefas.
-
-## Regras de negocio
-
-- Toda tarefa deve estar associada a um usuario.
-- Nao e permitido criar tarefa sem `userId`.
-- A categoria e opcional para uma tarefa.
-- Toda categoria deve estar associada a um usuario.
-- Nao e permitido criar categoria sem `userId`.
-- Nao e permitido dois usuarios com o mesmo email.
-
-
-## Tratamento de erros
-
-A API possui tratamento global de excecoes em `RestExceptionHandler`.
-
-Formato padrao de erro:
-
-```json
-{
-  "status": 404,
-  "error": "Not Found",
-  "message": "Usuario nao encontrado"
-}
-```
-
-Erros tratados:
-
-- `400 Bad Request`: dados invalidos, JSON malformado ou parametro invalido.
-- `404 Not Found`: recurso inexistente.
-- `409 Conflict`: violacao de integridade no banco, como chave unica ou email duplicado.
-
-
-## Configuracao
-
-Crie um banco PostgreSQL chamado:
-
-```text
-task-manager
-```
-
-Configure a senha do banco em uma variavel de ambiente ou em um arquivo `.env` na raiz da pasta backend:
+Crie um banco com PostgreSQL chamado `task-manager` e configure a senha em um arquivo `.env` na raiz do backend:
 
 ```env
 DB_PASSWORD=sua_senha
 ```
 
-O arquivo `src/main/resources/application.yaml` usa:
-
-```yaml
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/task-manager
-    username: postgres
-    password: ${DB_PASSWORD}
-  jpa:
-    hibernate:
-      ddl-auto: update
-```
-
-## Como executar 
-
-No intellij ou na sua IDE de preferência execute os seguintes passos
-
-```powershell
-git clone
+```bash
+git clone https://github.com/rian-rampinelli/task_manager
 cd backend
-mvnw.cmd spring-boot:run ou mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
-Apos isso, rode o frontend na IDE de sua preferência
+### Frontend
 
-```powershell
-abrir na pasta clonada
+```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-
-
 ## Swagger
-
-Com a aplicacao rodando, acesse:
-
-```text
-http://localhost:8080/swagger-ui/index.html
-```
-
-## Padrao de endpoints
-
-Cada entidade segue o padrao:
-
-| Metodo | Endpoint | Descricao |
-|--------|----------|-----------|
-| GET | `/entidade` | Lista todos os registros |
-| GET | `/entidade/{id}` | Busca por ID |
-| POST | `/entidade` | Cria um registro |
-| PUT | `/entidade/{id}` | Atualiza um registro |
-| DELETE | `/entidade/{id}` | Remove por ID |
+Swagger disponível em `http://localhost:8080/swagger-ui/index.html` com a aplicação rodando.
 
 ## Endpoints
 
-### User
-
-Base URL:
-
-```text
-/user
-```
-
-Exemplo de criacao:
+### User — `/user`
 
 ```json
+POST /user
 {
   "name": "João Silva",
   "email": "joao@email.com",
@@ -164,43 +50,24 @@ Exemplo de criacao:
 }
 ```
 
-
-
-### Category
-
-Base URL:
-
-```text
-/category
-```
-
-Exemplo de criacao:
+### Category — `/category`
 
 ```json
+POST /category
 {
   "name": "Trabalho",
-  "emoji": "💼",
   "description": "Tarefas relacionadas ao trabalho",
   "userId": 1
 }
 ```
 
-
-
-### Task
-
-Base URL:
-
-```text
-/task
-```
-
-Exemplo de criacao:
+### Task — `/task`
 
 ```json
+POST /task
 {
   "title": "Revisar relatorio",
-  "description": "Revisar o relatorio mensal e enviar para o gerente",
+  "description": "Revisar o relatorio mensal",
   "priority": "HIGH",
   "statusLevel": "TODO",
   "userId": 1,
@@ -208,35 +75,43 @@ Exemplo de criacao:
 }
 ```
 
+`priority`: `LOW` `MEDIUM` `HIGH`  
+`statusLevel`: `TODO` `DONE`
 
+Todos os endpoints seguem o padrão REST: `GET /entidade`, `GET /entidade/{id}`, `POST /entidade`, `PUT /entidade/{id}`, `DELETE /entidade/{id}`.
 
-Valores de `priority`:
+## Regras de negócio
 
-```text
-LOW, MEDIUM, HIGH
+- Toda tarefa e categoria precisam de `userId`.
+- `categoryId` é opcional na tarefa.
+- Email de usuário é único.
+
+## Tratamento de erros
+
+Exceções tratadas globalmente em `RestExceptionHandler`:
+
+| Status | Situação |
+|--------|----------|
+| 400 | Dados inválidos ou JSON malformado |
+| 404 | Recurso não encontrado |
+| 409 | Email duplicado ou violação de chave única |
+
+## Estrutura
+
 ```
+backend/src/main/java/com/rian/task_manager/
+├── user
+├── task
+├── category
+├── config
+├── exceptions
+└── infra
 
-Valores de `statusLevel`:
-
-```text
-TODO, DONE
+frontend/src/
+├── api
+├── assets
+├── components
+├── pages
+├── styles
+└── contexts
 ```
-
-## Testes manuais
-
-Sugestao de ordem para testar no Postman, Insomnia ou Swagger:
-
-1. Criar um usuario.
-2. Criar uma categoria associada ao usuario.
-3. Criar uma tarefa associada ao usuario e categoria.
-4. Listar todos os usuarios.
-5. Listar todas as categorias.
-6. Listar todas as tarefas.
-
-
-## Observacoes
-
-- O projeto usa `ddl-auto=update`, entao o Hibernate atualiza as tabelas automaticamente conforme as entidades.
-- O campo `createdAt` e `updatedAt` sao preenchidos automaticamente pelo Spring Data JPA Auditing.
-- Para rodar testes e build, o `JAVA_HOME` precisa apontar para um JDK valido.
-

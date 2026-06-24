@@ -1,4 +1,4 @@
-export async function getTaskByUser(id) {
+export async function getTasksByUser(id) {
     
     const response =
         await fetch(`http://localhost:8080/user/${id}/tasks`)

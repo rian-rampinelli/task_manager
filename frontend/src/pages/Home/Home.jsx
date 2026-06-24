@@ -3,7 +3,7 @@ import Header from '../../components/Header.jsx'
 import CreateTasks from '../../components/CreateTask.jsx'
 import { useState} from 'react'
 import {getCategorys,createCategory,deleteCategory} from "../../api/category.js"
-import {getTaskByCategory} from "../../api/category.js"
+import {getTasksByCategory} from "../../api/category.js"
 import "./Home.css"
 import Footer from '../../components/Footer.jsx'
 
@@ -20,7 +20,7 @@ function Home(){
     }
 
     async function loadTasks(idCategory){
-    const data = await getTaskByCategory(idCategory)
+    const data = await getTasksByCategory(idCategory)
     setTasks(data)
 
     }

@@ -6,7 +6,7 @@ export async function getCategorys() {
     return response.json()
 }
 
-export async function getTaskByCategory(id) {
+export async function getTasksByCategory(id) {
 
     const response =
         await fetch(`http://localhost:8080/categorys/${id}/tasks`)
