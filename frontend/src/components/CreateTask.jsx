@@ -23,8 +23,8 @@ function CreateTasks({ categorys, idCategory, loadTasks }) {
                     mt-5
                     px-4 py-3
                     rounded-xl
-                    bg-indigo-600
-                    text-white
+                    bg-indigo-500
+                    text-zinc-200
                     font-semibold
                     tracking-wide
                     shadow-md shadow-indigo-600/20

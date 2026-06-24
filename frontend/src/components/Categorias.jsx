@@ -41,7 +41,7 @@ function Categorias({
 
     return (
         <>          
-            <p className=" mt-10 mb-5 text-sm font-semibold uppercase tracking-[0.3em] text-zinc-500">
+            <p className=" mt-10 mb-5 text-sm font-semibold uppercase tracking-[0.3em] text-zinc-300">
                 Categorias
             </p>
             <ul className="flex flex-wrap items-center justify-between gap-4">
@@ -58,6 +58,7 @@ function Categorias({
                                 shadow-sm
                                 transition-all
                                 duration-200
+                                text-zinc-200
                                 hover:-translate-y-0.5
                             `}
                         >
