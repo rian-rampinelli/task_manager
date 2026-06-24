@@ -3,6 +3,7 @@ package com.rian.task_manager.category;
 import com.rian.task_manager.category.dto.CategoryRequest;
 import com.rian.task_manager.category.dto.CategoryResponse;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
+import com.rian.task_manager.infra.RestErrorMessage;
 import com.rian.task_manager.task.Task;
 import com.rian.task_manager.task.TaskRepository;
 import com.rian.task_manager.task.dto.TaskResponse;
@@ -10,7 +11,10 @@ import com.rian.task_manager.user.User;
 import com.rian.task_manager.user.UserRepository;
 import com.rian.task_manager.user.dto.UserRequest;
 import com.rian.task_manager.user.dto.UserResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
@@ -28,9 +32,8 @@ public class CategoryService {
     }
 
     public CategoryResponse findById(Long id){
-         Category category = categoryRepository.findById(id)
-                .orElseThrow(() ->new ResourceNotFoundException("category não encontrado"));
-         return CategoryResponse.fromEntity(category);
+        Category category = handleBuscarCategoria(id);
+        return CategoryResponse.fromEntity(category);
     }
 
     public List<CategoryResponse> findAll(){
@@ -39,8 +42,7 @@ public class CategoryService {
     }
 
     public List<TaskResponse> findAllTasksByCategory(Long id){
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() ->new ResourceNotFoundException("category não encontrado"));
+        Category category = handleBuscarCategoria(id);
 
         List<TaskResponse> tasks = category.getTasks().stream()
                 .map(task ->TaskResponse.fromEntity(task)).
@@ -60,16 +62,26 @@ public class CategoryService {
 
 
     public void deleteById(Long id){
+        Category category = handleBuscarCategoria(id);
+        if(category.getName().equals("Todas")){
+            throw new IllegalArgumentException("Essa categoria não pode ser excluída.");
+        }
         categoryRepository.deleteById(id);
     }
 
     public CategoryResponse atualizar(Long id, CategoryRequest categoryRequest) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
+        Category category = handleBuscarCategoria(id);
         category.setName(categoryRequest.name());
         category.setEmoji(categoryRequest.emoji());
         category.setDescription(categoryRequest.description());
         categoryRepository.save(category);
         return CategoryResponse.fromEntity(category);
+    }
+
+
+    public Category handleBuscarCategoria(Long id){
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
+        return category;
     }
 }

@@ -115,7 +115,6 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                             >
                                 <option value="" disabled>...</option>
                                 {categorys.map(category => (
-                                    
                                     <option key={category.id} value={category.id}>
                                         {category.name}
                                     </option>
