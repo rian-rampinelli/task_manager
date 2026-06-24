@@ -12,10 +12,19 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
     const [idUser, setIdUser] = useState(10)
     const [idCategoryCreate, setIdCategoryCreate] = useState("")
 
+
+    function handleStatesNull(){
+        setName(""),
+        setDescription(""),
+        setPriority(""),
+        setIdCategoryCreate("")
+    }
+
     async function handleCreateTask(e) {
         e.preventDefault()   
-    const newErrors = {};
-     if (!name.trim()) newErrors.name = "O nome é obrigatório.";
+    
+        const newErrors = {};
+    if (!name.trim()) newErrors.name = "O nome é obrigatório.";
     if (!description.trim()) newErrors.description = "A descrição é obrigatória.";
     if (!priority) newErrors.priority = "Escolha uma prioridade.";
     if (!idCategoryCreate) newErrors.idCategoryCreate = "Escolha uma categoria.";
@@ -35,6 +44,8 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
     })
     await loadTasks(idCategory)
     setOpenModal(false)
+    handleStatesNull()
+   
     }
 
 
@@ -58,7 +69,8 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                             <X 
                             size={24} 
                             className="text-indigo-800"
-                            onClick={()=>{setErrors({})}} />
+                            onClick={()=>{setErrors({}), handleStatesNull()}}
+                             />
                         </button>
                     </div>
 

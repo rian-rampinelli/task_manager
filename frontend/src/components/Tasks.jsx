@@ -66,11 +66,14 @@ function Tasks({ idCategory, loadTasks, tasks }) {
                             <div className="flex flex-col items-center  gap-1">
                                 <button
                                     onClick={() => handleDeleteTask(task.id)}
+                                    title="Delete task"
                                     className="p-2 rounded-lg text-zinc-400 hover:text-red-500 hover:bg-red-50 transition"
                                 >
                                     <Trash2 size={20} />
                                 </button>
-                                <button className="p-2 rounded-lg text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition">
+                                <button 
+                                className="p-2 rounded-lg text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition"
+                                title="Editar task">
                                     <Pencil size={20} />
                                 </button>
                             </div>

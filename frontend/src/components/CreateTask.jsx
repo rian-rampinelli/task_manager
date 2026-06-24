@@ -17,6 +17,7 @@ function CreateTasks({ categorys, idCategory, loadTasks }) {
 
             <button
                 onClick={() => setOpenModal(!openModal)}
+                title="Add new task"
                 className="
                     flex items-center gap-3
                     mt-5
@@ -32,6 +33,7 @@ function CreateTasks({ categorys, idCategory, loadTasks }) {
                     hover:shadow-lg hover:shadow-indigo-600/25
                     hover:-translate-y-0.5
                     active:translate-y-0 active:scale-95
+                    
                 "
             >
                 <svg

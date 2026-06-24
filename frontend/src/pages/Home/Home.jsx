@@ -38,6 +38,7 @@ function Home(){
     async function handleDeleteCategory(id) {
         await deleteCategory(id)
         await loadCategorys()
+        await loadTasks(id)
     }
 
     return ( 

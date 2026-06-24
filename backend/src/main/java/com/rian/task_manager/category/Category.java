@@ -35,7 +35,7 @@ public class Category extends Auditable {
     @JoinColumn(name = "id_user")
     private User user;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList<>();
 
     public void addTask(Task task){

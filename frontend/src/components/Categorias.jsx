@@ -30,35 +30,27 @@ function Categorias({
         return () => document.removeEventListener("click", handleClick)
     }, [])
 
-    function handleRightClick(e, categoryId) {
+    function handleRightClick(e, categoryId,categoryName) {
         e.preventDefault()
+        
+        if (categoryName === "Todas") return;
         setMenu({ visible: true, x: e.clientX, y: e.clientY, categoryId })
     }
 
-    function editAllCategorys(){
-        
-    }
+   
 
     return (
-        <>
-            <div className="flex gap-4 mt-10 mb-5">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zinc-700">
-                    Categorias
-                </p>
-                <button  
-                    className="text-sm font-semibold uppercase tracking-[0.2em] text-zinc-700" 
-                >
-                    Oi
-                </button>
-            </div>
-
+        <>          
+            <p className=" mt-10 mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-700">
+                Categorias
+            </p>
             <ul className="flex flex-wrap items-center justify-between gap-4">
                 {categorias.map((category) => (
                     <li key={category.id}>
                         <button
                             type="button"
                             onClick={() => setIdCategory(category.id)}
-                            onContextMenu={(e) => handleRightClick(e, category.id)}
+                            onContextMenu={(e) => handleRightClick(e, category.id,category.name)}
                             className={`
                                 px-5 py-2.5
                                 rounded-xl
@@ -98,6 +90,7 @@ function Categorias({
                       
                          <button
                             onClick={() => deleteCategory(menu.categoryId)}
+                            disabled={menu.categoryName === "Todas"}
                             className="p-3 rounded-xl text-zinc-400 hover:text-red-500 hover:bg-red-50 transition"
                         >
                             <Trash2 size={20} className="text-red-500 " />

@@ -18,6 +18,7 @@ public class TaskManagerApplication {
         dotenv.entries().forEach(entry ->
                 System.setProperty(entry.getKey(), entry.getValue())
         );
+
         SpringApplication.run(TaskManagerApplication.class, args);
     }
 }
