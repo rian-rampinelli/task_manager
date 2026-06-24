@@ -3,6 +3,7 @@ package com.rian.task_manager.category;
 import com.rian.task_manager.category.dto.CategoryRequest;
 import com.rian.task_manager.category.dto.CategoryResponse;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
+import com.rian.task_manager.exceptions.ValidationException;
 import com.rian.task_manager.infra.RestErrorMessage;
 import com.rian.task_manager.task.Task;
 import com.rian.task_manager.task.TaskRepository;
@@ -64,7 +65,7 @@ public class CategoryService {
     public void deleteById(Long id){
         Category category = handleBuscarCategoria(id);
         if(category.getName().equals("Todas")){
-            throw new IllegalArgumentException("Essa categoria não pode ser excluída.");
+            throw new ValidationException("Não é possivel excluir!");
         }
         categoryRepository.deleteById(id);
     }
