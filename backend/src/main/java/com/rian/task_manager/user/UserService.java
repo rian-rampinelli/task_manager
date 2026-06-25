@@ -2,6 +2,7 @@ package com.rian.task_manager.user;
 
 
 import com.rian.task_manager.exceptions.EmailAlredyExistsException;
+import com.rian.task_manager.task.Task;
 import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.dto.UserRequest;
 import com.rian.task_manager.user.dto.UserResponse;
@@ -25,8 +26,7 @@ public class UserService {
     }
 
     public UserResponse findById(Long id){
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User não encontrado"));
+        User user = handleBuscarUser(id);
         return UserResponse.fromEntity(user);
     }
 
@@ -36,9 +36,7 @@ public class UserService {
     }
 
     public List<TaskResponse> findAllTasksByUser(Long id){
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User não encontrado"));
-
+        User user = handleBuscarUser(id);
         return user.getTasks().stream()
                 .map(task -> TaskResponse.fromEntity(task))
                 .toList();
@@ -60,13 +58,18 @@ public class UserService {
 
 
     public UserResponse atualizar(Long id,UserRequest usuarioRequest) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User não encontrado"));
+        User user = handleBuscarUser(id);
         user.setName(usuarioRequest.name());
         user.setEmail(usuarioRequest.email());
         user.setPassWord(usuarioRequest.passWord());
         userRepository.save(user);
         return UserResponse.fromEntity(user);
+    }
+
+    public User handleBuscarUser(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("user não encontrada!"));
+        return user;
     }
 
 }

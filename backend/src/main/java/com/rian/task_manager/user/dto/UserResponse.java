@@ -11,8 +11,7 @@ public record UserResponse(
         String email,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
-/*        List<Long> idTask,
-        List<Long> idCategory*/
+
 
 ) {
     public static UserResponse fromEntity(User user){
@@ -22,8 +21,6 @@ public record UserResponse(
                 user.getEmail(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()
-               /* user.getTasks().stream().map(task -> task.getId()).toList(),
-                user.getCategorys().stream().map(category -> category.getId()).toList()*/
         );
     }
 

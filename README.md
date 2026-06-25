@@ -78,13 +78,19 @@ POST /task
 `priority`: `LOW` `MEDIUM` `HIGH`  
 `statusLevel`: `TODO` `DONE`
 
-Todos os endpoints seguem o padrão REST: `GET /entidade`, `GET /entidade/{id}`, `POST /entidade`, `PUT /entidade/{id}`, `DELETE /entidade/{id}`.
+Todos os endpoints seguem o padrão REST: 
+- `GET /entidade`
+- `GET /entidade/{id}`
+- `POST /entidade`
+- `PUT /entidade/{id}`
+- `DELETE /entidade/{id}`
 
 ## Regras de negócio
 
 - Toda tarefa e categoria precisam de `userId`.
 - `categoryId` é opcional na tarefa.
 - Email de usuário é único.
+- Não é possivel excluir a categoria `Todas`.
 
 ## Tratamento de erros
 

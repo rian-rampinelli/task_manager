@@ -4,18 +4,12 @@ import com.rian.task_manager.category.dto.CategoryRequest;
 import com.rian.task_manager.category.dto.CategoryResponse;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
 import com.rian.task_manager.exceptions.ValidationException;
-import com.rian.task_manager.infra.RestErrorMessage;
-import com.rian.task_manager.task.Task;
 import com.rian.task_manager.task.TaskRepository;
 import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.User;
 import com.rian.task_manager.user.UserRepository;
-import com.rian.task_manager.user.dto.UserRequest;
-import com.rian.task_manager.user.dto.UserResponse;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 import java.util.List;
 

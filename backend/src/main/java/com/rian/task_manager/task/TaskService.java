@@ -28,8 +28,7 @@ public class TaskService {
     }
 
     public TaskResponse findById(Long id){
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task não encontrado"));
+        Task task = handleBuscarTask(id);
         return TaskResponse.fromEntity(task);
     }
 
@@ -46,16 +45,10 @@ public class TaskService {
         task.setUser(user);
 
         if (taskRequest.idCategory() != null){
-            Category category = categoryRepository.findById(taskRequest.idCategory())
-                    .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
+            Category category = handleBuscarCategoria(taskRequest.idCategory());
             task.setCategory(category);
-            if (!user.getId().equals(category.getUser().getId())){
-                throw new ResourceNotFoundException("id do user diferente!");
-            }
+            verificaCategoriaPertenceAoUser(user,category);
         }
-
-
-
         taskRepository.save(task);
         return TaskResponse.fromEntity(task);
     }
@@ -67,15 +60,9 @@ public class TaskService {
 
     public TaskResponse atualizar(Long id, TaskRequest taskRequest) {
 
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task não encontrado"));
-
-        Category category = categoryRepository.findById(taskRequest.idCategory())
-                .orElseThrow(() -> new ResourceNotFoundException("categoria não encontrado"));
-        if (!task.getUser().getId().equals(category.getUser().getId())){
-            throw new ResourceNotFoundException("id do user diferente!");
-        }
-
+        Task task = handleBuscarTask(id);
+        Category category = handleBuscarCategoria(taskRequest.idCategory());
+        verificaCategoriaPertenceAoUser(task.getUser(),category);
 
         task.setTitle(taskRequest.title());
         task.setDescription(taskRequest.description());
@@ -83,13 +70,13 @@ public class TaskService {
         task.setStatusLevel(taskRequest.statusLevel());
         task.setCategory(category);
         taskRepository.save(task);
+
         return TaskResponse.fromEntity(task);
 
     }
 
     public TaskResponse atualizaStatus(Long id, String statusLevel){
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task não encontrado"));
+        Task task = handleBuscarTask(id);
         try {
             task.setStatusLevel(StatusLevel.valueOf(statusLevel.toUpperCase()));
         }catch (IllegalArgumentException Exception){
@@ -98,5 +85,24 @@ public class TaskService {
         taskRepository.save(task);
 
         return TaskResponse.fromEntity(task);
+
+    }
+
+    public Task handleBuscarTask(Long id){
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("task não encontrada!"));
+        return task;
+    }
+
+    public Category handleBuscarCategoria(Long id){
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
+        return category;
+    }
+
+    public void verificaCategoriaPertenceAoUser(User user,Category category){
+        if (!user.getId().equals(category.getUser().getId())){
+            throw new ResourceNotFoundException("id do user diferente!");
+        }
     }
 }
