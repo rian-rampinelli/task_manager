@@ -2,6 +2,7 @@ package com.rian.task_manager.category;
 
 import com.rian.task_manager.category.dto.CategoryRequest;
 import com.rian.task_manager.category.dto.CategoryResponse;
+import com.rian.task_manager.exceptions.EmailAlredyExistsException;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
 import com.rian.task_manager.exceptions.ValidationException;
 import com.rian.task_manager.task.TaskRepository;
@@ -49,6 +50,11 @@ public class CategoryService {
             User user = userRepository.findById(categoryRequest.idUser())
                     .orElseThrow(() ->new ResourceNotFoundException("user não encontrado"));
 
+
+            if(categoryRepository.existsByName(categoryRequest.name())){
+                throw new ValidationException("Ja existe categoria com esse nome!");
+            }
+
             Category category = categoryRequest.toEntity();
             category.setUser(user);
             categoryRepository.save(category);
@@ -59,7 +65,9 @@ public class CategoryService {
     public void deleteById(Long id){
         Category category = handleBuscarCategoria(id);
         if(category.getName().equals("Todas")){
-            throw new ValidationException("Não é possivel excluir!");
+            if(category.getName().equals("Todas")){
+                throw new ValidationException("Não é possivel excluir!");
+            }
         }
         categoryRepository.deleteById(id);
     }

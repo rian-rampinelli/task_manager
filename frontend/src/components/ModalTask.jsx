@@ -25,6 +25,7 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
     
     const newErrors = {};
     if (!name.trim()) newErrors.name = "O nome é obrigatório.";
+    if (!name.trim()) newErrors.name = "O nome é obrigatório.";
     if (!description.trim()) newErrors.description = "A descrição é obrigatória.";
     if (!priority) newErrors.priority = "Escolha uma prioridade.";
     if (!idCategoryCreate) newErrors.idCategoryCreate = "Escolha uma categoria.";
@@ -106,24 +107,10 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                            
                         </div>
 
-                        <div className="w-full">
-                            <label className="text-sm font-semibold text-indigo-500">Categoria</label>
-                            <select
-                                className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-indigo-200 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150 cursor-pointer "
-                                value={idCategoryCreate}
-                                onChange={(e) => setIdCategoryCreate(Number(e.target.value))}
-                            >
-                                <option value="" disabled>...</option>
-                                {categorys.map(category => (
-                                    <option key={category.id} value={category.id}>
-                                        {category.name}
-                                    </option>
-                                ))}
-                            </select>
-                            {errors.idCategoryCreate && <p className="text-red-500 text-xs mt-1">{errors.idCategoryCreate}</p>}
-                           
-                        </div>
+                
                     </div>
+
+                   
 
                     <div className="mt-4">
                         <label className="text-sm font-semibold text-indigo-500">Descrição</label>
@@ -137,7 +124,32 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                          {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
                     </div>
 
-                    <div className="mt-8 flex gap-3">
+                     <ul className="flex flex-wrap items-center  gap-4 mt-6">
+                        {categorys.map((category) => (
+                            <li key={category.id}>
+                                <button
+                                    value={idCategoryCreate}
+                                    onClick={() => setIdCategoryCreate(category.id)}
+                                    type="button"
+                                    className={`
+                                        px-5 py-2.5
+                                        rounded-xl
+                                        font-medium
+                                        shadow-sm
+                                        border
+                                        transition-all
+                                        duration-200
+                                        text-zinc-200
+                                        hover:-translate-y-0.5
+                                    `}
+                                >
+                                    {category.name}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <div className="mt-6 flex gap-3">
                         
                         <button
                             className="flex-1 bg-indigo-600 text-white px-4 py-2.5 rounded-xl font-semibold hover:bg-indigo-700 active:scale-95 transition-all duration-150"
