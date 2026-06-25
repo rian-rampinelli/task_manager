@@ -4,24 +4,31 @@ import { X } from "lucide-react";
 function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
 
     const [nameCategory, setNameCategory] = useState("")
-    const [emojiCategory, setEmojiCategory] = useState("emoji")
+    const [emojiCategory, setEmojiCategory] = useState("")
     const [descriptionCategory, setDescriptionCategory] = useState("")
     const [error, setError] = useState("");
     const [idUser, setIdUser] = useState(10)
+
+    function handleStatesNull(){
+        setNameCategory(""),
+        setEmojiCategory(""),
+        setDescriptionCategory("")
+    }
 
     if (OpenModal) {
         return (
             <div className="fixed inset-0 bg-zinc-950/70 backdrop-blur-sm z-[1000] animate-backdrop-in">
                 <form
-                    className="w-96 rounded-2xl shadow-2xl bg-white overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-modal-in"
+                    className="w-96 rounded-2xl shadow-2xl bg-zinc-900 overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-modal-in"
                     onSubmit={(e) => {
                         e.preventDefault();
                         if (!nameCategory.trim()) {
-                                 setError("nome é obrigatório.");
+                                setError("nome é obrigatório.");
                                 return;
                             }
                         setError("");
                         createCategory(nameCategory, emojiCategory, descriptionCategory, idUser);
+                        handleStatesNull();
                         setOpenModal(false);
                     }}
                     >
@@ -34,7 +41,7 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                             <button
                                 type="button"
                                 onClick={() => setOpenModal(false)}
-                                className="p-1.5 rounded-lg text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 transition-colors duration-150"
+                                className="p-1.5 rounded-lg text-zinc-700 hover:text-zinc-900 hover:bg-indigo-200 transition-colors duration-150"
                             >
                                 <X 
                                 size={24} className="text-indigo-500"
@@ -45,9 +52,9 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                         <div className="flex gap-4">
                            
                             <div className="flex-1">
-                                <label className="text-sm font-semibold text-zinc-700">Nome</label>
+                                <label className="text-sm font-semibold text-indigo-500">Nome</label>
                                 <input
-                                    className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150"
+                                    className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-indigo-200 placeholder-zinc-400 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150"
                                     type="text"
                                     placeholder="Academia"
                                     value={nameCategory}
@@ -55,9 +62,9 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                                     {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
                             </div>
                              <div className="w-20">
-                                <label className="text-sm font-semibold text-zinc-700">Emoji</label>
+                                <label className="text-sm font-semibold text-indigo-500">Emoji</label>
                                 <input
-                                    className="outline-none border border-zinc-300 rounded-lg px-3 py-1 text-lg text-center text-zinc-900 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150"
+                                    className="outline-none border border-zinc-300 rounded-lg px-3 py-1 text-lg text-center text-indigo-200  w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150"
                                     type="text"
                                     placeholder="🔥"
                                     value={emojiCategory}
@@ -66,9 +73,9 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                         </div>
 
                         <div className="mt-4">
-                            <label className="text-sm font-semibold text-zinc-700">Descrição</label>
+                            <label className="text-sm font-semibold text-indigo-500">Descrição</label>
                             <textarea
-                                className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 w-full mt-1.5 min-h-20 resize-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150"
+                                className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-indigo-200  placeholder-zinc-400 w-full mt-1.5 min-h-20 resize-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150"
                                 placeholder="Projeto de 60 dias..."
                                 value={descriptionCategory}
                                 onChange={(e) => setDescriptionCategory(e.target.value)} />

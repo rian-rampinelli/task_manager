@@ -92,7 +92,7 @@ function Categorias({
                          <button
                             onClick={() => deleteCategory(menu.categoryId)}
                             disabled={menu.categoryName === "Todas"}
-                            className="p-3 rounded-xl text-zinc-400 hover:text-red-500 hover:bg-red-50 transition"
+                            className="p-3 rounded-xl text-zinc-400 hover:text-red-500 hover:bg-red-200 transition"
                         >
                             <Trash2 size={20} className="text-red-500 " />
                         </button>
