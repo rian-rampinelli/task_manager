@@ -2,10 +2,8 @@ package com.rian.task_manager.category;
 
 import com.rian.task_manager.category.dto.CategoryRequest;
 import com.rian.task_manager.category.dto.CategoryResponse;
-import com.rian.task_manager.exceptions.EmailAlredyExistsException;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
 import com.rian.task_manager.exceptions.ValidationException;
-import com.rian.task_manager.task.TaskRepository;
 import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.User;
 import com.rian.task_manager.user.UserRepository;
@@ -19,16 +17,14 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
-    private final TaskRepository taskRepository;
 
-    public CategoryService(CategoryRepository categoryRepository, UserRepository userRepository, TaskRepository taskRepository) {
+    public CategoryService(CategoryRepository categoryRepository, UserRepository userRepository) {
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
-        this.taskRepository = taskRepository;
     }
 
     public CategoryResponse findById(Long id){
-        Category category = handleBuscarCategoria(id);
+        Category category = findCategoriaById(id);
         return CategoryResponse.fromEntity(category);
     }
 
@@ -38,8 +34,7 @@ public class CategoryService {
     }
 
     public List<TaskResponse> findAllTasksByCategory(Long id){
-        Category category = handleBuscarCategoria(id);
-
+        Category category = findCategoriaById(id);
         List<TaskResponse> tasks = category.getTasks().stream()
                 .map(task ->TaskResponse.fromEntity(task)).
                 toList();
@@ -49,7 +44,6 @@ public class CategoryService {
     public CategoryResponse createCategory(CategoryRequest categoryRequest){
             User user = userRepository.findById(categoryRequest.idUser())
                     .orElseThrow(() ->new ResourceNotFoundException("user não encontrado"));
-
 
             if(categoryRepository.existsByName(categoryRequest.name())){
                 throw new ValidationException("Ja existe categoria com esse nome!");
@@ -63,17 +57,15 @@ public class CategoryService {
 
 
     public void deleteById(Long id){
-        Category category = handleBuscarCategoria(id);
+        Category category = findCategoriaById(id);
         if(category.getName().equals("Todas")){
-            if(category.getName().equals("Todas")){
-                throw new ValidationException("Não é possivel excluir!");
-            }
+            throw new ValidationException("Não é possivel excluir!");
         }
         categoryRepository.deleteById(id);
     }
 
     public CategoryResponse atualizar(Long id, CategoryRequest categoryRequest) {
-        Category category = handleBuscarCategoria(id);
+        Category category = findCategoriaById(id);
         category.setName(categoryRequest.name());
         category.setEmoji(categoryRequest.emoji());
         category.setDescription(categoryRequest.description());
@@ -82,9 +74,9 @@ public class CategoryService {
     }
 
 
-    public Category handleBuscarCategoria(Long id){
-        Category category = categoryRepository.findById(id)
+    public Category findCategoriaById(Long id){
+        return categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
-        return category;
+
     }
 }

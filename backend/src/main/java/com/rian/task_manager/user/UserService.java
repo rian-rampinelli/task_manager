@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public UserResponse findById(Long id){
-        User user = handleBuscarUser(id);
+        User user = findUserById(id);
         return UserResponse.fromEntity(user);
     }
 
@@ -36,7 +36,7 @@ public class UserService {
     }
 
     public List<TaskResponse> findAllTasksByUser(Long id){
-        User user = handleBuscarUser(id);
+        User user = findUserById(id);
         return user.getTasks().stream()
                 .map(task -> TaskResponse.fromEntity(task))
                 .toList();
@@ -58,7 +58,7 @@ public class UserService {
 
 
     public UserResponse atualizar(Long id,UserRequest usuarioRequest) {
-        User user = handleBuscarUser(id);
+        User user = findUserById(id);
         user.setName(usuarioRequest.name());
         user.setEmail(usuarioRequest.email());
         user.setPassWord(usuarioRequest.passWord());
@@ -66,7 +66,7 @@ public class UserService {
         return UserResponse.fromEntity(user);
     }
 
-    public User handleBuscarUser(Long id){
+    public User findUserById(Long id){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("user não encontrada!"));
         return user;

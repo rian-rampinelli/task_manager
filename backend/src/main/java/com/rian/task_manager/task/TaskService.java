@@ -28,7 +28,7 @@ public class TaskService {
     }
 
     public TaskResponse findById(Long id){
-        Task task = handleBuscarTask(id);
+        Task task = findTaskById(id);
         return TaskResponse.fromEntity(task);
     }
 
@@ -45,7 +45,7 @@ public class TaskService {
         task.setUser(user);
 
         if (taskRequest.idCategory() != null){
-            Category category = handleBuscarCategoria(taskRequest.idCategory());
+            Category category = findCategoriaById(taskRequest.idCategory());
             task.setCategory(category);
             verificaCategoriaPertenceAoUser(user,category);
         }
@@ -60,8 +60,8 @@ public class TaskService {
 
     public TaskResponse atualizar(Long id, TaskRequest taskRequest) {
 
-        Task task = handleBuscarTask(id);
-        Category category = handleBuscarCategoria(taskRequest.idCategory());
+        Task task = findTaskById(id);
+        Category category = findCategoriaById(taskRequest.idCategory());
         verificaCategoriaPertenceAoUser(task.getUser(),category);
 
         task.setTitle(taskRequest.title());
@@ -76,7 +76,7 @@ public class TaskService {
     }
 
     public TaskResponse atualizaStatus(Long id, String statusLevel){
-        Task task = handleBuscarTask(id);
+        Task task = findTaskById(id);
         try {
             task.setStatusLevel(StatusLevel.valueOf(statusLevel.toUpperCase()));
         }catch (IllegalArgumentException Exception){
@@ -88,13 +88,13 @@ public class TaskService {
 
     }
 
-    public Task handleBuscarTask(Long id){
+    public Task findTaskById(Long id){
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("task não encontrada!"));
         return task;
     }
 
-    public Category handleBuscarCategoria(Long id){
+    public Category findCategoriaById(Long id){
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
         return category;
