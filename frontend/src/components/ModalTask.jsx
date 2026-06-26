@@ -1,5 +1,6 @@
 import { createTask } from "../api/tasks"
-import { useState } from "react"
+import { useState,useContext } from "react"
+import { LoginContext } from "../contexts/LoginContext"
 import { X } from "lucide-react"
 
 function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
@@ -9,8 +10,9 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
     const [statusLevel, setStatusLevel] = useState("TODO")
     const [priority, setPriority] = useState("")
     const [errors, setErrors] = useState({});
-    const [idUser, setIdUser] = useState(10)
     const [idCategoryCreate, setIdCategoryCreate] = useState("")
+
+    const {userId} = useContext(LoginContext);
 
 
     function handleStatesNull(){
@@ -40,7 +42,7 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
         description: description,
         statusLevel: statusLevel,
         priority: priority,
-        idUser: idUser,
+        idUser: userId,
         idCategory: idCategoryCreate
     })
     await loadTasks(idCategory)

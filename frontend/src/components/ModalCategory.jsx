@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
+import { LoginContext } from "../contexts/LoginContext";
 import { X } from "lucide-react";
+
 
 function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
 
@@ -7,7 +9,8 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
     const [emojiCategory, setEmojiCategory] = useState("")
     const [descriptionCategory, setDescriptionCategory] = useState("")
     const [error, setError] = useState("");
-    const [idUser, setIdUser] = useState(10)
+    
+    const {userId} = useContext(LoginContext)
 
     function handleStatesNull(){
         setNameCategory(""),
@@ -27,7 +30,7 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                                 return;
                             }
                         setError("");
-                        createCategory(nameCategory, emojiCategory, descriptionCategory, idUser);
+                        createCategory(nameCategory, emojiCategory, descriptionCategory, userId);
                         handleStatesNull();
                         setOpenModal(false);
                     }}

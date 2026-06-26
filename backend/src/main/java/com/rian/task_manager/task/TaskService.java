@@ -8,8 +8,6 @@ import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.task.enums.StatusLevel;
 import com.rian.task_manager.user.User;
 import com.rian.task_manager.user.UserRepository;
-import org.apache.coyote.BadRequestException;
-import org.aspectj.util.LangUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,14 +44,15 @@ public class TaskService {
 
         if (taskRequest.idCategory() != null){
             Category category = findCategoriaById(taskRequest.idCategory());
+            verificaSeCategoriaPertenceAoUser(user,category);
             task.setCategory(category);
-            verificaCategoriaPertenceAoUser(user,category);
         }
         taskRepository.save(task);
         return TaskResponse.fromEntity(task);
     }
 
     public void deleteById(Long id){
+        Task task = findTaskById(id);
         taskRepository.deleteById(id);
     }
 
@@ -62,7 +61,7 @@ public class TaskService {
 
         Task task = findTaskById(id);
         Category category = findCategoriaById(taskRequest.idCategory());
-        verificaCategoriaPertenceAoUser(task.getUser(),category);
+        verificaSeCategoriaPertenceAoUser(task.getUser(),category);
 
         task.setTitle(taskRequest.title());
         task.setDescription(taskRequest.description());
@@ -100,9 +99,9 @@ public class TaskService {
         return category;
     }
 
-    public void verificaCategoriaPertenceAoUser(User user,Category category){
+    public void verificaSeCategoriaPertenceAoUser(User user,Category category){
         if (!user.getId().equals(category.getUser().getId())){
-            throw new ResourceNotFoundException("id do user diferente!");
+            throw new  IllegalArgumentException("id do user diferente!");
         }
     }
 }
