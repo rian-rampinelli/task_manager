@@ -2,20 +2,20 @@ import { useEffect } from "react"
 import { Check, Trash2, Pencil } from "lucide-react"
 import { updateTaskPartial, deleteTask } from "../api/tasks.js"
 
-function Tasks({ idCategory, loadTasks, tasks }) {
+function Tasks({ idCategory, loadTasksByCategory, tasksByCategory }) {
 
     async function handleUpdateTaskPartial(task) {
         await updateTaskPartial(task.id, { statusLevel: "DONE" })
-        await loadTasks(idCategory)
+        await loadTasksByCategory(idCategory)
     }
 
     async function handleDeleteTask(id) {
         await deleteTask(id)
-        await loadTasks(idCategory)
+        await loadTasksByCategory(idCategory)
     }
 
     useEffect(() => {
-        loadTasks(idCategory)
+        loadTasksByCategory(idCategory)
     }, [idCategory])
 
     const priorityColors = {
@@ -30,10 +30,10 @@ function Tasks({ idCategory, loadTasks, tasks }) {
         LOW: "border-l-emerald-500",
     }
 
-    if (tasks.length > 0) {
+    if (tasksByCategory.length > 0) {
         return (
             <ul className="flex flex-col gap-4 mt-8">
-                {tasks.map(task => (
+                {tasksByCategory.map(task => (
                     <li key={task.id}>
                         <div className={`group border border-zinc-200 ${priorityBorderColors[task.priority] || "border-l-zinc-300"} border-l-4 rounded-xl p-5 flex justify-between items-start shadow-sm hover:shadow-md transition-shadow bg-white`}>
                             <div className="flex gap-4">

@@ -1,21 +1,15 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState,useContext } from "react"
 import Tasks from "./Tasks.jsx"
+import { CategoryContext } from "../contexts/CategoryContext.jsx"
 import ModalCategory from "./ModalCategory.jsx"
 import { Trash2 } from "lucide-react"
 
-function Categorias({
-    categorias,
-    createCategory,
-    deleteCategory,
-    loadCategorys,
-    loadTasks,
-    selectCategory,
-    setIdCategory,
-    tasks
-}) {
+function Categorias() {
     
     const [OpenModal, setOpenModal] = useState(false)
-    const [menu, setMenu] = useState({ visible: false, x: 0, y: 0, categoryId: null })
+    const [menu, setMenu] = useState({ visible: false, x: 0, y: 0, categoryId: null ,categoryName: null})
+
+    const {categorias,idCategory,setIdCategory,handleCreateCategory,handleDeleteCategory,loadCategorys,loadTasksByCategory,tasksByCategory} = useContext(CategoryContext)
 
     useEffect(() => {
         loadCategorys()
@@ -90,7 +84,7 @@ function Categorias({
                     <li>
                       
                          <button
-                            onClick={() => deleteCategory(menu.categoryId)}
+                            onClick={() => handleDeleteCategory(menu.categoryId)}
                             disabled={menu.categoryName === "Todas"}
                             className="p-3 rounded-xl text-zinc-400 hover:text-red-500 hover:bg-red-200 transition"
                         >
@@ -101,15 +95,15 @@ function Categorias({
             )}
 
             <ModalCategory
-                createCategory={createCategory}
+                createCategory={handleCreateCategory}
                 OpenModal={OpenModal}
                 setOpenModal={setOpenModal}
             />
 
             <Tasks
-                idCategory={selectCategory}
-                loadTasks={loadTasks}
-                tasks={tasks}
+                idCategory={idCategory}
+                loadTasksByCategory={loadTasksByCategory}
+                tasksByCategory={tasksByCategory}
             />
         </>
     )

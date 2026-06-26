@@ -1,18 +1,24 @@
 import { useState } from "react"
 import ModalTask from "./ModalTask.jsx"
+import { useContext } from "react"
+import { CategoryContext } from "../contexts/CategoryContext.jsx"
 
 
-function CreateTasks({ categorys, idCategory, loadTasks }) {
+function CreateTasks() {
+    
     const [openModal, setOpenModal] = useState(false)
+
+    const {categorias,idCategory,loadTasksByCategory} = useContext(CategoryContext)
+
 
     return (
         <>
             <ModalTask
-                categorys={categorys}
+                categorys={categorias}
                 idCategory={idCategory}
                 isOpen={openModal}
                 setOpenModal={setOpenModal}
-                loadTasks={loadTasks}
+                loadTasks={loadTasksByCategory}
             />
 
             <button
