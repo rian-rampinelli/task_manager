@@ -3,7 +3,7 @@ import { useState,useContext } from "react"
 import { LoginContext } from "../contexts/LoginContext"
 import { X } from "lucide-react"
 
-function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
+function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCategory }) {
 
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -15,7 +15,7 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
     const {userId} = useContext(LoginContext);
 
 
-    function handleStatesNull(){
+    function setStatesNull(){
         setName(""),
         setDescription(""),
         setPriority(""),
@@ -31,12 +31,12 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
     if (!description.trim()) newErrors.description = "A descrição é obrigatória.";
     if (!priority) newErrors.priority = "Escolha uma prioridade.";
     if (!idCategoryCreate) newErrors.idCategoryCreate = "Escolha uma categoria.";
-
     if (Object.keys(newErrors).length > 0) {
         setErrors(newErrors);
         return;
     }
     setErrors({});
+
     await createTask({
         title: name,
         description: description,
@@ -45,10 +45,10 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
         idUser: userId,
         idCategory: idCategoryCreate
     })
-    await loadTasks(idCategory)
+    await loadTasksByCategory(idCategory)
+    
     setOpenModal(false)
-    handleStatesNull()
-   
+    setStatesNull()
     }
 
 
@@ -127,7 +127,7 @@ function ModalTask({ isOpen, setOpenModal, categorys, idCategory, loadTasks }) {
                     </div>
 
                      <ul className="flex flex-wrap items-center  gap-4 mt-6">
-                        {categorys.map((category) => (
+                        {categorias.map((category) => (
                             <li key={category.id}>
                                 <button
                                     value={idCategoryCreate}

@@ -4,7 +4,7 @@ import { useContext } from "react"
 import { CategoryContext } from "../contexts/CategoryContext.jsx"
 
 
-function CreateTasks() {
+function ButtonCreateTasks() {
     
     const [openModal, setOpenModal] = useState(false)
 
@@ -14,11 +14,11 @@ function CreateTasks() {
     return (
         <>
             <ModalTask
-                categorys={categorias}
+                categorias={categorias}
                 idCategory={idCategory}
                 isOpen={openModal}
                 setOpenModal={setOpenModal}
-                loadTasks={loadTasksByCategory}
+                loadTasksByCategory={loadTasksByCategory}
             />
 
             <button
@@ -69,4 +69,4 @@ function CreateTasks() {
     )
 }
 
-export default CreateTasks
+export default ButtonCreateTasks

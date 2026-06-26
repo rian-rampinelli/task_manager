@@ -1,6 +1,6 @@
 import Categorias from '../../components/Categorias.jsx'
 import Header from '../../components/Header.jsx'
-import CreateTasks from '../../components/CreateTask.jsx'
+import ButtonCreateTasks from '../../components/ButtonCreateTask.jsx'
 import Footer from '../../components/Footer.jsx'
 import "./Home.css"
 
@@ -12,7 +12,7 @@ function Home(){
     <div id='container' >
         <div className="flex justify-between items-center  flex-wrap mt-16">
         <Header></Header>
-        <CreateTasks></CreateTasks>
+        <ButtonCreateTasks></ButtonCreateTasks>
         </div>
     
         <main className='flex-1'>

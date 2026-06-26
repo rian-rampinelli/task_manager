@@ -12,7 +12,7 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
     
     const {userId} = useContext(LoginContext)
 
-    function handleStatesNull(){
+    function setStatesNull(){
         setNameCategory(""),
         setEmojiCategory(""),
         setDescriptionCategory("")
@@ -31,7 +31,7 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                             }
                         setError("");
                         createCategory(nameCategory, emojiCategory, descriptionCategory, userId);
-                        handleStatesNull();
+                        setStatesNull();
                         setOpenModal(false);
                     }}
                     >
