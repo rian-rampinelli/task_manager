@@ -72,7 +72,7 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCa
                             <X 
                             size={24} 
                             className="text-indigo-600"
-                            onClick={()=>{setErrors({}), handleStatesNull()}}
+                            onClick={()=>{setErrors({}), setStatesNull()}}
                              />
                         </button>
                     </div>

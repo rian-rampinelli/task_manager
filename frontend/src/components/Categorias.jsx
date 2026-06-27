@@ -32,7 +32,6 @@ function Categorias() {
     }
 
    
-
     return (
         <>          
             <p className=" mt-10 mb-5 text-sm font-semibold uppercase tracking-[0.3em] text-zinc-300">
