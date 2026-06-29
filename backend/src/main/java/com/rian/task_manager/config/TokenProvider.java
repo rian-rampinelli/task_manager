@@ -45,6 +45,11 @@ public class TokenProvider {
         return Keys.hmacShaKeyFor(key.getBytes());
     }
 
+    //extrair informacoes do token
+    public String getUsername(String token){
+        return getClaims(token).getSubject();
+    }
+
 
     //validar um token
     public boolean isTokenValid(String token){
@@ -57,21 +62,12 @@ public class TokenProvider {
         }
     }
 
-
-
-    //extrair informacoes do token
-
-    private String getUsername(String token){
-        return getClaims(token).getSubject();
-    }
-
-
     private Claims getClaims(String token){
-        return Jwts.parser()
-                .verifyWith(getSigningKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        return Jwts.parser()                    // cria um leitor de JWT
+                .verifyWith(getSigningKey()) // define a chave pra verificar a assinatura
+                .build()                     // monta o parser
+                .parseSignedClaims(token)    // lê o token e valida a assinatura
+                .getPayload();               // retorna os dados de dentro
     }
 
 

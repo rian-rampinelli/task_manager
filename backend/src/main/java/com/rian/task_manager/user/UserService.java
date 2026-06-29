@@ -42,6 +42,10 @@ public class UserService {
                 .toList();
     }
 
+    public User findByEmail(User user){
+        return userRepository.findByEmail(user);
+    }
+
     public UserResponse create(UserRequest userRequest){
         if(userRepository.existsByEmail(userRequest.email())){
             throw new EmailAlredyExistsException("Email já cadastrado");
