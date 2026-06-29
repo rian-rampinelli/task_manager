@@ -12,12 +12,13 @@ Aplicação fullstack para gerenciamento de tarefas com suporte a categorias e u
 
 ## Como executar
 
+Crie um banco com PostgreSQL chamado `task-manager`.
+
+
 ### Backend
-
-Crie um banco com PostgreSQL chamado `task-manager` e configure a senha em um arquivo `.env` na raiz do backend:
-
+configure a senha em um arquivo `.env` na raiz do backend:
 ```env
-DB_PASSWORD=sua_senha
+DB_PASSWORD=sua_senha_do_banco
 ```
 
 ```bash
@@ -35,7 +36,14 @@ npm run dev
 ```
 
 ## Swagger
-Swagger disponível em `http://localhost:8080/swagger-ui/index.html` com a aplicação rodando.
+Swagger disponível em `http://localhost:8080/swagger` com a aplicação rodando.
+
+## Regras de negócio
+
+- Toda tarefa e categoria precisam de `userId`.
+- `categoryId` é opcional na tarefa.
+- Email de usuário é único.
+- Não é possivel excluir a categoria `Todas`.
 
 ## Endpoints
 
@@ -85,12 +93,6 @@ Todos os endpoints seguem o padrão REST:
 - `PUT /entidade/{id}`
 - `DELETE /entidade/{id}`
 
-## Regras de negócio
-
-- Toda tarefa e categoria precisam de `userId`.
-- `categoryId` é opcional na tarefa.
-- Email de usuário é único.
-- Não é possivel excluir a categoria `Todas`.
 
 ## Tratamento de erros
 
@@ -102,13 +104,29 @@ Exceções tratadas globalmente em `RestExceptionHandler`:
 | 404 | Recurso não encontrado |
 | 409 | Email duplicado ou violação de chave única |
 
-## Estrutura
+# Security
+O projeto usa spring security e jwt para autentificação e autorizações/permições do site.
+```
+├── domain
+├   ├── auth
+├       ├── roles 
+├       
+├── config
+    ├── tokenProvider
+    ├── jwtAuthetication
+    ├── securityConfig
+    
+```
+
+## Estrutura De pastas
 
 ```
 backend/src/main/java/com/rian/task_manager/
-├── user
-├── task
-├── category
+├── domain
+├   ├── task
+├   ├── user
+├   ├── category
+├   
 ├── config
 ├── exceptions
 └── infra
