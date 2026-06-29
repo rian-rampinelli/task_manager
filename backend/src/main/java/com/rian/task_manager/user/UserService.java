@@ -7,19 +7,17 @@ import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.dto.UserRequest;
 import com.rian.task_manager.user.dto.UserResponse;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-
-    private UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
     public void salvar(User user) {
         userRepository.save(user);
@@ -42,8 +40,8 @@ public class UserService {
                 .toList();
     }
 
-    public User findByEmail(User user){
-        return userRepository.findByEmail(user);
+    public Optional<User> findByEmail(String userEmail){
+        return userRepository.findByEmail(userEmail);
     }
 
     public UserResponse create(UserRequest userRequest){

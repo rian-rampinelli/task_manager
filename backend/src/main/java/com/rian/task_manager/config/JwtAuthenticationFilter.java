@@ -1,10 +1,13 @@
 package com.rian.task_manager.config;
 
+import com.rian.task_manager.user.UserDetailsServiceImp;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
@@ -18,7 +21,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenProvider tokenProvider;
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsServiceImp userDetailsServiceImp;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -31,8 +34,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = authorizationHeader.substring(7);
             if(tokenProvider.isTokenValid(token)){
                 String userName = tokenProvider.getUsername(token);
-                userDetailsService.loadUserByUsername(userName);
-
+                UserDetails userDetails = userDetailsServiceImp.loadUserByUsername(userName);
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
 
 

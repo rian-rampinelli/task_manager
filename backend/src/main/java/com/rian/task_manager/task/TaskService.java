@@ -8,22 +8,18 @@ import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.task.enums.StatusLevel;
 import com.rian.task_manager.user.User;
 import com.rian.task_manager.user.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TaskService {
 
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
-
-    public TaskService(TaskRepository taskRepository, UserRepository userRepository, CategoryRepository categoryRepository) {
-        this.taskRepository = taskRepository;
-        this.userRepository = userRepository;
-        this.categoryRepository = categoryRepository;
-    }
 
     public TaskResponse findById(Long id){
         Task task = findTaskById(id);

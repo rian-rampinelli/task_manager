@@ -7,21 +7,18 @@ import com.rian.task_manager.exceptions.ValidationException;
 import com.rian.task_manager.task.dto.TaskResponse;
 import com.rian.task_manager.user.User;
 import com.rian.task_manager.user.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
-
-    public CategoryService(CategoryRepository categoryRepository, UserRepository userRepository) {
-        this.categoryRepository = categoryRepository;
-        this.userRepository = userRepository;
-    }
 
     public CategoryResponse findById(Long id){
         Category category = findCategoriaById(id);

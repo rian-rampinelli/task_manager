@@ -3,6 +3,7 @@ package com.rian.task_manager.task;
 import com.rian.task_manager.task.dto.StatusLevelDto;
 import com.rian.task_manager.task.dto.TaskRequest;
 import com.rian.task_manager.task.dto.TaskResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,14 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/tasks")
 public class TaskController {
 
     private final TaskService taskService;
-
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponse> findById(@PathVariable Long id){
