@@ -34,7 +34,7 @@ public class User extends Auditable implements UserDetails  {
     @Column(name = "password", nullable = false, unique = true, length = 64)
     private String passWord;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
         joinColumns = @JoinColumn(name = "aluno_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
