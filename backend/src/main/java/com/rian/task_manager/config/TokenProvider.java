@@ -28,6 +28,7 @@ public class TokenProvider {
 
     }
 
+    //cria o token passando o name no subjetc,data e expiração e assinatura,por fim tranforma em string
     public String buildToken(String userName){
         Date now = new Date();
         Date expiration = new Date(now.getTime() + expirationTime);
@@ -40,11 +41,12 @@ public class TokenProvider {
                 .compact();
     }
 
+    //criptografar a chave q esta no yaml por questão de segurança
     private SecretKey getSigningKey(){
         return Keys.hmacShaKeyFor(key.getBytes());
     }
 
-    //extrair informacoes do token
+    //extrair informacoes do token apos validar
     public String getUsername(String token){
         return getClaims(token).getSubject();
     }
@@ -62,9 +64,9 @@ public class TokenProvider {
     }
 
     private Claims getClaims(String token){
-        return Jwts.parser()                    // cria um leitor de JWT
+        return Jwts.parser()                 // cria um leitor de JWT
                 .verifyWith(getSigningKey()) // define a chave pra verificar a assinatura
-                .build()                     // monta o parser
+                .build()
                 .parseSignedClaims(token)    // lê o token e valida a assinatura
                 .getPayload();               // retorna os dados de dentro
     }

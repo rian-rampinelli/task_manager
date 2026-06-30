@@ -33,7 +33,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = authorizationHeader.substring(7);
             if(tokenProvider.isTokenValid(token)){
                 String userName = tokenProvider.getUsername(token);
+                //pegar do db pelo email e instanciar em um userdetails
                 UserDetails userDetails = userDetailsServiceImp.loadUserByUsername(userName);
+                //confirma q o user ta autenticado a partir de agora
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
