@@ -1,6 +1,6 @@
 package com.rian.task_manager.domain.category;
 
-import com.rian.task_manager.config.Auditable;
+import com.rian.task_manager.domain.common.Auditable;
 import com.rian.task_manager.domain.task.Task;
 import com.rian.task_manager.domain.user.User;
 import jakarta.persistence.*;

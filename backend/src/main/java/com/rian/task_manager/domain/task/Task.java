@@ -1,7 +1,7 @@
 package com.rian.task_manager.domain.task;
 
 import com.rian.task_manager.domain.category.Category;
-import com.rian.task_manager.config.Auditable;
+import com.rian.task_manager.domain.common.Auditable;
 import com.rian.task_manager.domain.task.enums.Priority;
 import com.rian.task_manager.domain.task.enums.StatusLevel;
 import com.rian.task_manager.domain.user.User;

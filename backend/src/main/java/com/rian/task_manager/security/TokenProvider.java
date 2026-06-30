@@ -1,4 +1,4 @@
-package com.rian.task_manager.config;
+package com.rian.task_manager.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

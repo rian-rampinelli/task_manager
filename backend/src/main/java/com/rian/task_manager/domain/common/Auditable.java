@@ -1,4 +1,4 @@
-package com.rian.task_manager.config;
+package com.rian.task_manager.domain.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

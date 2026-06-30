@@ -1,4 +1,4 @@
-package com.rian.task_manager.config;
+package com.rian.task_manager.security;
 
 import com.rian.task_manager.domain.user.UserDetailsServiceImp;
 import jakarta.servlet.FilterChain;

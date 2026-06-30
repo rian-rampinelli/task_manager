@@ -2,7 +2,7 @@ package com.rian.task_manager.domain.user;
 
 import com.rian.task_manager.domain.auth.Roles;
 import com.rian.task_manager.domain.category.Category;
-import com.rian.task_manager.config.Auditable;
+import com.rian.task_manager.domain.common.Auditable;
 import com.rian.task_manager.domain.task.Task;
 import jakarta.persistence.*;
 import lombok.*;
