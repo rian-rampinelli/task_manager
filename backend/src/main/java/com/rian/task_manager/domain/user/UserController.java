@@ -34,13 +34,6 @@ public class UserController {
         return ResponseEntity.ok(userService.findAllTasksByUser(id));
     }
 
-
-    @PostMapping
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest){
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(userRequest));
-    }
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
         userService.deleteById(id);

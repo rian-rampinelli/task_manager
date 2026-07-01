@@ -28,11 +28,6 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.findById(id));
     }
 
-    @GetMapping
-    public ResponseEntity<List<CategoryResponse>> findAll(){
-        return ResponseEntity.ok(categoryService.findAll());
-    }
-
     @Transactional
     @GetMapping("/{id}/tasks")
     public ResponseEntity<List<TaskResponse>> findAllTasksByCategory(@PathVariable Long id){

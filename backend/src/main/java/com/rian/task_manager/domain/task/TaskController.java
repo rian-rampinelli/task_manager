@@ -24,11 +24,6 @@ public class TaskController {
         return ResponseEntity.ok(taskService.findById(id));
     }
 
-    @GetMapping
-    public ResponseEntity<List<TaskResponse>> findAll(){
-        return ResponseEntity.ok(taskService.findAll());
-    }
-
     @PostMapping
     public ResponseEntity<TaskResponse> createTask(@RequestBody TaskRequest taskRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(taskRequest));

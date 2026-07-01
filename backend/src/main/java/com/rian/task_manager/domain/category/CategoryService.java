@@ -25,11 +25,6 @@ public class CategoryService {
         return CategoryResponse.fromEntity(category);
     }
 
-    public List<CategoryResponse> findAll(){
-        return categoryRepository.findAll().stream()
-                .map(category -> CategoryResponse.fromEntity(category)).toList();
-    }
-
     public List<TaskResponse> findAllTasksByCategory(Long id){
         Category category = findCategoriaById(id);
         List<TaskResponse> tasks = category.getTasks().stream()
@@ -45,6 +40,7 @@ public class CategoryService {
             if(categoryRepository.existsByName(categoryRequest.name())){
                 throw new ValidationException("Ja existe categoria com esse nome!");
             }
+            //mudar verificacao para user tiver a category
 
             Category category = categoryRequest.toEntity();
             category.setUser(user);

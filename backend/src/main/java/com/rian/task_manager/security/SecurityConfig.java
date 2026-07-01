@@ -43,8 +43,13 @@ public class SecurityConfig {
                 )
                 //as requisições permitidas
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/users").hasRole("ADMIN")
+                        .requestMatchers(
+                                "/auth/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.GET,"/users/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 //antes de cada request,validar o jwt e setar o user

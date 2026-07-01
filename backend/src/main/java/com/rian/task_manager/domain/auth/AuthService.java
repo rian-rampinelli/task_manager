@@ -52,7 +52,6 @@ public class AuthService {
 
         passwordEncoder.matches(registerRequest.passWord(),"0PXzYJrI5wQeQxLh7b1V3dJ0W4Xw3l6b8X+2QvYQ0mQ");
 
-
         return RegisterResponse.fromEntity(user);
     }
 
