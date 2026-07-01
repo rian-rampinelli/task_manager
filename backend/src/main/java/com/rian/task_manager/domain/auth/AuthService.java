@@ -38,9 +38,9 @@ public class AuthService {
             throw new EmailAlredyExistsException("Email já cadastrado!");
         }
 
-        Roles role = rolesRepository.findByName(RoleType.USER.name())
+        Roles role = rolesRepository.findByName(RoleType.ROLE_USER.name())
                 .orElseGet(() -> rolesRepository.save(Roles.builder()
-                        .name(RoleType.USER.name())
+                        .name(RoleType.ROLE_USER.name())
                         .build()));
 
         User user = new User();
@@ -48,6 +48,10 @@ public class AuthService {
         user.setEmail(registerRequest.email());
         user.setRoles(Set.of(role));
         user.setPassWord(passwordEncoder.encode(registerRequest.passWord()));
+        userRepository.save(user);
+
+        passwordEncoder.matches(registerRequest.passWord(),"0PXzYJrI5wQeQxLh7b1V3dJ0W4Xw3l6b8X+2QvYQ0mQ");
+
 
         return RegisterResponse.fromEntity(user);
     }

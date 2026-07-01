@@ -2,6 +2,7 @@ package com.rian.task_manager.domain.auth;
 
 import com.rian.task_manager.domain.auth.dto.LoginRequest;
 import com.rian.task_manager.domain.auth.dto.RegisterRequest;
+import com.rian.task_manager.domain.auth.dto.TokenResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -24,8 +25,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody @Valid LoginRequest loginRequest) throws Exception{
-        authService.login(loginRequest);
+    public TokenResponse login(@RequestBody @Valid LoginRequest loginRequest) throws Exception{
+        return authService.login(loginRequest);
     }
 
 }

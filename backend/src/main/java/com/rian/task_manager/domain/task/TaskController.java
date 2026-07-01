@@ -6,6 +6,7 @@ import com.rian.task_manager.domain.task.dto.TaskResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class TaskController {
 
     private final TaskService taskService;
 
+    @PreAuthorize("#id == authentication.principal.id")
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponse> findById(@PathVariable Long id){
         return ResponseEntity.ok(taskService.findById(id));
