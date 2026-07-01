@@ -1,6 +1,7 @@
 package com.rian.task_manager.infra;
 
 import com.rian.task_manager.exceptions.EmailAlredyExistsException;
+import com.rian.task_manager.exceptions.MethodArgumentNotValidException;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
 import com.rian.task_manager.exceptions.ValidationException;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<RestErrorMessage> handleValidationException(ValidationException exception) {
         RestErrorMessage errorResponse = new RestErrorMessage(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.getReasonPhrase(),exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<RestErrorMessage> handleMethodNotValid(MethodArgumentNotValidException exception) {
+        RestErrorMessage errorResponse = new RestErrorMessage(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.getReasonPhrase(),"Atributo no request faltante!");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 }

@@ -3,6 +3,7 @@ package com.rian.task_manager.domain.task;
 import com.rian.task_manager.domain.task.dto.StatusLevelDto;
 import com.rian.task_manager.domain.task.dto.TaskRequest;
 import com.rian.task_manager.domain.task.dto.TaskResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskResponse> createTask(@RequestBody TaskRequest taskRequest){
+    public ResponseEntity<TaskResponse> createTask(@Valid @RequestBody TaskRequest taskRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(taskRequest));
     }
 
@@ -37,12 +38,12 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponse> atualizarTask(@PathVariable Long id, @RequestBody TaskRequest taskRequest){
+    public ResponseEntity<TaskResponse> atualizarTask(@PathVariable Long id,@Valid @RequestBody TaskRequest taskRequest){
         return ResponseEntity.ok(taskService.atualizar(id,taskRequest));
     }
 
     @PatchMapping("/{id}")
-    public  ResponseEntity<TaskResponse> atualizarStatus(@PathVariable Long id,@RequestBody StatusLevelDto statusLevelDto){
+    public  ResponseEntity<TaskResponse> atualizarStatus(@PathVariable Long id,@Valid @RequestBody StatusLevelDto statusLevelDto){
         return ResponseEntity.ok(taskService.atualizaStatus(id, statusLevelDto.statusLevel()));
     }
 }

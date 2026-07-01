@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                //erros q dara caso a pesso n esteja autenticada ou com permissão
+                //erros q dara caso a pessoa n esteja autenticada ou com permissão
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(
                                 new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)

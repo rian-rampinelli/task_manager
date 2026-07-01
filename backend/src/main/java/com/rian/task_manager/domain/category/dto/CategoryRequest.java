@@ -1,11 +1,15 @@
 package com.rian.task_manager.domain.category.dto;
 
 import com.rian.task_manager.domain.category.Category;
+import jakarta.validation.constraints.NotNull;
 
 public record CategoryRequest(
+        @NotNull
         String name,
+        @NotNull
         String emoji,
         String description,
+        @NotNull
         Long idUser
 ){
     public Category toEntity(){

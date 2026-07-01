@@ -4,6 +4,7 @@ import com.rian.task_manager.domain.category.dto.CategoryRequest;
 import com.rian.task_manager.domain.category.dto.CategoryResponse;
 import com.rian.task_manager.domain.task.dto.TaskResponse;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CategoryRequest categoryRequest){
+    public ResponseEntity<CategoryResponse> createCategory(@Valid @RequestBody CategoryRequest categoryRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.createCategory(categoryRequest));
     }
 
@@ -41,7 +42,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponse> atualizarCategoria(@PathVariable Long id,@RequestBody CategoryRequest categoryRequest){
+    public ResponseEntity<CategoryResponse> atualizarCategoria(@PathVariable Long id,@Valid  @RequestBody CategoryRequest categoryRequest){
         return ResponseEntity.ok(categoryService.atualizar(id,categoryRequest));
     }
 

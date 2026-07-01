@@ -4,6 +4,7 @@ import com.rian.task_manager.domain.task.dto.TaskResponse;
 import com.rian.task_manager.domain.user.dto.UserRequest;
 import com.rian.task_manager.domain.user.dto.UserResponse;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> update(@PathVariable Long id,@RequestBody UserRequest userRequest){
+    public ResponseEntity<UserResponse> update(@PathVariable Long id,@Valid @RequestBody UserRequest userRequest){
         UserResponse response = userService.atualizar(id, userRequest);
         return ResponseEntity.ok(response);
     }
