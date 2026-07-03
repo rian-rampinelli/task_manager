@@ -8,7 +8,7 @@ import com.rian.task_manager.exceptions.ValidationException;
 import com.rian.task_manager.domain.task.dto.TaskResponse;
 import com.rian.task_manager.domain.user.User;
 import com.rian.task_manager.domain.user.UserRepository;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
