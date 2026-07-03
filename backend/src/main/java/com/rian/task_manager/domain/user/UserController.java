@@ -1,5 +1,6 @@
 package com.rian.task_manager.domain.user;
 
+import com.rian.task_manager.domain.category.dto.CategoryResponse;
 import com.rian.task_manager.domain.task.dto.TaskResponse;
 import com.rian.task_manager.domain.user.dto.UserRequest;
 import com.rian.task_manager.domain.user.dto.UserResponse;
@@ -21,7 +22,6 @@ public class UserController {
 
     private final UserService userService;
 
-
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<UserResponse>> findAll(){
@@ -32,12 +32,6 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.findById(id));
-    }
-
-    @Transactional
-    @GetMapping("/{id}/tasks")
-    public ResponseEntity<List<TaskResponse>> findTaskByUser(@PathVariable Long id)  {
-        return ResponseEntity.ok(userService.findAllTasksByUser(id));
     }
 
 

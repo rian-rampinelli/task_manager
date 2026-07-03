@@ -3,7 +3,6 @@ package com.rian.task_manager.domain.user;
 
 import com.rian.task_manager.domain.auth.SecurityService;
 import org.springframework.security.access.AccessDeniedException;
-import com.rian.task_manager.domain.task.dto.TaskResponse;
 import com.rian.task_manager.domain.user.dto.UserRequest;
 import com.rian.task_manager.domain.user.dto.UserResponse;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
@@ -33,14 +32,6 @@ public class UserService {
     public List<UserResponse> findAll(){
         return userRepository.findAll().stream()
                 .map(usuario -> UserResponse.fromEntity(usuario)).toList();
-    }
-
-    public List<TaskResponse> findAllTasksByUser(Long id){
-        checkAccessUser(id);
-        User user = findUserById(id);
-        return user.getTasks().stream()
-                .map(task -> TaskResponse.fromEntity(task))
-                .toList();
     }
 
     public Optional<User> findByEmail(String userEmail){
@@ -74,7 +65,7 @@ public class UserService {
         return user;
     }
 
-    public void checkAccessUser(Long userId) {
+    private void checkAccessUser(Long userId) {
         User userLogado = securityService.getAuthenticatedUser();
 
         boolean isAdmin = userLogado.getAuthorities().stream()

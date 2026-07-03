@@ -30,10 +30,18 @@ public class CategoryController {
     }
 
     @Transactional
+    @GetMapping
+    public ResponseEntity<List<CategoryResponse>> findCategorysByUser()  {
+        return ResponseEntity.ok(categoryService.findAllCategorysByUser());
+    }
+
+
+    @Transactional
     @GetMapping("/{id}/tasks")
-    public ResponseEntity<List<TaskResponse>> findAllTasksByCategory(@PathVariable Long id){
+    public ResponseEntity<List<TaskResponse>> findTasksByCategory(@PathVariable Long id)  {
         return ResponseEntity.ok(categoryService.findAllTasksByCategory(id));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){

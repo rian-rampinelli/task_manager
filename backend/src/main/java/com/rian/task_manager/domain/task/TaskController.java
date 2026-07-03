@@ -1,9 +1,11 @@
 package com.rian.task_manager.domain.task;
 
+import com.rian.task_manager.domain.category.dto.CategoryResponse;
 import com.rian.task_manager.domain.task.dto.StatusLevelDto;
 import com.rian.task_manager.domain.task.dto.TaskRequest;
 import com.rian.task_manager.domain.task.dto.TaskResponse;
 import com.rian.task_manager.domain.user.User;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,11 +28,16 @@ public class TaskController {
         return ResponseEntity.ok(taskService.findById(id));
     }
 
+    @Transactional
+    @GetMapping
+    public ResponseEntity<List<TaskResponse>> findTaskByUser()  {
+        return ResponseEntity.ok(taskService.findAllTasksByUser());
+    }
+
     @PostMapping
     public ResponseEntity<TaskResponse> createTask(@Valid @RequestBody TaskRequest taskRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(taskRequest));
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarTask(@PathVariable Long id){

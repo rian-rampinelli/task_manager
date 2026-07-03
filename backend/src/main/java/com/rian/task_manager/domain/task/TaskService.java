@@ -1,5 +1,6 @@
 package com.rian.task_manager.domain.task;
 
+import com.rian.task_manager.domain.auth.SecurityService;
 import com.rian.task_manager.domain.category.Category;
 import com.rian.task_manager.domain.category.CategoryRepository;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
@@ -8,8 +9,13 @@ import com.rian.task_manager.domain.task.dto.TaskResponse;
 import com.rian.task_manager.domain.task.enums.StatusLevel;
 import com.rian.task_manager.domain.user.User;
 import com.rian.task_manager.domain.user.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -20,15 +26,18 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
+    private final SecurityService securityService;
 
     public TaskResponse findById(Long id){
         Task task = findTaskById(id);
         return TaskResponse.fromEntity(task);
     }
 
-    public List<TaskResponse> findAll(){
-        return taskRepository.findAll().stream()
-                .map(task -> TaskResponse.fromEntity(task)).toList();
+    public List<TaskResponse> findAllTasksByUser(){
+        User userLogado = securityService.getAuthenticatedUser();
+        return userLogado.getTasks().stream()
+                .map(task -> TaskResponse.fromEntity(task))
+                .toList();
     }
 
     public TaskResponse createTask(TaskRequest taskRequest){

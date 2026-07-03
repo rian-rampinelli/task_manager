@@ -8,9 +8,7 @@ public record CategoryRequest(
         String name,
         @NotNull
         String emoji,
-        String description,
-        @NotNull
-        Long idUser
+        String description
 ){
     public Category toEntity(){
         Category category = new Category();
