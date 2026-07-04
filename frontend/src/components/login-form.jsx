@@ -1,3 +1,5 @@
+import { useState } from "react"
+import { login } from "@/api/login"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -15,10 +17,19 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 
-export function LoginForm({
-  className,
-  ...props
-}) {
+export function LoginForm({className,...props}) {
+  
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
+
+  async function handleSubmitLogin(email,password){
+    const data = await login(email,password)
+    const token = data.token;
+    const name = data.name;
+    console.log("Token:", token);
+    console.log("Name:", name);
+  }
+  
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -27,7 +38,13 @@ export function LoginForm({
 
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input id="email" type="email" placeholder="m@example.com" required />
+                <Input 
+                id="email" 
+                type="email" 
+                value={email}
+                onChange={(e)=> setEmail(e.target.value)}
+                placeholder="m@example.com" 
+                required />
               </Field>
               <Field>
                 <div className="flex items-center">
@@ -36,7 +53,13 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input 
+                id="password" 
+                type="password" 
+                value={password}
+                onChange={(e)=> setPassword(e.target.value)}
+                placeholder="********"
+                required />
               </Field>
         </CardHeader>
           <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
