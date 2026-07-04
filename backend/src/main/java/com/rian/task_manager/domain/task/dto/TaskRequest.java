@@ -15,8 +15,6 @@ public record TaskRequest (
         Priority priority,
         @NotNull
         StatusLevel statusLevel,
-        @NotNull
-        Long idUser,
         Long idCategory
 
 ){

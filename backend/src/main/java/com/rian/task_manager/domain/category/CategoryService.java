@@ -90,12 +90,5 @@ public class CategoryService {
     }
 
 
-    //helpers
-    public Category findCategoriaById(Long id){
-        return categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
-
-    }
-
 
 }

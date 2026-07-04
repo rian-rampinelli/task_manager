@@ -3,6 +3,7 @@ package com.rian.task_manager.domain.task;
 import com.rian.task_manager.domain.auth.SecurityService;
 import com.rian.task_manager.domain.category.Category;
 import com.rian.task_manager.domain.category.CategoryRepository;
+import com.rian.task_manager.exceptions.EmailAlredyExistsException;
 import com.rian.task_manager.exceptions.ResourceNotFoundException;
 import com.rian.task_manager.domain.task.dto.TaskRequest;
 import com.rian.task_manager.domain.task.dto.TaskResponse;
@@ -24,12 +25,11 @@ import java.util.List;
 public class TaskService {
 
     private final TaskRepository taskRepository;
-    private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final SecurityService securityService;
 
     public TaskResponse findById(Long id){
-        Task task = findTaskById(id);
+        Task task = TaskPertenceAoUser(id);
         return TaskResponse.fromEntity(task);
     }
 
@@ -41,11 +41,12 @@ public class TaskService {
     }
 
     public TaskResponse createTask(TaskRequest taskRequest){
-        User user = userRepository.findById(taskRequest.idUser())
-                .orElseThrow(() -> new ResourceNotFoundException("User não encontrado"));
-
+        User user = securityService.getAuthenticatedUser();
         Task task = taskRequest.toEntity();
         task.setUser(user);
+        if(taskRepository.existsByTitleAndUser(taskRequest.title(),user)){
+            throw new EmailAlredyExistsException("titulo ja existe!");
+        }
 
         if (taskRequest.idCategory() != null){
             Category category = findCategoriaById(taskRequest.idCategory());
@@ -57,14 +58,13 @@ public class TaskService {
     }
 
     public void deleteById(Long id){
-        Task task = findTaskById(id);
-        taskRepository.deleteById(id);
+        Task task = TaskPertenceAoUser(id);
+        taskRepository.delete(task);
     }
 
 
     public TaskResponse atualizar(Long id, TaskRequest taskRequest) {
-
-        Task task = findTaskById(id);
+        Task task = TaskPertenceAoUser(id);
         Category category = findCategoriaById(taskRequest.idCategory());
         verificaSeCategoriaPertenceAoUser(task.getUser(),category);
 
@@ -76,11 +76,10 @@ public class TaskService {
         taskRepository.save(task);
 
         return TaskResponse.fromEntity(task);
-
     }
 
     public TaskResponse atualizaStatus(Long id, String statusLevel){
-        Task task = findTaskById(id);
+        Task task = TaskPertenceAoUser(id);
         try {
             task.setStatusLevel(StatusLevel.valueOf(statusLevel.toUpperCase()));
         }catch (IllegalArgumentException Exception){
@@ -92,12 +91,8 @@ public class TaskService {
 
     }
 
-    public Task findTaskById(Long id){
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("task não encontrada!"));
-        return task;
-    }
 
+    //helpers
     public Category findCategoriaById(Long id){
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("category não encontrado"));
@@ -106,7 +101,14 @@ public class TaskService {
 
     public void verificaSeCategoriaPertenceAoUser(User user,Category category){
         if (!user.getId().equals(category.getUser().getId())){
-            throw new  IllegalArgumentException("id do user diferente!");
+            throw new AccessDeniedException("id do user diferente!");
         }
+    }
+
+    public Task TaskPertenceAoUser(Long idTask){
+        User userLogado = securityService.getAuthenticatedUser();
+        Task task = taskRepository.findByIdAndUser(idTask,userLogado)
+                .orElseThrow(() -> new AccessDeniedException("Não autorizado"));
+        return task;
     }
 }

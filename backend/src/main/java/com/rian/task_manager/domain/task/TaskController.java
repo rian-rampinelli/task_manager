@@ -22,7 +22,6 @@ public class TaskController {
 
     private final TaskService taskService;
 
-    @PreAuthorize("#id == authentication.principal.id")
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponse> findById(@PathVariable Long id){
         return ResponseEntity.ok(taskService.findById(id));
