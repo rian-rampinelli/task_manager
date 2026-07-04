@@ -1,11 +1,13 @@
-import Home from './pages/Home/Home.jsx'
-
+import { LoginForm } from './components/login-form.jsx'
 
 
 function App() {
   return (
     <div className='bg-zinc-900 flex items-center justify-center w-full '>
-       <Home></Home>
+       <div className='w-full max-w-[400px] h-screen flex items-center justify-center'>
+         <LoginForm></LoginForm>
+       </div>
+
     </div>
   )
 }
