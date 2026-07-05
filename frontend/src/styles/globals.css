@@ -67,15 +67,16 @@
 :root {
 
    /* Backgrounds */
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-sidebar: #f1f5f9;
-  --bg-hover: #e2e8f0;
+  --bg-primary: oklch(21% 0.006 285.885);
+  --bg-secondary: oklch(27.4% 0.006 286.033);
 
   /* Texto */
   --text-primary: #0f172a;
   --text-secondary: #64748b;
+ 
 
+  --primary-color: oklch(58.5% 0.233 277.117);
+  --text-three: oklch(87% 0.065 274.039);
   /* Marca */
   --brand-primary: #2563eb;
   --brand-secondary: #1d4ed8;

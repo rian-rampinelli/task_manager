@@ -4,9 +4,7 @@ import ButtonCreateTasks from '../../components/ButtonCreateTask.jsx'
 import Footer from '../../components/Footer.jsx'
 import "./Home.css"
 
-
-
-function Home(){
+export function Home(){
 
     return ( 
     <div id='container' >
@@ -26,4 +24,3 @@ function Home(){
     
 }
 
-export default Home

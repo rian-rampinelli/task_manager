@@ -28,6 +28,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 //colocar a aplicação como statelles e nao guardar informaçoes do user
+                .cors(cors -> {})
                 .csrf(c -> c.disable())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

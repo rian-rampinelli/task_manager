@@ -26,6 +26,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public TokenResponse login(@RequestBody @Valid LoginRequest loginRequest) throws Exception{
+        System.out.println("🔥 LOGIN HIT");
         return authService.login(loginRequest);
     }
 

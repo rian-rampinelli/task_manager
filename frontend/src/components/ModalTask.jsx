@@ -1,6 +1,5 @@
 import { createTask } from "../api/tasks"
 import { useState,useContext } from "react"
-import { LoginContext } from "../contexts/LoginContext"
 import { X } from "lucide-react"
 
 function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCategory }) {
@@ -12,8 +11,7 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCa
     const [errors, setErrors] = useState({});
     const [idCategoryCreate, setIdCategoryCreate] = useState("")
 
-    const {userId} = useContext(LoginContext);
-
+    
 
     function setStatesNull(){
         setName(""),

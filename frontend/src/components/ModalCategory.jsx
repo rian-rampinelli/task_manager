@@ -1,5 +1,5 @@
 import { useState,useContext } from "react";
-import { LoginContext } from "../contexts/LoginContext";
+
 import { X } from "lucide-react";
 
 
@@ -10,7 +10,7 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
     const [descriptionCategory, setDescriptionCategory] = useState("")
     const [error, setError] = useState("");
     
-    const {userId} = useContext(LoginContext)
+  
 
     function setStatesNull(){
         setNameCategory(""),

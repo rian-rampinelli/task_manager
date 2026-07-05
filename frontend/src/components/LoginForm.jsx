@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import { login } from "@/api/login"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -13,7 +14,6 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 
@@ -21,23 +21,37 @@ export function LoginForm({className,...props}) {
   
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
+  const [error, setError] = useState(null)
+  const navigate = useNavigate();
 
-  async function handleSubmitLogin(email,password){
-    const data = await login(email,password)
-    const token = data.token;
-    const name = data.name;
-    console.log("Token:", token);
-    console.log("Name:", name);
+  async function handleLogin(e){
+    e.preventDefault()
+
+    try {
+      const data = await login(email,password)
+      const token = data.token;
+      localStorage.setItem("token", token)
+      console.log("Token:", token);
+      
+      navigate("/home")
+
+    } catch (e) {
+      setError(e)
+      console.error("Erro ao fazer login:", error)
+    }
   }
   
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
+    <div className= {cn("flex flex-col gap-6 ", className)} {...props}>
+      <Card className = "bg-(--bg-secondary)" >
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
-
+          <CardTitle className="text-xl text-(--primary-color)">Welcome back</CardTitle>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel
+                className="text-(--primary-color)" 
+                htmlFor="email">
+                  Email
+                </FieldLabel>
                 <Input 
                 id="email" 
                 type="email" 
@@ -48,8 +62,12 @@ export function LoginForm({className,...props}) {
               </Field>
               <Field>
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
+                  <FieldLabel
+                   className="text-(--primary-color)"
+                   htmlFor="password">Password
+                  </FieldLabel>
+                  <a href="#" 
+                  className="text-(--primary-color) ml-auto text-sm underline-offset-4 hover:underline">
                     Forgot your password?
                   </a>
                 </div>
@@ -59,14 +77,23 @@ export function LoginForm({className,...props}) {
                 value={password}
                 onChange={(e)=> setPassword(e.target.value)}
                 placeholder="********"
-                required />
+                required
+                 />
               </Field>
-        </CardHeader>
-          <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-                Or continue with
-              </FieldSeparator>
+              {error && (
+                <p className="mt-3 text-(--danger)">
+                  Email ou senha invalidos!
+                </p>
+              )}
+
+        </CardHeader >
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-indigo-500" />
+          <span className="text-sm text-zinc-400">Or continue with</span>
+          <div className="h-px flex-1 bg-indigo-500" />
+        </div>
         <CardContent>
-          <form>
+          <form  onSubmit={(e) => handleLogin(e)}>
             <FieldGroup>
               <Field>
                 <Button variant="outline" type="button">
@@ -88,8 +115,9 @@ export function LoginForm({className,...props}) {
               </Field>
               <Field>
                 <Button type="submit">Login</Button>
-                <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
+                <FieldDescription className="text-center text-(--text-three)">
+                  Don&apos;t have an account? 
+                  <Link to="/register">Sign in</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>
