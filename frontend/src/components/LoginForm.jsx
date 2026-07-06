@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { login } from "@/api/login"
+import { login } from "@/api/user"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -21,11 +21,27 @@ export function LoginForm({className,...props}) {
   
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
-  const [error, setError] = useState(null)
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  function isValidEmail(email) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    return regex.test(email)
+  }
 
   async function handleLogin(e){
     e.preventDefault()
+    setErrors({})
+    const newErrors = {};
+    if (!email.trim()) newErrors.email = "Please input your email."
+    else if (!isValidEmail(email)) {
+    newErrors.email = "Please input a valid email."
+  }
+    if (!password.trim()) newErrors.password = "Please input your password."
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
 
     try {
       const data = await login(email,password)
@@ -36,8 +52,8 @@ export function LoginForm({className,...props}) {
       navigate("/home")
 
     } catch (e) {
-      setError(e)
-      console.error("Erro ao fazer login:", error)
+      console.error("Erro ao fazer login:", e)
+      setErrors({ invalid: "The email and password you entered did not match our records,try again!" })
     }
   }
   
@@ -59,6 +75,7 @@ export function LoginForm({className,...props}) {
                 onChange={(e)=> setEmail(e.target.value)}
                 placeholder="m@example.com" 
                 required />
+                {errors.email && <p className="text-(--danger) text-xs mt-1 ml-2 text-left">{errors.email}</p>}
               </Field>
               <Field>
                 <div className="flex items-center">
@@ -79,13 +96,9 @@ export function LoginForm({className,...props}) {
                 placeholder="********"
                 required
                  />
+                 {errors.password && <p className="text-(--danger) text-xs mt-1  ml-2 text-left">{errors.password}</p>}
               </Field>
-              {error && (
-                <p className="mt-3 text-(--danger)">
-                  Email ou senha invalidos!
-                </p>
-              )}
-
+              {errors.invalid && <p className="text-(--danger) text-xs mt-1">{errors.invalid}</p>}
         </CardHeader >
         <div className="flex items-center gap-3">
           <div className="h-px flex-1 bg-indigo-500" />
@@ -117,7 +130,7 @@ export function LoginForm({className,...props}) {
                 <Button type="submit">Login</Button>
                 <FieldDescription className="text-center text-(--text-three)">
                   Don&apos;t have an account? 
-                  <Link to="/register">Sign in</Link>
+                  <Link to="/register">Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

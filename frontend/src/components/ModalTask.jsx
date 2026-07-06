@@ -40,7 +40,6 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCa
         description: description,
         statusLevel: statusLevel,
         priority: priority,
-        idUser: userId,
         idCategory: idCategoryCreate
     })
     await loadTasksByCategory(idCategory)

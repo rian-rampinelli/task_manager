@@ -84,7 +84,7 @@
   /* Status */
   --success: #22c55e;
   --warning: #f59e0b;
-  --danger: #ef4444;
+  --danger: #EF5771;
   
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
