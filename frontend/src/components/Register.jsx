@@ -16,6 +16,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { PasswordInput } from "@/components/ui/password-input"
 
 export function Register({ className, ...props }) {
   const [email, setEmail] = useState("")
@@ -99,9 +100,8 @@ export function Register({ className, ...props }) {
                 <FieldLabel className="text-(--primary-color)" htmlFor="password">
                   Password
                 </FieldLabel>
-                <Input
+                <PasswordInput
                   id="password"
-                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="********"

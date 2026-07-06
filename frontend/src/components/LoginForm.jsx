@@ -16,6 +16,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { PasswordInput } from "@/components/ui/password-input"
 
 export function LoginForm({className,...props}) {
   
@@ -88,9 +89,8 @@ export function LoginForm({className,...props}) {
                     Forgot your password?
                   </a>
                 </div>
-                <Input 
+                <PasswordInput 
                 id="password" 
-                type="password" 
                 value={password}
                 onChange={(e)=> setPassword(e.target.value)}
                 placeholder="********"
