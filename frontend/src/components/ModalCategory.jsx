@@ -10,8 +10,6 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
     const [descriptionCategory, setDescriptionCategory] = useState("")
     const [error, setError] = useState("");
     
-  
-
     function setStatesNull(){
         setNameCategory(""),
         setEmojiCategory(""),
@@ -30,7 +28,7 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                                 return;
                             }
                         setError("");
-                        createCategory(nameCategory, emojiCategory, descriptionCategory, userId);
+                        createCategory(nameCategory, emojiCategory, descriptionCategory);
                         setStatesNull();
                         setOpenModal(false);
                     }}
@@ -62,7 +60,7 @@ function ModalCategory({ OpenModal, setOpenModal, createCategory }) {
                                     placeholder="Academia"
                                     value={nameCategory}
                                     onChange={(e) => setNameCategory(e.target.value)} />
-                                    {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+                                    {error && <p className="text-(--danger) text-xs mt-1 ml-1">{error}</p>}
                             </div>
                              <div className="w-20">
                                 <label className="text-sm font-semibold text-indigo-500">Emoji</label>

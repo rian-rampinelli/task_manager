@@ -7,10 +7,10 @@ import "./Home.css"
 export function Home(){
 
     return ( 
-    <div id='container' >
+    <>
         <div className="flex justify-between items-center  flex-wrap mt-16">
-        <Header></Header>
-        <ButtonCreateTasks></ButtonCreateTasks>
+            <Header></Header>
+            <ButtonCreateTasks></ButtonCreateTasks>
         </div>
     
         <main className='flex-1'>
@@ -18,7 +18,7 @@ export function Home(){
         </main>
 
         <Footer></Footer>    
-    </div>
+    </>
     )
     
     

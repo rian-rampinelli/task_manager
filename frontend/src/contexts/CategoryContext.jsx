@@ -8,7 +8,7 @@ export const CategoryProvider = ({children})=>{
     
     const [categorias,setCategorias] = useState([])
     const [tasksByCategory,setTasksByCategory] = useState([])
-    const [idCategory, setIdCategory] = useState(196)
+    const [idCategory, setIdCategory] = useState(null)
 
     async function loadCategorys() {
     const data = await getCategorys()
