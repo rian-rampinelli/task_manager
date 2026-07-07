@@ -1,4 +1,4 @@
-export function ContainerLogin({children}){
+export function ContainerSecondary({children}){
     return(
         <div className='max-w-[400px] h-screen flex items-center justify-center'>
             {children}
