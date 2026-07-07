@@ -1,15 +1,20 @@
-
+import { useContext } from "react"
 import { Check, Trash2, Pencil } from "lucide-react"
 import { updateTaskPartial, deleteTask } from "../api/tasks.js"
+import { CategoryContext } from "../contexts/CategoryContext.jsx"
 
 function Tasks({ tasksByCategory }) {
+    const { setTasksByCategory } = useContext(CategoryContext)
 
     async function handleUpdateTaskPartial(task) {
         await updateTaskPartial(task.id, { statusLevel: "DONE" })
+    
     }
+
     async function handleDeleteTask(id) {
         await deleteTask(id)
-        
+        setTasksByCategory((tasks) => tasks.filter((task) => task.id !== id))
+    
     }
 
     const priorityColors = {

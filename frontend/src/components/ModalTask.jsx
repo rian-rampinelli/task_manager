@@ -1,9 +1,10 @@
-import { createTask } from "../api/tasks"
+import { createTask, getAllTasksByUser } from "../api/tasks"
 import { useState,useContext } from "react"
 import { X } from "lucide-react"
 import { ButtonMain } from "./ui/ButtonMain"
+import { CategoryContext } from "../contexts/CategoryContext.jsx"
 
-function ModalTask({ isOpen, setOpenModal, categorias, idCategory,setIdCategory, loadTasksByCategory }) {
+function ModalTask({ isOpen, setOpenModal, categorias, setIdCategory, loadTasksByCategory }) {
 
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -12,6 +13,7 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory,setIdCategory,
     const [errors, setErrors] = useState({});
     const [idCategoryCreate, setIdCategoryCreate] = useState("")
     const selectedButtonClass = "!bg-white !text-indigo-700 !border-indigo-300 ring-2 ring-indigo-300 shadow-lg shadow-indigo-700/30"
+    const { setTasksByCategory } = useContext(CategoryContext)
 
     
 
@@ -30,24 +32,33 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory,setIdCategory,
     if (!name.trim()) newErrors.name = "O nome é obrigatório.";
     if (!description.trim()) newErrors.description = "A descrição é obrigatória.";
     if (!priority) newErrors.priority = "Escolha uma prioridade.";
-    if (!idCategoryCreate) newErrors.idCategoryCreate = "Escolha uma categoria.";
     if (Object.keys(newErrors).length > 0) {
         setErrors(newErrors);
         return;
     }
     setErrors({});
-    console.log("idCategoryCreate:", idCategoryCreate);
-
-    await createTask({
+    const task = {
         title: name,
         description: description,
         statusLevel: statusLevel,
         priority: priority,
-        idCategory: idCategoryCreate
-    })
-    setIdCategory(idCategoryCreate)
-    console.log("idCategory:", idCategory);
-    await loadTasksByCategory(idCategoryCreate)
+    }
+
+    if (idCategoryCreate) {
+        task.idCategory = idCategoryCreate
+    }
+
+    await createTask(task)
+
+    if (idCategoryCreate) {
+        setIdCategory(idCategoryCreate)
+        await loadTasksByCategory(idCategoryCreate)
+    } else {
+        const data = await getAllTasksByUser()
+        const tasks = Array.isArray(data) ? data : data?.content || []
+        setIdCategory(null)
+        setTasksByCategory(tasks)
+    }
     
     setOpenModal(false)
     setStatesNull()
@@ -138,6 +149,15 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory,setIdCategory,
                     </div>
 
                      <ul className="flex flex-wrap  items-center  gap-4 mt-6">
+                        <li>
+                            <ButtonMain
+                                onClick={() => setIdCategoryCreate("")}
+                                type="button"
+                                className={idCategoryCreate === "" ? selectedButtonClass : ""}>
+                                No category
+                            </ButtonMain>
+                        </li>
+
                         {categorias.map((category) => (
                             <li key={category.id}>
                                 <ButtonMain
