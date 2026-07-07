@@ -3,17 +3,25 @@ import Tasks from "./Tasks.jsx"
 import { CategoryContext } from "../contexts/CategoryContext.jsx"
 import ModalCategory from "./ModalCategory.jsx"
 import { Trash2 } from "lucide-react"
+import { ButtonMain } from "./ui/ButtonMain.jsx"
 
 function Categorias() {
     
     const [OpenModal, setOpenModal] = useState(false)
     const [menu, setMenu] = useState({ visible: false, x: 0, y: 0, categoryId: null ,categoryName: null})
+    const selectedButtonClass = "!bg-white !text-indigo-700 !border-indigo-300 ring-2 ring-indigo-300 shadow-lg shadow-indigo-700/30"
 
     const {categorias,idCategory,setIdCategory,handleCreateCategory,handleDeleteCategory,loadCategorys,loadTasksByCategory,tasksByCategory} = useContext(CategoryContext)
 
     useEffect(() => {
         loadCategorys()
     }, [])
+
+    useEffect(() => {
+    if (idCategory) {
+        loadTasksByCategory(idCategory);
+    }
+}, [idCategory]);
 
     //fecha o content menu ao clicar fora
     useEffect(() => {
@@ -40,23 +48,14 @@ function Categorias() {
             <ul className="flex flex-wrap items-center justify-between gap-4">
                 {categorias.map((category) => (
                     <li key={category.id}>
-                        <button
+                        <ButtonMain
                             type="button"
                             onClick={() => setIdCategory(category.id)}
                             onContextMenu={(e) => handleRightClick(e, category.id,category.name)}
-                            className={`
-                                px-5 py-2.5
-                                rounded-xl
-                                font-medium
-                                shadow-sm
-                                transition-all
-                                duration-200
-                                text-zinc-200
-                                hover:-translate-y-0.5
-                            `}
-                        >
+                            className={idCategory === category.id ? selectedButtonClass : ""}
+                            >
                             {category.name}
-                        </button>
+                        </ButtonMain>
                     </li>
                 ))}
 
@@ -100,8 +99,6 @@ function Categorias() {
             />
 
             <Tasks
-                idCategory={idCategory}
-                loadTasksByCategory={loadTasksByCategory}
                 tasksByCategory={tasksByCategory}
             />
         </>

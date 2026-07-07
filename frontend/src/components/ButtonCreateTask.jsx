@@ -2,13 +2,14 @@ import { useState } from "react"
 import ModalTask from "./ModalTask.jsx"
 import { useContext } from "react"
 import { CategoryContext } from "../contexts/CategoryContext.jsx"
+import { ButtonMain } from "./ui/ButtonMain.jsx"
 
 
 function ButtonCreateTasks() {
     
     const [openModal, setOpenModal] = useState(false)
 
-    const {categorias,idCategory,loadTasksByCategory} = useContext(CategoryContext)
+    const {categorias,idCategory,setIdCategory,loadTasksByCategory} = useContext(CategoryContext)
 
 
     return (
@@ -16,31 +17,15 @@ function ButtonCreateTasks() {
             <ModalTask
                 categorias={categorias}
                 idCategory={idCategory}
+                setIdCategory={setIdCategory}
                 isOpen={openModal}
                 setOpenModal={setOpenModal}
                 loadTasksByCategory={loadTasksByCategory}
             />
 
-            <button
+            <ButtonMain
                 onClick={() => setOpenModal(!openModal)}
                 title="Add new task"
-                className="
-                    flex items-center gap-3
-                    mt-5
-                    px-4 py-3
-                    rounded-xl
-                    bg-indigo-500
-                    text-zinc-200
-                    font-semibold
-                    tracking-wide
-                    shadow-md shadow-indigo-600/20
-                    transition-all duration-300
-                    hover:bg-indigo-700
-                    hover:shadow-lg hover:shadow-indigo-600/25
-                    hover:-translate-y-0.5
-                    active:translate-y-0 active:scale-95
-                    
-                "
             >
                 <svg
                     className="w-5 h-5"
@@ -64,7 +49,7 @@ function ButtonCreateTasks() {
                 </svg>
 
                New Task
-            </button>
+            </ButtonMain>
         </>
     )
 }

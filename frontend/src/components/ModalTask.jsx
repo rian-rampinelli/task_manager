@@ -1,8 +1,9 @@
 import { createTask } from "../api/tasks"
 import { useState,useContext } from "react"
 import { X } from "lucide-react"
+import { ButtonMain } from "./ui/ButtonMain"
 
-function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCategory }) {
+function ModalTask({ isOpen, setOpenModal, categorias, idCategory,setIdCategory, loadTasksByCategory }) {
 
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -10,6 +11,7 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCa
     const [priority, setPriority] = useState("")
     const [errors, setErrors] = useState({});
     const [idCategoryCreate, setIdCategoryCreate] = useState("")
+    const selectedButtonClass = "!bg-white !text-indigo-700 !border-indigo-300 ring-2 ring-indigo-300 shadow-lg shadow-indigo-700/30"
 
     
 
@@ -34,6 +36,7 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCa
         return;
     }
     setErrors({});
+    console.log("idCategoryCreate:", idCategoryCreate);
 
     await createTask({
         title: name,
@@ -42,7 +45,9 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCa
         priority: priority,
         idCategory: idCategoryCreate
     })
-    await loadTasksByCategory(idCategory)
+    setIdCategory(idCategoryCreate)
+    console.log("idCategory:", idCategory);
+    await loadTasksByCategory(idCategoryCreate)
     
     setOpenModal(false)
     setStatesNull()
@@ -88,20 +93,29 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCa
 
                     <div className="flex gap-4 mt-4">
                         <div className="w-full">
-                            <label className="text-sm font-semibold text-indigo-500">Prioridade</label>
-                            <select
-                                className="outline-none border border-zinc-300 rounded-lg px-3 py-2 text-sm text-indigo-200 w-full mt-1.5 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all duration-150 cursor-pointer"
-                                value={priority}
-                                onChange={(e) => setPriority(e.target.value)}
-                            >
+                              <label className="text-sm font-semibold text-indigo-500">Prioridade</label>
+                            <div className="mt-2 flex justify-between">
+                        <ButtonMain
+                            onClick={() => setPriority("LOW")}
+                            className={priority === "LOW" ? selectedButtonClass : ""}
+                        >
+                            Low
+                        </ButtonMain>
 
-                                <option value="" disabled>
-                                    ...
-                                </option>
-                                <option value="LOW">LOW</option>
-                                <option value="MEDIUM">MEDIUM</option>
-                                <option value="HIGH">HIGH</option>
-                            </select>
+                        <ButtonMain
+                            onClick={() => setPriority("MEDIUM")}
+                            className={priority === "MEDIUM" ? selectedButtonClass : ""}
+                        >
+                            Medium
+                        </ButtonMain>
+
+                        <ButtonMain
+                            onClick={() => setPriority("HIGH")}
+                            className={priority === "HIGH" ? selectedButtonClass : ""}
+                        >
+                            High
+                        </ButtonMain>
+                        </div>
                              {errors.priority && <p className="text-red-500 text-xs mt-1">{errors.priority}</p>}
                            
                         </div>
@@ -123,27 +137,16 @@ function ModalTask({ isOpen, setOpenModal, categorias, idCategory, loadTasksByCa
                          {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
                     </div>
 
-                     <ul className="flex flex-wrap items-center  gap-4 mt-6">
+                     <ul className="flex flex-wrap  items-center  gap-4 mt-6">
                         {categorias.map((category) => (
                             <li key={category.id}>
-                                <button
+                                <ButtonMain
                                     value={idCategoryCreate}
                                     onClick={() => setIdCategoryCreate(category.id)}
                                     type="button"
-                                    className={`
-                                        px-5 py-2.5
-                                        rounded-xl
-                                        font-medium
-                                        shadow-sm
-                                        border
-                                        transition-all
-                                        duration-200
-                                        text-zinc-200
-                                        hover:-translate-y-0.5
-                                    `}
-                                >
+                                    className={idCategoryCreate === category.id ? selectedButtonClass : ""}>
                                     {category.name}
-                                </button>
+                                </ButtonMain>
                             </li>
                         ))}
                     </ul>

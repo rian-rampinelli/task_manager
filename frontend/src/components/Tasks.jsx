@@ -1,22 +1,16 @@
-import { useEffect } from "react"
+
 import { Check, Trash2, Pencil } from "lucide-react"
 import { updateTaskPartial, deleteTask } from "../api/tasks.js"
 
-function Tasks({ idCategory, loadTasksByCategory, tasksByCategory }) {
+function Tasks({ tasksByCategory }) {
 
     async function handleUpdateTaskPartial(task) {
         await updateTaskPartial(task.id, { statusLevel: "DONE" })
-        await loadTasksByCategory(idCategory)
     }
-
     async function handleDeleteTask(id) {
         await deleteTask(id)
-        await loadTasksByCategory(idCategory)
+        
     }
-
-    useEffect(() => {
-        loadTasksByCategory(idCategory)
-    }, [idCategory])
 
     const priorityColors = {
         HIGH: "bg-red-100 text-red-700",
