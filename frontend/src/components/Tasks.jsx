@@ -40,7 +40,7 @@ function Tasks({ tasksByCategory }) {
 
                                 <div className="flex flex-col gap-1">
                                     <span className="text-xs font-semibold uppercase tracking-wide text-zinc-400">
-                                        {task.category.name || "Categoria não especificada"}
+                                        {task.category?.name || "Categoria nao especificada"}
                                     </span>
                                     <p className="font-semibold text-zinc-900 leading-snug">{task.title}</p>
                                     {task.description && (

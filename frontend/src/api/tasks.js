@@ -1,12 +1,14 @@
 export async function getAllTasksByUser() {
-    const token = localStorage.getItem("token")
-    const response = await fetch("http://localhost:8080/tasks")
+    const token = localStorage.getItem("token");
+    const response = await fetch("http://localhost:8080/tasks", {
         headers: {
-            "Authorization"; `Bearer ${token}`
+            "Authorization": `Bearer ${token}`
         }
+    });
 
-    return response.json()
+    return response.json();
 }
+
 
 export async function createTask(task) {
     const token = localStorage.getItem("token")

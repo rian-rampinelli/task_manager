@@ -8,7 +8,7 @@ export function Home(){
 
     return ( 
     <>
-        <div className="flex justify-between items-center  flex-wrap mt-16">
+        <div className="  flex justify-between items-center  flex-wrap mt-16">
             <Header></Header>
             <ButtonCreateTasks></ButtonCreateTasks>
         </div>

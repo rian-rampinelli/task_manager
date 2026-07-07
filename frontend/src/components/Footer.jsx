@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <footer className=" flex justify-center mt-12 w-full rounded-t-2xl border border-zinc-800 bg-zinc-900  px-8 py-6 shadow-sm">
+        <footer className=" flex justify-center mt-4 w-full rounded-t-2xl border border-zinc-800 bg-zinc-900  px-8 py-6 shadow-sm">
                 <p className="flex items-center gap-1.5 text-zinc-200 font-medium">
                     Desenvolvido 
                     por

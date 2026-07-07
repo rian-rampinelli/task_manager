@@ -4,6 +4,7 @@ import { CategoryContext } from "../contexts/CategoryContext.jsx"
 import ModalCategory from "./ModalCategory.jsx"
 import { Trash2 } from "lucide-react"
 import { ButtonMain } from "./ui/ButtonMain.jsx"
+import { getAllTasksByUser } from "@/api/tasks.js"
 
 function Categorias() {
     
@@ -11,17 +12,28 @@ function Categorias() {
     const [menu, setMenu] = useState({ visible: false, x: 0, y: 0, categoryId: null ,categoryName: null})
     const selectedButtonClass = "!bg-white !text-indigo-700 !border-indigo-300 ring-2 ring-indigo-300 shadow-lg shadow-indigo-700/30"
 
-    const {categorias,idCategory,setIdCategory,handleCreateCategory,handleDeleteCategory,loadCategorys,loadTasksByCategory,tasksByCategory} = useContext(CategoryContext)
+    const {categorias,idCategory,setIdCategory,handleCreateCategory,handleDeleteCategory,loadCategorys,loadTasksByCategory,tasksByCategory,setTasksByCategory} = useContext(CategoryContext)
 
     useEffect(() => {
         loadCategorys()
+        handleGetTasksByUser()
     }, [])
 
     useEffect(() => {
     if (idCategory) {
         loadTasksByCategory(idCategory);
     }
-}, [idCategory]);
+    }, [idCategory]);
+
+    async function handleGetTasksByUser(){
+        const data = await getAllTasksByUser()
+        const tasks = data
+        setIdCategory(null)
+        setTasksByCategory(tasks)
+    }
+
+    
+
 
     //fecha o content menu ao clicar fora
     useEffect(() => {
@@ -46,6 +58,16 @@ function Categorias() {
                 Categorias
             </p>
             <ul className="flex flex-wrap items-center justify-between gap-4">
+                <li>
+                    <ButtonMain
+                        type="button"
+                        onClick={handleGetTasksByUser}
+                        className={idCategory === null ? selectedButtonClass : ""}
+                    >
+                        Todas
+                    </ButtonMain>
+                </li>
+
                 {categorias.map((category) => (
                     <li key={category.id}>
                         <ButtonMain

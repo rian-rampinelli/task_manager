@@ -9,7 +9,7 @@ import { Route,Routes } from 'react-router-dom'
 
 function App() {
   return (
-    <div className='bg-(--bg-primary) flex justify-center 
+    <div className='bg-(--bg-primary) flex justify-center min-h-screen
      '>
         <Routes>
           <Route path="/" element={<ContainerSecondary><LoginForm /></ContainerSecondary>} />
