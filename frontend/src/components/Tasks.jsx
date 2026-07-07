@@ -3,8 +3,8 @@ import { Check, Trash2, Pencil } from "lucide-react"
 import { updateTaskPartial, deleteTask } from "../api/tasks.js"
 import { CategoryContext } from "../contexts/CategoryContext.jsx"
 
-function Tasks({ tasksByCategory }) {
-    const { setTasksByCategory } = useContext(CategoryContext)
+function Tasks() {
+    const { setTasksByCategory,tasksByCategory } = useContext(CategoryContext)
 
     async function handleUpdateTaskPartial(task) {
         await updateTaskPartial(task.id, { statusLevel: "DONE" })

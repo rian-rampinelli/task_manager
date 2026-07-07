@@ -120,9 +120,7 @@ function Categorias() {
                 setOpenModal={setOpenModal}
             />
 
-            <Tasks
-                tasksByCategory={tasksByCategory}
-            />
+            <Tasks/>
         </>
     )
 }
